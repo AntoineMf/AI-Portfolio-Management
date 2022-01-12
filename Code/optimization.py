@@ -33,7 +33,7 @@ class Assets :
         rendement = 0
         for index in range(1,len(self._values)):
             tamp = self._values[index]/self._values[index-1] - 1
-            if math.isnan(tamp)==False:
+            if not (math.isnan(tamp)):
                 rendement = rendement + tamp
         # Calcul du rendement moyen sur les donnée dispo ( pas de fenetre parametrable pour le moment) : 
         return rendement / (len(self._values)-1)  
