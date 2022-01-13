@@ -1,54 +1,11 @@
 import pandas as pd
 import random
 import math
-import json
-import mysql.connector
-from mysql.connector import Error
 
 
 path = "./Stock_Data/Data_CAC.csv"
 df = pd.read_csv(path,delimiter=";")
 df.head()
-
-def ReadJsonFile(file_path):
-
-    with open(file_path) as json_file:
-        data = json.load(json_file)
-        
-        print('start date: ' + data['start_date'])
-        print('end date: ' + data['end_date'])
-        print('epsilon:', data['epsilon'])
-        print('')
-    return data
-
-def connectToSql(data_from_json):
-    try:
-        global connection
-        connection = mysql.connector.connect(host=data_from_json['host'],
-                                         database=data_from_json['database'],
-                                         user=data_from_json['user'],
-                                         password=data_from_json['password'],
-                                         port=data_from_json['port'])
-        if connection.is_connected():
-            db_Info = connection.get_server_info()
-            print("Connected to MySQL Server version ", db_Info)
-            cursor = connection.cursor()
-            cursor.execute("select database();")
-            record = cursor.fetchone()
-            print("You're connected to database: ", record)
-
-    except Error as e:
-        print("Error while connecting to MySQL", e)
-    return connection
-
-def makeARequest(type):
-    mycursor = connection.cursor()
-
-    mycursor.execute("SELECT "+type+" FROM DONNEE")
-
-    myresult = mycursor.fetchall()
-    return myresult
-
 class Assets :
     def __init__(self,name, values = [],returns = []):
         self._name = name
@@ -103,10 +60,10 @@ def creation_liste_dassets():
     ''' 
     Creation de toute les instance de la classe assets 
     '''
-    stockNameList = makeARequest("Distinct(Titre)") # Recuperation des noms des actifs
+    name = df.columns[1:] # Recuperation des noms des actifs
     portfolio = []
-    for name in stockNameList : 
-        assets_test =  Assets(name)
+    for each in name : 
+        assets_test =  Assets(each)
         assets_test.set_value()
         portfolio.append(assets_test)
     return portfolio
@@ -174,7 +131,7 @@ def cov_assets(assets_A,assets_B):
      car le problème c'est qu'on est censé calculer la vol de 100+ portfeuille a chaque generation
      et y'a au moins 1000 gen je pense donc bon
 '''
-def volatility_portfolio(portfolio): # on s'en passe pour le prototype
+def volatility_portfolio(portfolio):
     vol_1 = 0
     vol_2 = 0 # je separe les 2 membres du calcul de vol pour que ce soit plus clair
     for assets in portfolio.keys():
