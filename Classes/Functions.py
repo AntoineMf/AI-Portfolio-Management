@@ -1,3 +1,4 @@
+import numpy as np
 class Functions:
 
     def Compute_mean(list):
@@ -16,7 +17,16 @@ class Functions:
         std = pow(var, 1/2)
         return std
 
+    def Compute_var_cov(data):
+        data_arr = np.array(data)
+        cov_matrix = np.cov(data_arr, rowvar = False)
+        return cov_matrix
+
+
+
 if __name__=="__main__":
     list = [1, 2, 3, 4]
     print(Functions.Compute_mean(list))
     print(Functions.Compute_standard_deviation(list))
+    data = [[1, 2, 3], [2, 3, 4], [4, 5, 6]]
+    print(Functions.Compute_var_cov(data))
