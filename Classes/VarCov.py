@@ -3,11 +3,10 @@
 
 # Libraries
 from Functions import Functions
+import Singleton
 
 
-
-
-class Var_Cov:
+class VarCov(metaclass= Singleton):
     def __init__(self, returns):
         self.mat = [[]]
 
