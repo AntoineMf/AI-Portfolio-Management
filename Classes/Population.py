@@ -1,8 +1,6 @@
 # ------------- Population Class ------------- #
 # Libraries
 
-
-
 class Population:
     # --- Constructor and Attributes --- #
     def __init__(self, portfolio_list=[]):
@@ -10,7 +8,7 @@ class Population:
 
     # --- Methods --- #
     # Sort a population based on..
-    def Sort_Population():
+    def Sort_Population(self):
         pass
         
         

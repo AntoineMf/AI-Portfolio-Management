@@ -2,8 +2,6 @@
 # Libraries
 
 
-
-
 class Database:
     # --- Constructor and Attributes --- #
     def __init__(self, name="", ids=[]):
@@ -15,9 +13,6 @@ class Database:
     def Connect(self):
         pass
 
-    # Use of SELECT querry
+    # Use of SELECT query
     def Import_Assets(self):
         pass  
-
-    
-        

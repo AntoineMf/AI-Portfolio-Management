@@ -5,8 +5,6 @@
 from Functions import Functions
 
 
-
-
 class Asset:
     # --- Constructor and Attributes --- #
     def __init__(self, name="", price_list=[], weight=0):
@@ -18,11 +16,9 @@ class Asset:
     # --- Methods --- #
     # Description of an Asset
     def Describe_Asset(self):
-        return "(" + self.name + "\t Price List: " + str(self.price_list) +  "\t Weight: " + str(self.weight) + ")"
+        return "(" + self.name + "\t Price List: " + str(self.price_list) + "\t Weight: " + str(self.weight) + ")"
 
-
-        
-    def Compute_returns(self, rolling_window = 1):
+    def Compute_returns(self, rolling_window=1):
         if rolling_window > 0:
             for i in range(len(self.price_list), rolling_window, -1):
                 self.returns_list[len(self.price_list) - i] = \
@@ -33,15 +29,13 @@ class Asset:
                     (self.price_list[i] / self.price_list[i + rolling_window]) - 1
     """
 
-    def Compute_mean_returns(self, size = 0):
+    def Compute_mean_returns(self, size=0):
         if size == 0 or size > len(self.returns_list):
             size = len(self.returns_list)
         return Functions.Compute_mean(list(self.returns_list[0:size]))
 
     # Calculation of Volatility and Yield of a given Asset
-    def Compute_volatility(self, size = 0):
+    def Compute_volatility(self, size=0):
         if size == 0 or size > len(self.returns_list):
             size = len(self.returns_list)
         return Functions.Compute_standard_deviation(list(self.returns_list[0:size]))
-        
-        

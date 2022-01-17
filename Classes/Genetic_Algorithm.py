@@ -1,6 +1,10 @@
 # ------------- Genetic Algorithm Class ------------- #
 # Libraries
-import Asset, Portfolio, Population, Stop_Condition
+import Asset
+import Portfolio
+import Population
+import Stop_Condition
+
 
 class Genetic_Algorthm:
     # --- Constructor and Attributes --- #
@@ -21,5 +25,3 @@ class Genetic_Algorthm:
 
     def Crossover_Population(self):
         pass
-        
-        

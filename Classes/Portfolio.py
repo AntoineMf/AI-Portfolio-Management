@@ -29,7 +29,7 @@ class Portfolio:
               "-" * 75)
 
     # Calculate the score of a Portofilio based on..
-    def Calculate_Score():
+    def Calculate_Score(self):
         pass  # based on asset list?
         
         
