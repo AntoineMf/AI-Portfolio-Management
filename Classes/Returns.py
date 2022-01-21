@@ -27,5 +27,5 @@ class Returns:
 
 if __name__ == "__main__":
     data = [1, 1.1, 1.1, 1.2, 0.9, 2]
-    ret = Returns(data, 1, )
+    ret = Returns(data, 1, 2)
     pass
