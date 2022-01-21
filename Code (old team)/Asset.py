@@ -3,7 +3,7 @@ from Fonctions import Fonctions
 import re
 
 
-class Asset():
+class Asset:
         
     '''
     This class allows you to create an object asset, it is composed of its name, its price, 
