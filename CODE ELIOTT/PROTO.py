@@ -362,7 +362,9 @@ if __name__ == '__main__':
 
     path = "Data_CAC.csv"
 
+
     df = pd.read_csv(path,delimiter=";")
+    print(df)
 
     list_assets = creation_dassets(df,255) # creation des instance de la classe assets 
    # porfolio = creation_portfolio_alea(list_assets) # creation de l'instance de la classes portfolio
