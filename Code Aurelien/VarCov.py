@@ -3,14 +3,14 @@
 
 # Libraries
 from Functions import Functions
-import Singleton
 import numpy as np
 
 
-#class VarCov(metaclass=Singleton):
 class VarCov:
     def __init__(self, returns):
-        self.matrixVarCov = self.Compute_var_cov(returns)
+        #self.matrixVarCov = self.Compute_var_cov(returns)
+        #self.matrixVarCov = np.cov(np.array(returns))
+        self.matrixVarCov = returns.cov()
 
     def getVol(self):
         """

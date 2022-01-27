@@ -1,40 +1,58 @@
 # ------------- Main to test the different classes ------------- #
-"""
-    Remarks:
 
-
-
-
-
-"""
 # Packages
-from Genetic_Algorithm import *
-from Database import *
-from Stop_Condition import *
-
-from Asset import *
-from Portfolio import *
-from Population import *
-
-# Libraries
-import datetime as dt
+import pandas as pd
+import numpy as np
+import math
+from Asset import Asset
+from Returns import Returns
+from VarCov import VarCov
+#from Genetic_Algorithm import Genetic_Algorithm as Ga
+from Population import Population as Pop
 
 
-# Main
-a1, a2 = Asset("BNP action", price_list=[52, 44, 3], weight=0.11), Asset("Amazon action",
-                                                                         price_list=[100, 3500], weight=0.57)
-p1 = Portfolio(asset_list=[a1, a2])
-p1.Display_Portfolio()
+if __name__ == '__main__':
 
-db = Database(name="database_00", ids=[])
-db.Connect()
+    path = "Data_CAC.csv"
+    df = pd.read_csv(path, delimiter=";")
+    date = df.pop("Date")
+    names = df.columns
+    nODays = 1
+    nORet = 7
+    print(len(df))
+    print(len(df.iloc[0]))
+    print(date)
+    returns = Returns(df, nODays, nORet)
+    print(returns.matrixReturns)
+    cov = VarCov(returns.matrixReturns)
+    print(cov.matrixVarCov)
 
-p2 = Portfolio()
-p2.Generate_Random(available_assets=db.Import_Assets(), n_assets=5)
+    listOfAssets = list()
+    for i in range(0, len(names)-1):
+        #print(df[names[i]])
+        listOfAssets.append(Asset(names[i], df[names[i]], date))
+
+    #list_assets = Ga.creation_dassets(df, 255)
+    #pop_0 = Ga.Population_initiale(100, list_assets)
+    """
+    #    print(len(pop_0._list_porfolio[1]._list_assets[1]._values))
+    #    pop_0_mutée_test = fonction_de_mutation(pop_0,20)
+    #    pop_enfant_test = fonction_de_croisement(pop_0) # Je comrpends pas pourquoi parfois len(pop_enfant)<len(pop_parent)
+    #    #normalement c'est impossible
+    #    pop_fitée = fitness(pop_enfant_test)
+    #    #print(max(pop_fitée.keys()))
+    #    pop_triée = tri_selon_score(pop_fitée)
+    #    gene_2 = selection(pop_triée)
+    """
+    """
+    pop_final = Ga.boucle_génétique(pop_0, 0)
+    total = 0
+    for assets in pop_final._list_porfolio[0]._list_assets:  # [0] donne le meilleur de la derniere gen
+        print('Stock : {} poids {} %'.format(assets._name, assets._weigth * 100))
+
+    print('Sharpe : {} '.format(pop_final._list_porfolio[0]._score))
+    print('rendement : {}  %'.format(Ga.rendement_moyen(pop_final._list_porfolio[0])))
+    print('vol : {} '.format(pop_final._list_porfolio[0]._volatility))
+    """
 
 
-# Create the model
-stop = [Stop_Condition.MAX_ITER, Stop_Condition.MIN_YIELD]
-gen_algo = Genetic_Algorthm(start_population=Population([p1, p2]), start_date=dt.datetime(2000, 12, 12),
-                            stock_market_index="x", stop_conditions=stop)
-gen_algo.Mutate_Population()
