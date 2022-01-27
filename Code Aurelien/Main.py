@@ -21,11 +21,12 @@ if __name__ == '__main__':
     nORet = 7
     print(len(df))
     print(len(df.iloc[0]))
-    print(date)
-    returns = Returns(df, nODays, nORet)
-    print(returns.matrixReturns)
-    cov = VarCov(returns.matrixReturns)
-    print(cov.matrixVarCov)
+    returns = Returns(df, nODays, names, nORet)
+    print(returns)
+
+    #cov = VarCov(returns.matrixReturns)
+    #print(cov.matrixVarCov)
+    print(returns.matrixReturns.cov())
 
     listOfAssets = list()
     for i in range(0, len(names)-1):

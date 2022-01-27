@@ -16,13 +16,14 @@ class Returns:
                 self.matrixReturns[i][j] = ((values.iloc[i, j] / values.iloc[i + rolling_window, j]) - 1)
     """
 
-    def __init__(self, values, rolling_window, max_number=0):
+    def __init__(self, values, rolling_window, names, max_number=0):
         if max_number == 0:
             max_number = len(values) - rolling_window
         self.matrixReturns = pd.DataFrame(data=None, index=range(0, max_number), columns=range(0, len(values.iloc[0])))
+        self.matrixReturns = pd.DataFrame(data=None, index=range(0, max_number), columns=names)
         for j in range(0, len(values.iloc[0])):
             for i in range(0, max_number):
-                self.matrixReturns.iloc[i,j] = ((values.iloc[i, j] / values.iloc[i + rolling_window, j]) - 1)
+                self.matrixReturns.iloc[i,j] = round(((values.iloc[i, j] / values.iloc[i + rolling_window, j]) - 1),4)
 
 
     def getReturnsAsset(self, asset):
@@ -31,6 +32,9 @@ class Returns:
         for i in range(0, len(self.matrixReturns)):
             list_of_returns[i] = self.matrixReturns[i][asset]
         return list_of_returns
+
+    def __str__(self):
+        return str(self.matrixReturns)
 
 if __name__ == "__main__":
     data = [1, 1.1, 1.1, 1.2, 0.9, 2]
