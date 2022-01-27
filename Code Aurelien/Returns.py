@@ -2,19 +2,11 @@
 # Packages
 
 # Libraries
-#from Functions import Functions
+# from Functions import Functions
 import pandas as pd
 
+
 class Returns:
-    """
-    def __init__(self, values, rolling_window, max_number=0):
-        if max_number == 0:
-            max_number = len(values) - rolling_window
-        self.matrixReturns = [[0 for i in range(0, len(values.iloc[0])) for i in range(0, max_number)]]
-        for j in range(0, len(values.iloc[0])):
-            for i in range(0, max_number):
-                self.matrixReturns[i][j] = ((values.iloc[i, j] / values.iloc[i + rolling_window, j]) - 1)
-    """
 
     def __init__(self, values, rolling_window, names, max_number=0):
         if max_number == 0:
@@ -23,7 +15,7 @@ class Returns:
         self.matrixReturns = pd.DataFrame(data=None, index=range(0, max_number), columns=names)
         for j in range(0, len(values.iloc[0])):
             for i in range(0, max_number):
-                self.matrixReturns.iloc[i,j] = round(((values.iloc[i, j] / values.iloc[i + rolling_window, j]) - 1),4)
+                self.matrixReturns.iloc[i,j] = ((values.iloc[i, j] / values.iloc[i + rolling_window, j]) - 1)
 
 
     def getReturnsAsset(self, asset):

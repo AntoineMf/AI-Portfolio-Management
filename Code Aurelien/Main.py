@@ -7,31 +7,24 @@ import math
 from Asset import Asset
 from Returns import Returns
 from VarCov import VarCov
+from ListOfAsset import ListOfAsset
 #from Genetic_Algorithm import Genetic_Algorithm as Ga
 from Population import Population as Pop
 
 
 if __name__ == '__main__':
-
     path = "Data_CAC.csv"
     df = pd.read_csv(path, delimiter=";")
-    date = df.pop("Date")
+    dates = df.pop("Date")
     names = df.columns
     nODays = 1
     nORet = 7
-    print(len(df))
-    print(len(df.iloc[0]))
+    #print(len(df))
+    #print(len(df.iloc[0]))
     returns = Returns(df, nODays, names, nORet)
-    print(returns)
+    cov = VarCov(returns.matrixReturns)
 
-    #cov = VarCov(returns.matrixReturns)
-    #print(cov.matrixVarCov)
-    print(returns.matrixReturns.cov())
-
-    listOfAssets = list()
-    for i in range(0, len(names)-1):
-        #print(df[names[i]])
-        listOfAssets.append(Asset(names[i], df[names[i]], date))
+    assets = ListOfAsset(names, df, dates, returns, cov)
 
     #list_assets = Ga.creation_dassets(df, 255)
     #pop_0 = Ga.Population_initiale(100, list_assets)
