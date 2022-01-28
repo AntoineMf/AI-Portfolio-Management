@@ -5,16 +5,31 @@ import random as rd
 
 class Portfolio:
     # --- Constructor and Attributes --- #
-    def __init__(self, list_assets, score=0, vol=0):
-        self._list_assets = list_assets
-        self._score = score
-        self._volatility = vol
+    def __init__(self, listOfAssets, weights=0, score=0):
+        self.listOfAssets = listOfAssets
+        self.score = score
+        if weights == 0:
+            self.weights = list(0, range(0, len(self.listOfAssets.listAssets)))
+
 
     # --- Methods --- #
     # Sort a population based on..
 
+    def RandomWeights(self):
+        condition = False
+        while not condition:
+            weights = rd.sample(range(0, 1000), len(self.listOfAssets.listAssets))
+            sum = 0
+            for i in weights:
+                sum += i
+            sum /= (1000*len(weights))
+            if sum == 1:
+                condition = True
+        print(weights)
+
+
     def set_score(self, score):
-        self._score = score
+        self.score = score
 
     def get_vol(self):
         print("j'ai pas compris la formule de Vol")
