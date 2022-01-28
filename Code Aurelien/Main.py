@@ -25,6 +25,7 @@ if __name__ == '__main__':
     cov = VarCov(returns.matrixReturns)
 
     assets = ListOfAsset(names, df, dates, returns, cov)
+    print(assets.listAssets[0].values.loc[0])
 
     #list_assets = Ga.creation_dassets(df, 255)
     #pop_0 = Ga.Population_initiale(100, list_assets)

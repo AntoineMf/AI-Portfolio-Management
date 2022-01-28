@@ -10,3 +10,7 @@ class ComputeIndicators:
     @staticmethod
     def ComputeSharpe(returns, vol):
         pass
+
+    @staticmethod
+    def ComputeMeanAssetPrices(list):
+        pass

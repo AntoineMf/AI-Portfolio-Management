@@ -30,6 +30,21 @@ class Portfolio:
 
     def RandomWeights(self, confidence=0.1, numberOfAssets=38):
         choices = self.WeightAssets(numberOfAssets)
+        meanPrices = self.listOfAssets.MeanAssetPrice()
+        sumPrices = meanPrices*len(self.listOfAssets.listAssets)
+        ratioToInvest = self.amount / sumPrices * 1000
+        sum = 0
+
+        while True:
+            sum = 0
+            weights = rd.sample(range(0, ratioToInvest), numberOfAssets)
+            if not (0 in weights):
+                for i in weights:
+                    sum += i
+                if sum == ratioToInvest or (sum > (1-confidence)*ratioToInvest and sum < ratioToInvest):
+                    break
+
+        self.weights = weights
 
 
     def WeightAssets(self, numberOfAssets=38):
