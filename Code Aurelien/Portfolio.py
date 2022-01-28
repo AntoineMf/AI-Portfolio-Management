@@ -5,9 +5,10 @@ import random as rd
 
 class Portfolio:
     # --- Constructor and Attributes --- #
-    def __init__(self, listOfAssets, weights=0, score=0):
+    def __init__(self, listOfAssets, amount, weights=0, score=0):
         self.listOfAssets = listOfAssets
         self.score = score
+        self.amount = amount
         if weights == 0:
             self.weights = list(0, range(0, len(self.listOfAssets.listAssets)))
 
@@ -26,6 +27,22 @@ class Portfolio:
             if sum == 1:
                 condition = True
         print(weights)
+
+    def RandomWeights(self, confidence=0.1, numberOfAssets=38):
+        choices = self.WeightAssets(numberOfAssets)
+
+
+    def WeightAssets(self, numberOfAssets=38):
+        index = range(0, 37)
+        choices = list()
+        for i in range(0, numberOfAssets):
+            val = rd.choices(index)
+            if val in choices:
+                i -= 1
+                continue
+            choices.append(val)
+        return choices
+
 
 
     def set_score(self, score):
