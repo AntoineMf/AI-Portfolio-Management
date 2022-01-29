@@ -9,7 +9,7 @@ import math
 class Asset:
     # --- Constructor and Attributes --- #
     def __init__(self, name, values, dates):
-        self._name = name
+        self.name = name
         self.values = values
         self.dates = dates
 

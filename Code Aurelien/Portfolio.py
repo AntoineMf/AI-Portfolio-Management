@@ -10,54 +10,54 @@ class Portfolio:
         self.score = score
         self.amount = amount
         if weights == 0:
-            self.weights = list(0, range(0, len(self.listOfAssets.listAssets)))
-
+            self.weights = [0 for i in range(0, len(self.listOfAssets.listAssets))]
+        else:
+            self.weights = 0
 
     # --- Methods --- #
     # Sort a population based on..
 
-    def RandomWeights(self):
-        condition = False
-        while not condition:
-            weights = rd.sample(range(0, 1000), len(self.listOfAssets.listAssets))
-            sum = 0
-            for i in weights:
-                sum += i
-            sum /= (1000*len(weights))
-            if sum == 1:
-                condition = True
-        print(weights)
-
-    def RandomWeights(self, confidence=0.1, numberOfAssets=38):
+    def RandomWeights(self, confidence=0.01, numberOfAssets=38):
+        lastPrices = self.listOfAssets.LastPrices()
         choices = self.WeightAssets(numberOfAssets)
+        maxShares = self.MaxShares(lastPrices, choices)
+        """
         meanPrices = self.listOfAssets.MeanAssetPrice()
         sumPrices = meanPrices*len(self.listOfAssets.listAssets)
         ratioToInvest = self.amount / sumPrices * 1000
-        sum = 0
-
+        """
         while True:
-            sum = 0
-            weights = rd.sample(range(0, ratioToInvest), numberOfAssets)
-            if not (0 in weights):
-                for i in weights:
-                    sum += i
-                if sum == ratioToInvest or (sum > (1-confidence)*ratioToInvest and sum < ratioToInvest):
+            shares = [rd.randint(1, maxShares) if choices[i] else 0 for i in range(0, len(choices))]
+            weights = [(shares[i]*lastPrices[i])/self.amount for i in range(0, len(choices))]
+            sumWeights = sum(weights)
+            if (1 - confidence) < sumWeights <= 1:
+                break
+            """
+            sumOfWeights = 0
+            weightsSimu = rd.sample(range(0, ratioToInvest), numberOfAssets)
+            if not (0 in weightsSimu):
+                for i in weightsSimu:
+                    sumOfWeights += i
+                if (1 - confidence) * ratioToInvest <= sumOfWeights <= ratioToInvest:
                     break
-
+            """
         self.weights = weights
 
-
     def WeightAssets(self, numberOfAssets=38):
-        index = range(0, 37)
-        choices = list()
+        temp = list()
         for i in range(0, numberOfAssets):
-            val = rd.choices(index)
-            if val in choices:
+            val = rd.choices(range(0, len(self.listOfAssets.listAssets)))
+            if val in temp:
                 i -= 1
                 continue
-            choices.append(val)
+            temp.append(val)
+        choices = [True if i in temp else False for i in range(0, len(self.listOfAssets.listAssets))]
         return choices
 
+    def MaxShares(self, lastPrices, choices):
+        prices = [lastPrices[i] if choices[i] else float('inf') for i in range(0, len(lastPrices))]
+        maxShares = int(self.amount / (min(prices) * 2))
+        return maxShares
 
 
     def set_score(self, score):
