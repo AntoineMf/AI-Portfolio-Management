@@ -1,6 +1,6 @@
 class ComputeIndicators:
     @staticmethod
-    def ComputeReturns(weights, returns):
+    def ComputeReturns(weights, returns, amount, prices):
         pass
 
     @staticmethod

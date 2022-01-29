@@ -9,41 +9,20 @@ class Portfolio:
         self.listOfAssets = listOfAssets
         self.score = score
         self.amount = amount
-        if weights == 0:
-            self.weights = [0 for i in range(0, len(self.listOfAssets.listAssets))]
+        self.shares = 0
+        if weights != 0:
+            self.weights = weights
+
         else:
-            self.weights = 0
+            self.RandomWeights()
+
+        self.returns = 0
+        self.vol = 0
 
     # --- Methods --- #
     # Sort a population based on..
 
-    def RandomWeights(self, confidence=0.01, numberOfAssets=38):
-        lastPrices = self.listOfAssets.LastPrices()
-        choices = self.WeightAssets(numberOfAssets)
-        maxShares = self.MaxShares(lastPrices, choices)
-        """
-        meanPrices = self.listOfAssets.MeanAssetPrice()
-        sumPrices = meanPrices*len(self.listOfAssets.listAssets)
-        ratioToInvest = self.amount / sumPrices * 1000
-        """
-        while True:
-            shares = [rd.randint(1, maxShares) if choices[i] else 0 for i in range(0, len(choices))]
-            weights = [(shares[i]*lastPrices[i])/self.amount for i in range(0, len(choices))]
-            sumWeights = sum(weights)
-            if (1 - confidence) < sumWeights <= 1:
-                break
-            """
-            sumOfWeights = 0
-            weightsSimu = rd.sample(range(0, ratioToInvest), numberOfAssets)
-            if not (0 in weightsSimu):
-                for i in weightsSimu:
-                    sumOfWeights += i
-                if (1 - confidence) * ratioToInvest <= sumOfWeights <= ratioToInvest:
-                    break
-            """
-        self.weights = weights
-
-    def WeightAssets(self, numberOfAssets=38):
+    def ChooseAssets(self, numberOfAssets=38):
         temp = list()
         for i in range(0, numberOfAssets):
             val = rd.choices(range(0, len(self.listOfAssets.listAssets)))
@@ -59,6 +38,30 @@ class Portfolio:
         maxShares = int(self.amount / (min(prices) * 2))
         return maxShares
 
+    def RandomWeights(self, confidence=0.01, numberOfAssets=38):
+        lastPrices = self.listOfAssets.LastPrices()
+        choices = self.ChooseAssets(numberOfAssets)
+        maxShares = self.MaxShares(lastPrices, choices)
+        while True:
+            shares = [rd.randint(1, maxShares) if choices[i] else 0 for i in range(0, len(choices))]
+            weights = [(shares[i]*lastPrices[i])/self.amount for i in range(0, len(choices))]
+            sumWeights = sum(weights)
+            if (1 - confidence) < sumWeights <= 1:
+                break
+        self.weights = weights
+        self.shares = shares
+
+    def ComputeNoShares(self):
+        lastPrices = self.listOfAssets.LastPrices()
+        self.shares = [self.weights[i]*self.amount/lastPrices[i] for i in range(0, len(lastPrices))]
+
+    def computeReturns(self):
+        noOfDays = self.listOfAssets.returns[0].count()
+        returnsAssets = self.listOfAssets.returns
+        listOfPrices = self.listOfAssets.ListOfPrices(noOfDays)
+        returns = [sum([(self.shares[i]) * (listOfPrices[n][i]) * (returnsAssets.iloc[n,i]) / self.amount
+                       for i in range(0, len(self.listOfAssets.listAssets))]) for n in range(0, noOfDays - 1)]
+        self.returns = returns
 
     def set_score(self, score):
         self.score = score

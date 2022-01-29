@@ -17,10 +17,18 @@ class ListOfAsset:
         return mean
 
     def LastPrices(self):
+        lastPrices = [self.listAssets[i].values.loc[0] for i in range(0, len(self.listAssets))]
+        """
         lastPrices = list()
         for i in range(0, len(self.listAssets)):
             lastPrices.append(self.listAssets[i].values.loc[0])
+        """
         return lastPrices
+
+    def ListOfPrices(self, numberOfDays):
+        prices = [[self.listAssets[i].values.loc[j] for i in range(0, len(self.listAssets))]
+                  for j in range(0, numberOfDays)]
+        return prices
 
     def __str__(self):
         return str([self.listAssets[i].name for i in range(0, len(self.listAssets))])
