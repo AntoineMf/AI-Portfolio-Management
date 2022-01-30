@@ -8,6 +8,7 @@ from Asset import Asset
 from Returns import Returns
 from VarCov import VarCov
 from ListOfAsset import ListOfAsset
+from Portfolio import Portfolio
 #from Genetic_Algorithm import Genetic_Algorithm as Ga
 from Population import Population as Pop
 
@@ -24,10 +25,15 @@ if __name__ == '__main__':
     returns = Returns(df, nODays, names, nORet)
 
     cov = VarCov(returns.matrixReturns)
+    print(type(cov.matrix))
 
     assets = ListOfAsset(names, df, dates, returns, cov)
     print(assets.listAssets[0].values.loc[0])
-
+    print(len(assets.listAssets))
+    portfolio = Portfolio(assets, 100000)
+    print(portfolio.weights)
+    portfolio.ComputeReturns()
+    print(portfolio.returns)
     #print(assets)
     #print(assets.LastPrices())
     #print(assets.ListOfPrices(5))

@@ -8,9 +8,7 @@ import numpy as np
 
 class VarCov:
     def __init__(self, returns):
-        #self.matrixVarCov = self.Compute_var_cov(returns)
-        #self.matrixVarCov = np.cov(np.array(returns))
-        self.matrixVarCov = returns.astype(float).cov()
+        self.matrix = returns.astype(float).cov()
 
     def getVol(self):
         """
