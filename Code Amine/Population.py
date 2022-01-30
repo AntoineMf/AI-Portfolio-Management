@@ -4,11 +4,33 @@ from Portfolio import *
 
 # Class Population (list of Portfolios)
 class Population :
-    def __init__(self,list_porfolio=[],nb_indiv=0):
+    # --- Constructor and Attributes --- #
+    def __init__(self,list_porfolio=[]):
         self._list_porfolio = list_porfolio
         self._nb_indiv = len(list_porfolio)
-        
-    def fonction_de_mutation(self,pourcentage_de_mutation):
+    
+    # --- Useful Methods --- #
+    '''
+        5 minute pour la vol d'un seul portfolio, on va s'en passer pour le moment
+        car le problème c'est qu'on est censé calculer la vol de 100+ portfeuille a chaque generation
+        et y'a au moins 1000 gen je pense donc bon
+    '''
+    def volatility_portfolio(self): # on s'en passe pour le prototype
+        vol_1 = 0
+        vol_2 = 0 # je separe les 2 membres du calcul de vol pour que ce soit plus clair
+        for assets in self.keys():
+            vol_1 = vol_1 + self[assets]*assets.get_ecart_type() # en gros somme des poids i * ecart type i
+        for assets_i in self.keys():
+            for assets_j in self.keys():
+                if assets_i != assets_j:
+                    vol_2 = vol_2 + self[assets_i]*self[assets_j]*Asset.cov_assets(assets_i,assets_j)
+                    #en gros, poid i * poiid j * cov(i,j)
+        return vol_1 + vol_2
+
+
+    # --- Crossover/Mutation Module --- #
+    # Mutation
+    def fonction_de_mutation(self, pourcentage_de_mutation):
         nb_a_modif = round(len(self._list_porfolio) * pourcentage_de_mutation/100) # % de la population qui sera muté
         list_index_a_modif = [round(random.uniform(0,len(self._list_porfolio)-1)) for i in range(nb_a_modif)] # generation d'indexs aleas
         for index in list_index_a_modif:
@@ -21,7 +43,7 @@ class Population :
             self._list_porfolio[index].Set_vol() # remise de la bonne vol
         # return self._list_porfolio
         
-        
+    # Crossover
     def fonction_de_croisement(self):
         '''
         On va faire en sorte que chaque indiv de la pop mere ait une descendance avec un partenaire alea 
@@ -54,6 +76,9 @@ class Population :
         self._nb_indiv = len(self._list_porfolio)  # reparametrage de nb_indiv
         # return pop_enfant
     
+
+
+    # --- Fitness Module --- #
     def fitness(self): # attribution d'un score à chaque portefeuille de la pop
         for portefeuille in self._list_porfolio:
             portefeuille.set_score_portfolio()
@@ -61,32 +86,16 @@ class Population :
     def tri_selon_score(self):
         self._list_porfolio.sort(key=lambda v: v._score , reverse=True)
         
-    def selection(self,conservation,alea_rescape):
+    def selection(self, nb_conservation, alea_rescape):
         index_alea = [round(random.uniform(0,len(self._list_porfolio)-1)) for i in range(alea_rescape)]
         rescape = []
         for index in index_alea:
             rescape.append(self._list_porfolio[index]) # on garde aléa
         
-        del self._list_porfolio[conservation:]# on garde les "conservation" meilleur
+        del self._list_porfolio[nb_conservation:]# on garde les "conservation" meilleur
         for portfolio in rescape:
             self._list_porfolio.append(portfolio)
         self._nb_indiv = len(self._list_porfolio) # reparametrage de nb_indiv
         
         # return selection
     
-    '''
-     5 minute pour la vol d'un seul portfolio, on va s'en passer pour le moment
-     car le problème c'est qu'on est censé calculer la vol de 100+ portfeuille a chaque generation
-     et y'a au moins 1000 gen je pense donc bon
-    '''
-    def volatility_portfolio(self): # on s'en passe pour le prototype
-        vol_1 = 0
-        vol_2 = 0 # je separe les 2 membres du calcul de vol pour que ce soit plus clair
-        for assets in self.keys():
-            vol_1 = vol_1 + self[assets]*assets.get_ecart_type() # en gros somme des poids i * ecart type i
-        for assets_i in self.keys():
-            for assets_j in self.keys():
-                if assets_i != assets_j:
-                    vol_2 = vol_2 + self[assets_i]*self[assets_j]*Asset.cov_assets(assets_i,assets_j)
-                    #en gros, poid i * poiid j * cov(i,j)
-        return vol_1 + vol_2

@@ -4,11 +4,13 @@ from Asset import *
 
 # Class Portfolio (List of assets)
 class Portfolio :
+    # Constructor and Attributes
     def __init__(self,list_assets,score= 0,vol = 0):
         self._list_assets = list_assets
         self._score = score
         self._volatility = vol
     
+    # Usefull Methods
     def set_score(self,score):
         self._score = score
 
@@ -16,25 +18,20 @@ class Portfolio :
         print("j'ai pas compris la formule de Vol")
         return 1
     
+    # adaptation de tout les poids pour que ça somme à 1
     def normalisation_des_poids(self):
-        '''
-        adaptation de tout les poids pour que ça somme à 1
-        '''
         total = 0
         for assets in self._list_assets:
             total = total + assets._weigth
         for assets in self._list_assets:
             assets._weigth = assets._weigth/total 
             
-            
+    # Score is set as Sharp's ratio
     def set_score_portfolio(self): # ratio de sharpe
-        '''
-        calcul du score : Moy(wi*ri/vol) normalement mais pour le proto on va juste faire moy(wi*ri)
-        '''
         tamp = 0
         for assets in self._list_assets:
             tamp = tamp + assets._rendement_moy*assets._weigth/self._volatility
-        self._score = tamp/len(self._list_assets)
+        self._score = tamp/len(self._list_assets)  #calcul du score : Moy(wi*ri/vol) normalement mais on va juste faire moy(wi*ri)
         
 
     def Set_vol(self):
@@ -57,10 +54,13 @@ class Portfolio :
         return portfolio #c'est un portfolio en faite
 
 
-    #def fusion(pop_A,pop_B):
-    #    for index in range(len(pop_B)):
-    #        pop_A.append(pop_B[index])
-    #    return pop_A
+    """
+    def fusion(pop_A,pop_B):
+        for index in range(len(pop_B)):
+            pop_A.append(pop_B[index])
+        return pop_A
+    """
+
     def rendement_moyen(self) : 
         r = 0
         for assets in self._list_assets:

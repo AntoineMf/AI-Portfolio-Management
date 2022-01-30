@@ -3,6 +3,7 @@ import random, math
 
 # Class of a single Asset
 class Asset :
+    # Constructor and Attributes
     def __init__(self,name, values = [],returns = [],weigth = 0,ecart_type=0,rendement = 0):
         self._name = name
         self._values = values
@@ -11,6 +12,7 @@ class Asset :
         self._ecart_type = ecart_type
         self._rendement_moy = rendement
 
+    # Usefull Methods
     def set_value(self, df, time_en_jours):
         '''
         recuperation des prices depuis aujd jusqu'a (aujourd'hui - time_en_jours)
@@ -32,7 +34,6 @@ class Asset :
 #            ret.append(self._values[index]/self._values[index-time_en_jours] - 1)
 #        self._returns = ret
         
-   
     def set_return(self):
         rendement = 0
         for index in range(1,len(self._values)):

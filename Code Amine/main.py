@@ -62,27 +62,14 @@ print(df)
 gen_algo = Genetic__Algorithm(df, nb_gen=10)
 list_assets = gen_algo.creation_dassets(nb_days=255) # creation des instance de la classe assets 
 start_population = Genetic__Algorithm.Population_initiale(list_assets, taille=100)
-# porfolio = creation_portfolio_alea(list_assets) # creation de l'instance de la classes portfolio
 
-#    print(len(pop_0._list_porfolio[1]._list_assets[1]._values))
-
-#    pop_0_mutée_test = fonction_de_mutation(pop_0,20)
-#    pop_enfant_test = fonction_de_croisement(pop_0) # Je comrpends pas pourquoi parfois len(pop_enfant)<len(pop_parent)
-#    #normalement c'est impossible
-#    pop_fitée = fitness(pop_enfant_test)
-#    #print(max(pop_fitée.keys()))
-#    pop_triée = tri_selon_score(pop_fitée)
-#    gene_2 = selection(pop_triée)
-
-
-final_population = gen_algo.genetic_loop(start_population)
-total = 0   
-for assets in final_population._list_porfolio[0]._list_assets: # [0] donne le meilleur de la derniere gen
-    print('Stock : {} poids {} %'.format(assets._name, assets._weigth*100))
+# Get the best Population from the genetic loop
+best_population, loop_duration = gen_algo.genetic_loop(start_population)
+for assets in best_population._list_porfolio[0]._list_assets: # [0] donne le meilleur de la derniere gen
+    print("Stock: " + str(assets._name) + " and poids: " + str(assets._weigth*100))
     
 # Print Resultats
-print('\nSharpe : {} '.format(final_population._list_porfolio[0]._score) +
-        'rendement : {}  %'.format(final_population._list_porfolio[0].rendement_moyen()) +
-        'vol : {} '.format(final_population._list_porfolio[0]._volatility))
-
-    
+print("\nSharpe: " + str(best_population._list_porfolio[0]._score) +
+      "\nRendement: " + str(best_population._list_porfolio[0].rendement_moyen()) +
+      "\nvol: " + str(best_population._list_porfolio[0]._volatility) +
+      "\n--> Genetic Loop took " + str(loop_duration) + " for " + str(gen_algo.nb_gen) + " generations")
