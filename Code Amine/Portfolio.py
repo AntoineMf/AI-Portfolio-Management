@@ -1,9 +1,10 @@
 # Libs
+import imp
+from Asset import *
 
-
-# Portfolio class (list of Assets)
+# Class Portfolio (List of assets)
 class Portfolio :
-    def __init__(self, list_assets, score=0, vol=0):
+    def __init__(self,list_assets,score= 0,vol = 0):
         self._list_assets = list_assets
         self._score = score
         self._volatility = vol
@@ -34,17 +35,6 @@ class Portfolio :
         for assets in self._list_assets:
             tamp = tamp + assets._rendement_moy*assets._weigth/self._volatility
         self._score = tamp/len(self._list_assets)
-    
-    # ADDED FROM PROTO.py for (set_vol)
-    @staticmethod
-    def cov_assets(assets_A,assets_B):  
-        moy_A = assets_A.get_moy()
-        moy_B = assets_B.get_moy()
-        
-        cov = 0
-        for index in range(len(assets_A._values)):
-            cov = cov + (assets_A._values[index]-moy_A)*(assets_B._values[index]-moy_B)
-        return cov/len(assets_A._values)
         
 
     def Set_vol(self):
@@ -54,4 +44,25 @@ class Portfolio :
             vol_membre_1 = vol_membre_1 + assets._weigth * assets._ecart_type
         for index_i in range(len(self._list_assets)):
             for index_j in range(index_i,len(self._list_assets)):
-                vol_membre_2 = vol_membre_2 + self._list_assets[index_i]._weigth * self._list_assets[index_j]._weigth * Portfolio.cov_assets(self._list_assets[index_i], self._list_assets[index_j]) 
+                vol_membre_2 = vol_membre_2 + self._list_assets[index_i]._weigth * self._list_assets[index_j]._weigth * Asset.cov_assets(self._list_assets[index_i],self._list_assets[index_j]) 
+        self._volatility = vol_membre_1+vol_membre_2
+
+    @staticmethod
+    def creation_portfolio_alea(list_assets): 
+        for assets in list_assets:
+            assets.set_weigth_alea() # initialisation des poids alea
+        portfolio = Portfolio(list_assets)
+        portfolio.normalisation_des_poids()
+        portfolio.Set_vol()
+        return portfolio #c'est un portfolio en faite
+
+
+    #def fusion(pop_A,pop_B):
+    #    for index in range(len(pop_B)):
+    #        pop_A.append(pop_B[index])
+    #    return pop_A
+    def rendement_moyen(self) : 
+        r = 0
+        for assets in self._list_assets:
+            r = r + assets._rendement_moy * assets._weigth
+        return r/len(self._list_assets)

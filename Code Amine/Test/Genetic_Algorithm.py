@@ -1,5 +1,6 @@
 # ------------- Genetic Algorithm Class ------------- #
 # Libraries
+import Asset
 import Portfolio
 import Population
 from Asset import Asset
@@ -8,22 +9,21 @@ from Asset import Asset
 class Genetic_Algorithm:
 
     # _________________________________initialisation__________________________
+
     def __init__(self, df, nb_days):
         pass
-
-    @staticmethod
-    def creation_dassets(df, nb_days):
+    def creation_dassets(self, df, nb_days):
         '''
         Creation de toute les instance de la classe assets
         '''
         name = df.columns[1:]  # Recuperation des noms des actifs
         portfolio = []
         for each in name:
-            asset = Asset(each)
-            asset.set_value(nb_days)
-            asset.set_ecart_type()
-            asset.set_return()
-            portfolio.append(asset)
+            assets = Asset(each)
+            assets.set_value(nb_days)
+            assets.set_ecart_type()
+            assets.set_return()
+            portfolio.append(assets)
         return portfolio
 
     def creation_portfolio_alea(self, list_assets):
@@ -45,8 +45,8 @@ class Genetic_Algorithm:
         return pop
 
     # ________________________________________________________________________________
-    @staticmethod
-    def cov_assets(assets_A, assets_B):
+
+    def cov_assets(self, assets_A, assets_B):
         moy_A = assets_A.get_moy()
         moy_B = assets_B.get_moy()
 
@@ -69,7 +69,7 @@ class Genetic_Algorithm:
         for assets_i in portfolio.keys():
             for assets_j in portfolio.keys():
                 if assets_i != assets_j:
-                    vol_2 = vol_2 + portfolio[assets_i] * portfolio[assets_j] * Genetic_Algorithm.cov_assets(assets_i, assets_j)
+                    vol_2 = vol_2 + portfolio[assets_i] * portfolio[assets_j] * self.cov_assets(assets_i, assets_j)
                     # en gros, poid i * poiid j * cov(i,j)
 
         return vol_1 + vol_2
@@ -80,8 +80,7 @@ class Genetic_Algorithm:
             liste.append(tupl[1])
         return liste
 
-    @staticmethod
-    def boucle_génétique(generation, nb_géné):
+    def boucle_génétique(self, generation, nb_géné):
         if (nb_géné < 100):  # pour l'instant on fait que 5 generation on verra plus tard, sinon c'est trop long
             print('Generation numero {}'.format(nb_géné))
             nb_géné += 1
@@ -104,7 +103,7 @@ class Genetic_Algorithm:
             # ○gene_2 = selection(pop_triée) # séléction
             # gene_2_sans_score = recuperation_liste_sans_score(gene_2)
 
-            return Genetic_Algorithm.boucle_génétique(generation, nb_géné)
+            return self.boucle_génétique(generation, nb_géné)
 
         else:
             return generation

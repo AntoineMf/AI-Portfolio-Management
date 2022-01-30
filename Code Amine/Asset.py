@@ -1,7 +1,7 @@
 # Libs
-import math, random
+import random, math
 
-# Asset Class
+# Class of a single Asset
 class Asset :
     def __init__(self,name, values = [],returns = [],weigth = 0,ecart_type=0,rendement = 0):
         self._name = name
@@ -69,3 +69,13 @@ class Asset :
         for val in self._values:
             var = var + (val-moy)**2
         self._ecart_type = (var)**(1/2)
+
+    @staticmethod
+    def cov_assets(assets_A, assets_B):
+        moy_A = assets_A.get_moy()
+        moy_B = assets_B.get_moy()
+        
+        cov = 0
+        for index in range(len(assets_A._values)):
+            cov = cov + (assets_A._values[index]-moy_A)*(assets_B._values[index]-moy_B)
+        return cov/len(assets_A._values)

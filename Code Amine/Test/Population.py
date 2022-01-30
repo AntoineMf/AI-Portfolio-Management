@@ -1,6 +1,7 @@
 # ------------- Population Class ------------- #
 # Libraries
 import random
+from Portfolio import * 
 
 class Population:
     # --- Constructor and Attributes --- #

@@ -8,11 +8,12 @@ from Asset import Asset
 from Returns import Returns
 from VarCov import VarCov
 from ListOfAsset import ListOfAsset
-from Genetic_Algorithm import Genetic_Algorithm as Ga
+from Portfolio import Portfolio
+#from Genetic_Algorithm import Genetic_Algorithm as Ga
 from Population import Population as Pop
 
 
-# --- Main --- ""
+
 path = "Data_CAC.csv"
 df = pd.read_csv(path, delimiter=";")
 dates = df.pop("Date")
@@ -24,17 +25,22 @@ nORet = 7
 returns = Returns(df, nODays, names, nORet)
 
 cov = VarCov(returns.matrixReturns)
+print(type(cov.matrix))
 
 assets = ListOfAsset(names, df, dates, returns, cov)
 print(assets.listAssets[0].values.loc[0])
-
+print(len(assets.listAssets))
+portfolio = Portfolio(assets, 100000)
+print(portfolio.weights)
+portfolio.ComputeReturns()
+print(portfolio.returns)
 #print(assets)
 #print(assets.LastPrices())
 #print(assets.ListOfPrices(5))
 #print(len(assets.ListOfPrices(5)))
 
-list_assets = Ga.creation_dassets(df, 255)
-pop_0 = Ga.Population_initiale(100, list_assets)
+#list_assets = Ga.creation_dassets(df, 255)
+#pop_0 = Ga.Population_initiale(100, list_assets)
 """
 #    print(len(pop_0._list_porfolio[1]._list_assets[1]._values))
 #    pop_0_mutée_test = fonction_de_mutation(pop_0,20)
@@ -45,7 +51,7 @@ pop_0 = Ga.Population_initiale(100, list_assets)
 #    pop_triée = tri_selon_score(pop_fitée)
 #    gene_2 = selection(pop_triée)
 """
-
+"""
 pop_final = Ga.boucle_génétique(pop_0, 0)
 total = 0
 for assets in pop_final._list_porfolio[0]._list_assets:  # [0] donne le meilleur de la derniere gen
@@ -54,6 +60,6 @@ for assets in pop_final._list_porfolio[0]._list_assets:  # [0] donne le meilleur
 print('Sharpe : {} '.format(pop_final._list_porfolio[0]._score))
 print('rendement : {}  %'.format(Ga.rendement_moyen(pop_final._list_porfolio[0])))
 print('vol : {} '.format(pop_final._list_porfolio[0]._volatility))
-
+"""
 
 
