@@ -8,24 +8,6 @@ class Population :
     def __init__(self,list_porfolio=[]):
         self._list_porfolio = list_porfolio
         self._nb_indiv = len(list_porfolio)
-    
-    # --- Useful Methods --- #
-    '''
-        5 minute pour la vol d'un seul portfolio, on va s'en passer pour le moment
-        car le problème c'est qu'on est censé calculer la vol de 100+ portfeuille a chaque generation
-        et y'a au moins 1000 gen je pense donc bon
-    '''
-    def volatility_portfolio(self): # on s'en passe pour le prototype
-        vol_1 = 0
-        vol_2 = 0 # je separe les 2 membres du calcul de vol pour que ce soit plus clair
-        for assets in self.keys():
-            vol_1 = vol_1 + self[assets]*assets.get_ecart_type() # en gros somme des poids i * ecart type i
-        for assets_i in self.keys():
-            for assets_j in self.keys():
-                if assets_i != assets_j:
-                    vol_2 = vol_2 + self[assets_i]*self[assets_j]*Asset.cov_assets(assets_i,assets_j)
-                    #en gros, poid i * poiid j * cov(i,j)
-        return vol_1 + vol_2
 
 
     # --- Crossover/Mutation Module --- #

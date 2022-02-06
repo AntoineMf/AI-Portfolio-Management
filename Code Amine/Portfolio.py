@@ -10,8 +10,25 @@ class Portfolio :
         self._score = score
         self._volatility = vol
     
-    # Usefull Methods
-    def set_score(self,score):
+    # --- Useful Methods --- #
+    '''
+        5 minute pour la vol d'un seul portfolio, on va s'en passer pour le moment
+        car le problème c'est qu'on est censé calculer la vol de 100+ portfeuille a chaque generation
+        et y'a au moins 1000 gen je pense donc bon
+    '''
+    def volatility_portfolio(self): # on s'en passe pour le prototype
+        vol_1 = 0
+        vol_2 = 0 # je separe les 2 membres du calcul de vol pour que ce soit plus clair
+        for assets in self.keys():
+            vol_1 = vol_1 + self[assets]*assets.get_ecart_type() # en gros somme des poids i * ecart type i
+        for assets_i in self.keys():
+            for assets_j in self.keys():
+                if assets_i != assets_j:
+                    vol_2 = vol_2 + self[assets_i]*self[assets_j]*Asset.cov_assets(assets_i,assets_j)
+                    #en gros, poid i * poiid j * cov(i,j)
+        return vol_1 + vol_2
+        
+    def set_score(self, score):
         self._score = score
 
     def get_vol(self):
@@ -29,8 +46,8 @@ class Portfolio :
     # Score is set as Sharp's ratio
     def set_score_portfolio(self): # ratio de sharpe
         tamp = 0
-        for assets in self._list_assets:
-            tamp = tamp + assets._rendement_moy*assets._weigth/self._volatility
+        for asset in self._list_assets:
+            tamp = tamp + asset._rendement_moy*asset._weigth/self._volatility
         self._score = tamp/len(self._list_assets)  #calcul du score : Moy(wi*ri/vol) normalement mais on va juste faire moy(wi*ri)
         
 
