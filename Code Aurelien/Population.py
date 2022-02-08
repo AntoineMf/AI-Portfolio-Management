@@ -6,7 +6,6 @@ class Population:
     # --- Constructor and Attributes --- #
 
     def __init__(self, listOfAssets, amount):
-
         pass
 
     """
