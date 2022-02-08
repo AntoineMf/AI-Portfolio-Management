@@ -31,9 +31,13 @@ class Portfolio :
     def set_score(self, score):
         self._score = score
 
-    def get_vol(self):
-        print("j'ai pas compris la formule de Vol")
-        return 1
+    def set_volatility(self, default=0):
+        if default == 1:
+            return 1
+        else:
+            self._volatility = sum([asset._weight*asset._ecart_type for asset in self._list_assets])
+            #self._volatility = sum(list_assets_vol)
+    
     
     # adaptation de tout les poids pour que ça somme à 1
     def normalisation_des_poids(self):

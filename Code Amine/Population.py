@@ -1,6 +1,8 @@
-# Libs
-import random
+# --- Libs --- #
+import random as rd
+import numpy as np
 from Portfolio import *
+import copy
 
 # Class Population (list of Portfolios)
 class Population :
@@ -14,11 +16,11 @@ class Population :
     # Mutation
     def fonction_de_mutation(self, pourcentage_de_mutation):
         nb_a_modif = round(len(self._list_porfolio) * pourcentage_de_mutation/100) # % de la population qui sera muté
-        list_index_a_modif = [round(random.uniform(0,len(self._list_porfolio)-1)) for i in range(nb_a_modif)] # generation d'indexs aleas
+        list_index_a_modif = [round(rd.uniform(0,len(self._list_porfolio)-1)) for i in range(nb_a_modif)] # generation d'indexs aleas
         for index in list_index_a_modif:
-            nb_mutation = round(random.uniform(1,3))
+            nb_mutation = round(rd.uniform(1,3))
             for mut in range(nb_mutation):
-                index_assets = round(random.uniform(0,len(self._list_porfolio[index]._list_assets)-1))
+                index_assets = round(rd.uniform(0,len(self._list_porfolio[index]._list_assets)-1))
                 self._list_porfolio[index]._list_assets[index_assets].set_weigth_alea() # Creation d'un individu aleatoire à l'index aleatoire
                 self._list_porfolio[index]._list_assets[index_assets].set_return()
             self._list_porfolio[index].normalisation_des_poids() # remise de la somme = 1
@@ -34,12 +36,12 @@ class Population :
         '''
         tamp_porfolio_enfant = []
         for portefeuille in self._list_porfolio:# parcours des portfeuille dans la pop
-            nb_enfant = round(random.uniform(1,3)) # nb enfant alea
-            index_partenaire_alea = round(random.uniform(0,len(self._list_porfolio)-1)) # partenaire alea
+            nb_enfant = round(rd.uniform(1,3)) # nb enfant alea
+            index_partenaire_alea = round(rd.uniform(0,len(self._list_porfolio)-1)) # partenaire alea
             for compteur_denfant in range(1,nb_enfant+1): # parcours du nombre d'enfant par portfeuille
                 liste_assets_enfant = []  # liste enfant vide
                 for index_assets in range(0,len(portefeuille._list_assets)): # parcours des assets du portefeuille pour créer l'enfant
-                    A_ou_B = round(random.uniform(1,2)) # alea sur hérédité de parent A ou B pour chaque assets
+                    A_ou_B = round(rd.uniform(1,2)) # alea sur hérédité de parent A ou B pour chaque assets
                     if A_ou_B == 1:
                         liste_assets_enfant.append(portefeuille._list_assets[index_assets])
                         # on prends le poids de l'assets clé du parent A
@@ -61,15 +63,21 @@ class Population :
 
 
     # --- Fitness Module --- #
-    def fitness(self): # attribution d'un score à chaque portefeuille de la pop
-        for portefeuille in self._list_porfolio:
-            portefeuille.set_score_portfolio()
-        
-    def tri_selon_score(self):
+    def fitness_Al(self): # attribution d'un score à chaque portefeuille de la pop
+        for portfolio in self._list_porfolio:
+            portfolio.set_score_portfolio()
         self._list_porfolio.sort(key=lambda v: v._score , reverse=True)
+        # Get best portfolio of pop (best sharp)
+        return self._list_porfolio[0]._score
+    
+    def fitness_Am(self): # attribution d'un score à chaque portefeuille de la pop
+        for portfolio in self._list_porfolio:
+            portfolio.set_score_portfolio()
+        return np.sum(self._list_porfolio)
         
     def selection(self, nb_conservation, alea_rescape):
-        index_alea = [round(random.uniform(0,len(self._list_porfolio)-1)) for i in range(alea_rescape)]
+        #index_alea = [round(rd.uniform(0,len(self._list_porfolio)-1)) for i in range(alea_rescape)]
+        index_alea = rd.sample(range(len(self._list_porfolio)-1), alea_rescape)
         rescape = []
         for index in index_alea:
             rescape.append(self._list_porfolio[index]) # on garde aléa

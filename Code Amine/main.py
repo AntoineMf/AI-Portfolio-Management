@@ -61,7 +61,7 @@ print(df)
 # Get Asset list and Init start population
 gen_algo = Genetic__Algorithm(df, nb_gen=10)
 list_assets = gen_algo.creation_dassets(nb_days=255) # creation des instance de la classe assets 
-start_population = Genetic__Algorithm.Population_initiale(list_assets, taille=100)
+start_population = Genetic__Algorithm.Population_initiale(list_assets, size=100)
 
 # Get the best Population from the genetic loop
 best_population, loop_duration = gen_algo.genetic_loop(start_population)
