@@ -8,6 +8,10 @@ class Population:
     def __init__(self, listOfAssets, amount):
         pass
 
+    def crossover(self):
+        pass
+
+
     """
     def __init__(self, list_porfolio=[], nb_indiv=0):
         self._list_porfolio = list_porfolio

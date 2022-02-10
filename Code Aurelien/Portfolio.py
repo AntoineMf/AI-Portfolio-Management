@@ -11,22 +11,20 @@ class Portfolio:
         self.score = score
         self.amount = amount
         self.shares = 0
-        if weights != 0:
-            self.weights = weights
-
-        else:
-            self.RandomWeights()
-        #print(self.shares)
-
+        self.weights = weights if weights != 0 else self.RandomWeights()
+        #if weights != 0:
+            #self.weights = weights
+        #else:
+            #self.RandomWeights()
         self.returns = 0
         self.vol = 0
-        #print(self.listOfAssets.returns.matrixReturns.shape[0])
         self.ComputeReturns()
-        #print(self.returns)
         self.ComputeVol()
+        self.ComputeSharpe()
+        #print(self.shares)
         #print(self.vol)
         #print(self.ComputeSharpe())
-        self.sharpe = self.ComputeSharpe()
+        #print(self.returns)
 
     # --- Methods --- #
     # Sort a population based on..
@@ -220,4 +218,5 @@ class Portfolio:
         for i in range(0, len(self.returns)):
             sum += self.returns[i]
         sharpe = sum / (len(self.returns) * self.vol)
+        print("sharpe")
         print(sharpe)
