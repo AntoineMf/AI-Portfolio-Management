@@ -25,7 +25,6 @@ class Population:
 
     def createInitPop(self):
         for individu in range(self.numIndividuals):
-            print(1)
             self.listPortfolio.append(Portfolio(self.listOfAssets,self.amount))
 
     def createPop(self): 
@@ -36,9 +35,8 @@ class Population:
         self.listPortfolio.extend(self.crossover(lastListPortfolio[0],lastListPortfolio[1])) # crois1
         self.listPortfolio.extend(self.crossover(lastListPortfolio[1],lastListPortfolio[2]))
         self.listPortfolio.extend(self.crossover(lastListPortfolio[0],lastListPortfolio[2]))
-        print("Ici")
         self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[0]),self.mutation(lastListPortfolio[1])))
-        print("icii") # mut + crois 1
+         # mut + crois 1
         self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[1]),self.mutation(lastListPortfolio[2])))
         self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[0]),self.mutation(lastListPortfolio[2])))
 
@@ -91,6 +89,7 @@ class Population:
         lastPrices = self.listOfAssets.LastPrices()
         newWeights1 = [newShares1[i] * lastPrices[i]/self.amount for i in range(0, len(newShares1))]
         newWeights2 = [newShares2[i] * lastPrices[i] / self.amount for i in range(0, len(newShares2))]
+        print(f"weight 1 : {newWeights1}")
         #return [newWeights1, newWeights2]
         return [Portfolio(self.listOfAssets,self.amount,newWeights1),Portfolio(self.listOfAssets,self.amount,newWeights2)]
 
