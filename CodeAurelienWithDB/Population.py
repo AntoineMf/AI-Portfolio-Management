@@ -25,6 +25,7 @@ class Population:
 
     def createInitPop(self):
         for individu in range(self.numIndividuals):
+            print(1)
             self.listPortfolio.append(Portfolio(self.listOfAssets,self.amount))
 
     def createPop(self): 
@@ -32,11 +33,11 @@ class Population:
         for i in range(3):
             self.listPortfolio.append(self.mutation(lastListPortfolio[i])) 
 
-        self.listPortfolio.append(self.crossover(lastListPortfolio[0],lastListPortfolio[1])) # crois1
-        self.listPortfolio.append(self.crossover(lastListPortfolio[1],lastListPortfolio[2]))
-        self.listPortfolio.append(self.crossover(lastListPortfolio[0],lastListPortfolio[2]))
+        self.listPortfolio.extend(self.crossover(lastListPortfolio[0],lastListPortfolio[1])) # crois1
+        self.listPortfolio.extend(self.crossover(lastListPortfolio[1],lastListPortfolio[2]))
+        self.listPortfolio.extend(self.crossover(lastListPortfolio[0],lastListPortfolio[2]))
         print("Ici")
-        self.listPortfolio.append(self.crossover(self.mutation(lastListPortfolio[0]),self.mutation(lastListPortfolio[1])))
+        self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[0]),self.mutation(lastListPortfolio[1])))
         print("icii") # mut + crois 1
         self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[1]),self.mutation(lastListPortfolio[2])))
         self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[0]),self.mutation(lastListPortfolio[2])))
@@ -63,9 +64,9 @@ class Population:
             self.listPortfolio.append(self.mutation(lastListPortfolio[indexC])) # mut3
             self.listPortfolio.append(self.mutation(lastListPortfolio[indexD])) # mut4
             
-            self.listPortfolio.append(self.crossover(lastListPortfolio[indexA],lastListPortfolio[indexB])) #crossover 1
+            self.listPortfolio.extend(self.crossover(lastListPortfolio[indexA],lastListPortfolio[indexB])) #crossover 1
             
-            self.listPortfolio.append(self.crossover(lastListPortfolio[indexC],lastListPortfolio[indexD])) #crossover 2
+            self.listPortfolio.extend(self.crossover(lastListPortfolio[indexC],lastListPortfolio[indexD])) #crossover 2
             
             self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[indexA]),self.mutation(lastListPortfolio[indexB]))) # mut + cross 1
             self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[indexC]),self.mutation(lastListPortfolio[indexD]))) # mut + cross 2
