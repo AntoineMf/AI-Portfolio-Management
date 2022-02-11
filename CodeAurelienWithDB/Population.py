@@ -29,17 +29,19 @@ class Population:
 
     def createPop(self): 
         lastListPortfolio = self.lastPop.listPortfolio
+        for i in range(3):
+            self.listPortfolio.append(self.mutation(lastListPortfolio[i])) 
 
-        self.listPortfolio.append(self.mutation(lastListPortfolio[0])) 
-        self.listPortfolio.append(self.mutation(lastListPortfolio[1])) 
-        self.listPortfolio.append(self.mutation(lastListPortfolio[2]))
         self.listPortfolio.append(self.crossover(lastListPortfolio[0],lastListPortfolio[1])) # crois1
         self.listPortfolio.append(self.crossover(lastListPortfolio[1],lastListPortfolio[2]))
         self.listPortfolio.append(self.crossover(lastListPortfolio[0],lastListPortfolio[2]))
-        self.listPortfolio.append(self.crossover(self.mutation(lastListPortfolio[0]),self.mutation(lastListPortfolio[1]))) # mut + crois 1
-        self.listPortfolio.append(self.crossover(self.mutation(lastListPortfolio[1]),self.mutation(lastListPortfolio[2])))
-        self.listPortfolio.append(self.crossover(self.mutation(lastListPortfolio[0]),self.mutation(lastListPortfolio[2])))
+        print("Ici")
+        self.listPortfolio.append(self.crossover(self.mutation(lastListPortfolio[0]),self.mutation(lastListPortfolio[1])))
+        print("icii") # mut + crois 1
+        self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[1]),self.mutation(lastListPortfolio[2])))
+        self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[0]),self.mutation(lastListPortfolio[2])))
 
+        
         for i in range(0, 10):
             self.listPortfolio.append(lastListPortfolio[i])
         for i in range(0, 7):
@@ -54,18 +56,19 @@ class Population:
                 indexD = rd.randint(0, 10)
                 if indexD != indexC:
                     break
-
-            self.listPortfolio.append(self.mutation[lastListPortfolio[indexA]]) # mut1
-            self.listPortfolio.append(self.mutation[lastListPortfolio[indexB]]) # mut2
-            self.listPortfolio.append(self.mutation[lastListPortfolio[indexC]]) # mut3
-            self.listPortfolio.append(self.mutation[lastListPortfolio[indexD]]) # mut4
-            print("ici")
+            
+            #print(self.mutation())
+            self.listPortfolio.append(self.mutation(lastListPortfolio[indexA])) # mut1
+            self.listPortfolio.append(self.mutation(lastListPortfolio[indexB])) # mut2
+            self.listPortfolio.append(self.mutation(lastListPortfolio[indexC])) # mut3
+            self.listPortfolio.append(self.mutation(lastListPortfolio[indexD])) # mut4
+            
             self.listPortfolio.append(self.crossover(lastListPortfolio[indexA],lastListPortfolio[indexB])) #crossover 1
-            print("icii")
+            
             self.listPortfolio.append(self.crossover(lastListPortfolio[indexC],lastListPortfolio[indexD])) #crossover 2
-            print("iciii")
-            self.listPortfolio.append(self.crossover(self.mutation(lastListPortfolio[indexA]),self.mutation(lastListPortfolio[indexB]))) # mut + cross 1
-            self.listPortfolio.append(self.crossover(self.mutation(lastListPortfolio[indexC]),self.mutation(lastListPortfolio[indexD]))) # mut + cross 2
+            
+            self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[indexA]),self.mutation(lastListPortfolio[indexB]))) # mut + cross 1
+            self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[indexC]),self.mutation(lastListPortfolio[indexD]))) # mut + cross 2
             
         for i in range(0, 35):
             self.listPortfolio.append(Portfolio(self.listOfAssets, self.amount))
@@ -78,19 +81,17 @@ class Population:
         newShares2 = [i for i in portfolioB.shares]
         while True:
             if len(index) == size:
-                print("in")
                 break
             i = rd.randint(0, len(portfolioA.shares)-1)
             if i not in index:
                 index.append(i)
-                print(f"i : {i}")
                 newShares1[i] = portfolioB.shares[i]
                 newShares2[i] = portfolioA.shares[i]
-        print("que la")
         lastPrices = self.listOfAssets.LastPrices()
         newWeights1 = [newShares1[i] * lastPrices[i]/self.amount for i in range(0, len(newShares1))]
         newWeights2 = [newShares2[i] * lastPrices[i] / self.amount for i in range(0, len(newShares2))]
-        return [newWeights1, newWeights2]
+        #return [newWeights1, newWeights2]
+        return [Portfolio(self.listOfAssets,self.amount,newWeights1),Portfolio(self.listOfAssets,self.amount,newWeights2)]
 
     def mutation(self, portfolio):
         nbMut = rd.randint(1, 5)

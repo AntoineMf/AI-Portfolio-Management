@@ -28,13 +28,13 @@ if __name__ == '__main__':
     names = df.columns
     nODays = 1
     nORet = 7
-
+    """
     db_connection_str= 'mysql+pymysql://pi2:pi2@192.168.196.59/PI2'
     db_connection = create_engine(db_connection_str)
     
     dfDB = pd.read_sql('select * from Stock',con=db_connection)
     
-    dfDB['Stock_Date']= dfDB['Stock_Date'].apply(modifyDateFormat)
+    dfDB['Stock_Date']= dfDB['Stock_Date'].apply(modifyDateFormat)"""
     #print(dfDB)
     #print(len(df))
     #print(len(df.iloc[0]))
