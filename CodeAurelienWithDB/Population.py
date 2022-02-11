@@ -1,6 +1,5 @@
 # ------------- Population Class ------------- #
 # Libraries
-from asyncio.windows_events import NULL
 import random as rd
 
 from Portfolio import Portfolio
@@ -25,26 +24,50 @@ class Population:
             self.createPop()
 
     def createInitPop(self):
-        for i in range (self.num_individu):
+        for individu in range(self.numIndividuals):
             self.listPortfolio.append(Portfolio(self.listOfAssets,self.amount))
 
     def createPop(self): 
         lastListPortfolio = self.lastPop.listPortfolio
+
+        self.listPortfolio.append(self.mutation(lastListPortfolio[0])) 
+        self.listPortfolio.append(self.mutation(lastListPortfolio[1])) 
+        self.listPortfolio.append(self.mutation(lastListPortfolio[2]))
+        self.listPortfolio.append(self.crossover(lastListPortfolio[0],lastListPortfolio[1])) # crois1
+        self.listPortfolio.append(self.crossover(lastListPortfolio[1],lastListPortfolio[2]))
+        self.listPortfolio.append(self.crossover(lastListPortfolio[0],lastListPortfolio[2]))
+        self.listPortfolio.append(self.crossover(self.mutation(lastListPortfolio[0]),self.mutation(lastListPortfolio[1]))) # mut + crois 1
+        self.listPortfolio.append(self.crossover(self.mutation(lastListPortfolio[1]),self.mutation(lastListPortfolio[2])))
+        self.listPortfolio.append(self.crossover(self.mutation(lastListPortfolio[0]),self.mutation(lastListPortfolio[2])))
+
         for i in range(0, 10):
             self.listPortfolio.append(lastListPortfolio[i])
-        for i in range(0, 10):
+        for i in range(0, 7):
             indexA = rd.randint(0,10)
             while True:
                 indexB = rd.randint(0, 10)
                 if indexA != indexB:
                     break
 
-            self.listPortfolio.append(lastListPortfolio[i]) # mut1
-            self.listPortfolio.append(lastListPortfolio[i]) # mut2
-            self.listPortfolio.append(lastListPortfolio[i]) # crois1
-            self.listPortfolio.append(lastListPortfolio[i]) # mut + crois 1
-            self.listPortfolio.append(lastListPortfolio[i]) # mut + crois 2
-        for i in range(0, 30):
+            indexC = rd.randint(0,10)
+            while True:
+                indexD = rd.randint(0, 10)
+                if indexD != indexC:
+                    break
+
+            self.listPortfolio.append(self.mutation[lastListPortfolio[indexA]]) # mut1
+            self.listPortfolio.append(self.mutation[lastListPortfolio[indexB]]) # mut2
+            self.listPortfolio.append(self.mutation[lastListPortfolio[indexC]]) # mut3
+            self.listPortfolio.append(self.mutation[lastListPortfolio[indexD]]) # mut4
+            print("ici")
+            self.listPortfolio.append(self.crossover(lastListPortfolio[indexA],lastListPortfolio[indexB])) #crossover 1
+            print("icii")
+            self.listPortfolio.append(self.crossover(lastListPortfolio[indexC],lastListPortfolio[indexD])) #crossover 2
+            print("iciii")
+            self.listPortfolio.append(self.crossover(self.mutation(lastListPortfolio[indexA]),self.mutation(lastListPortfolio[indexB]))) # mut + cross 1
+            self.listPortfolio.append(self.crossover(self.mutation(lastListPortfolio[indexC]),self.mutation(lastListPortfolio[indexD]))) # mut + cross 2
+            
+        for i in range(0, 35):
             self.listPortfolio.append(Portfolio(self.listOfAssets, self.amount))
     
 
@@ -55,14 +78,17 @@ class Population:
         newShares2 = [i for i in portfolioB.shares]
         while True:
             if len(index) == size:
+                print("in")
                 break
-            i = rd.randint(0, len(portfolioA.shares))
+            i = rd.randint(0, len(portfolioA.shares)-1)
             if i not in index:
                 index.append(i)
+                print(f"i : {i}")
                 newShares1[i] = portfolioB.shares[i]
                 newShares2[i] = portfolioA.shares[i]
+        print("que la")
         lastPrices = self.listOfAssets.LastPrices()
-        newWeights1 = [newShares1[i]*lastPrices[i]/self.amount for i in range(0, len(newShares1))]
+        newWeights1 = [newShares1[i] * lastPrices[i]/self.amount for i in range(0, len(newShares1))]
         newWeights2 = [newShares2[i] * lastPrices[i] / self.amount for i in range(0, len(newShares2))]
         return [newWeights1, newWeights2]
 
@@ -75,7 +101,7 @@ class Population:
         while True:
             if len(listIndex) == nbMut:
                 break
-            index = rd.randint(0, len(portfolio.listWeight))
+            index = rd.randint(0, len(listWeight))
             if index not in listIndex:
                 listIndex.append(index)
                 weightsRnd.append(rd.randint(5000, 100000) / 100000)
@@ -90,3 +116,6 @@ class Population:
 
     def createPortfolio(self, weights):
         return Portfolio(self.listOfAssets, self.amount, weights)
+
+    
+

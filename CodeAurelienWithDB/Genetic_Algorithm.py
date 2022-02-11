@@ -21,18 +21,15 @@ class Genetic_Algorithm:
 
 
         for i in range (1,nbOfGeneration):
+            self.listOfPopulation.append(Population(self.listOfAssets,self.amount,i,100,self.listOfPopulation[i-1]))
+            print(f"list of pop iteration {i} : {self.listOfPopulation[i]}")
 
 
 
 
 
 
-        pass
+        
 
     
-    def crossover():
-        pass
-
-    def mutation():        
-        pass
-
+   

@@ -11,6 +11,7 @@ from ListOfAsset import ListOfAsset
 from Portfolio import Portfolio
 #from Genetic_Algorithm import Genetic_Algorithm as Ga
 from Population import Population as Pop
+from Genetic_Algorithm import Genetic_Algorithm
 from sqlalchemy import create_engine
 from datetime import datetime
 
@@ -45,9 +46,11 @@ if __name__ == '__main__':
     assets = ListOfAsset(names, df, dates, returns, cov)
     #print(assets.listAssets[0].values.loc[0])
     #print(len(assets.listAssets))
-    portfolio = Portfolio(assets, 10000)
+    #portfolio = Portfolio(assets, 10000)
 
-    Pop0=Pop(assets,10000,0,100)
+    aiTest = Genetic_Algorithm(assets,10000,100)
+
+    #Pop0=Pop(assets,10000,0,100)
     #print(len(Pop0.listPortfolio))
     #print(portfolio.weights)
     #portfolio.ComputeReturns()
