@@ -90,8 +90,9 @@ class Population:
         newWeights1 = [newShares1[i] * lastPrices[i]/self.amount for i in range(0, len(newShares1))]
         newWeights2 = [newShares2[i] * lastPrices[i] / self.amount for i in range(0, len(newShares2))]
         print(f"weight 1 : {newWeights1}")
+        print(f"len : {len(newWeights1)}")
         #return [newWeights1, newWeights2]
-        return [Portfolio(self.listOfAssets,self.amount,newWeights1),Portfolio(self.listOfAssets,self.amount,newWeights2)]
+        return Portfolio(self.listOfAssets,self.amount,newWeights1),Portfolio(self.listOfAssets,self.amount,newWeights2)
 
     def mutation(self, portfolio):
         nbMut = rd.randint(1, 5)
