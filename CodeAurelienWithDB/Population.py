@@ -113,7 +113,9 @@ class Population:
         sharesRnd = [round(sharesRnd[i]) if round(sharesRnd[i]) < sharesRnd[i] else round(sharesRnd[i]) - 1 for i in
                      range(0, len(listIndex))]
         for i in range(0, nbMut):
-            weights[listIndex[i]] = sharesRnd[i]
+            weights[listIndex[i]] = sharesRnd[i]*lastPrices[listIndex[i]] / self.amount
+            #print(weights)
+            #print(len(weights))
         return Portfolio(self.listOfAssets, self.amount, weights)
 
 

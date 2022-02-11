@@ -12,6 +12,8 @@ class Portfolio:
         self.amount = amount
         self.shares = 0
         self.weights = weights if weights != 0 else self.RandomWeights()
+        self.computeShares()
+        #print(self.weights)
         """
         if weights != 0:
             self.weights = weights
@@ -192,6 +194,12 @@ class Portfolio:
         return [self.shares[i]*lastPrices[i]/self.amount for i in range(0, len(self.shares))]
         #print(f"weight sum {str(sum(self.weights))}")
 
+    def computeShares(self):
+        lastPrices = self.listOfAssets.LastPrices()
+        shares = [self.weights[i] * self.amount / lastPrices[i] for i in range(0, len(lastPrices))]
+        self.shares = [round(shares[i]) - 1 if round(shares[i]) > shares[i] else round(shares[i]) for i in
+                       range(0, len(shares))]
+
     """
     def ComputeNoShares(self):
         lastPrices = self.listOfAssets.LastPrices()
@@ -204,8 +212,10 @@ class Portfolio:
         noOfDays = self.listOfAssets.returns.matrixReturns.shape[0]
         returnsAssets = self.listOfAssets.returns.matrixReturns
         listOfPrices = self.listOfAssets.ListOfPrices(noOfDays)
+        #print(listOfPrices)
         returns = [sum([(self.shares[i]) * (listOfPrices[n][i]) * (returnsAssets.iloc[n, i]) / self.amount
                        for i in range(0, len(self.listOfAssets.listAssets))]) for n in range(0, noOfDays - 1)]
+        print(returns)
         return returns
 
     def ComputeVol(self):
