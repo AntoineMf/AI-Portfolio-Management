@@ -11,23 +11,23 @@ class Portfolio:
         self.score = score
         self.amount = amount
         self.shares = 0
-
+        self.weights = weights if weights != 0 else self.RandomWeights()
+        """
         if weights != 0:
             self.weights = weights
-
         else:
+            self.weights = 0
             self.RandomWeights()
+        """
+        self.returns = self.ComputeReturns()
+        self.vol = self.ComputeVol()
+        self.sharpe = self.ComputeSharpe()
         #print(self.shares)
         #print(self.weights)
-        self.returns = 0
-        self.vol = 0
-        #print(self.listOfAssets.returns.matrixReturns.shape[0])
-        self.ComputeReturns()
-        #print(self.returns)
-        self.ComputeVol()
         #print(self.vol)
         #print(self.ComputeSharpe())
-        self.sharpe = self.ComputeSharpe()
+        #print(self.returns)
+        #print(self.listOfAssets.returns.matrixReturns.shape[0])
 
     # --- Methods --- #
     # Sort a population based on..
@@ -189,7 +189,7 @@ class Portfolio:
         shares = [weightsTemp[i]*self.amount/lastPrices[i] for i in range(0, len(lastPrices))]
         self.shares = [round(shares[i]) - 1 if round(shares[i]) > shares[i] else round(shares[i]) for i in range(0, len(shares))]
         #self.shares = [round(shares[i]) for i in range(0, len(shares))]
-        self.weights = [self.shares[i]*lastPrices[i]/self.amount for i in range(0, len(self.shares))]
+        return [self.shares[i]*lastPrices[i]/self.amount for i in range(0, len(self.shares))]
         #print(f"weight sum {str(sum(self.weights))}")
 
     """
@@ -206,18 +206,19 @@ class Portfolio:
         listOfPrices = self.listOfAssets.ListOfPrices(noOfDays)
         returns = [sum([(self.shares[i]) * (listOfPrices[n][i]) * (returnsAssets.iloc[n, i]) / self.amount
                        for i in range(0, len(self.listOfAssets.listAssets))]) for n in range(0, noOfDays - 1)]
-        self.returns = returns
+        return returns
 
     def ComputeVol(self):
         variance = 0
         for i in range(0, len(self.listOfAssets.listAssets)):
             for j in range(0, len(self.listOfAssets.listAssets)):
                 variance += self.weights[i]*self.weights[j]*self.listOfAssets.covMat.matrix.iloc[i, j]
-        self.vol = variance**0.5
+        return variance**0.5
 
     def ComputeSharpe(self):
         sum = 0
         for i in range(0, len(self.returns)):
             sum += self.returns[i]
         sharpe = sum / (len(self.returns) * self.vol)
+        return sharpe
         #print(f"sharp : {sharpe}")

@@ -9,18 +9,18 @@ from Portfolio import Portfolio
 class Population:
     # --- Constructor and Attributes --- #
 
-    def __init__(self, listOfAssets, amount, index_generation, num_individu, lastPop=0):
+    def __init__(self, listOfAssets, amount, indexGeneration, numIndividuals, lastPop=0):
 
-        self.index_generation=index_generation
-        self.listPortfolio=[]
-        self.num_individu=num_individu
+        self.indexGeneration = indexGeneration
+        self.listPortfolio = []
+        self.numIndividuals = numIndividuals
         self.listOfAssets = listOfAssets
-        self.amount=amount
-        self.lastPop=lastPop
+        self.amount = amount
+        self.lastPop = lastPop
 
-        if(index_generation==0):
+        if indexGeneration == 0:
             self.createInitPop()
-        #elif(num_generation)
+        # elif(num_generation)
         else:
             self.createPop()
 
@@ -49,22 +49,40 @@ class Population:
     
 
     def crossover(self, portfolioA, portfolioB):
-        size = len(portfolioA.listWeights) / 2
-        newWeights1 = portfolioA.listWeights[:size] + portfolioB.listWeight[size:]
-        newWeights2 = portfolioB.listWeights[:size] + portfolioA.listWeight[size:]
+        size = len(portfolioA.shares) / 2
+        index = list()
+        newShares1 = [i for i in portfolioA.shares]
+        newShares2 = [i for i in portfolioB.shares]
+        while True:
+            if len(index) == size:
+                break
+            i = rd.randint(0, len(portfolioA.shares))
+            if i not in index:
+                index.append(i)
+                newShares1[i] = portfolioB.shares[i]
+                newShares2[i] = portfolioA.shares[i]
+        lastPrices = self.listOfAssets.LastPrices()
+        newWeights1 = [newShares1[i]*lastPrices[i]/self.amount for i in range(0, len(newShares1))]
+        newWeights2 = [newShares2[i] * lastPrices[i] / self.amount for i in range(0, len(newShares2))]
         return [newWeights1, newWeights2]
 
     def mutation(self, portfolio):
         nbMut = rd.randint(1, 5)
         listIndex = []
-        listWeight = portfolio.listWeight
+        listWeight = portfolio.shares
+        weightsRnd = []
+        lastPrices = self.listOfAssets.LastPrices()
         while True:
             if len(listIndex) == nbMut:
                 break
             index = rd.randint(0, len(portfolio.listWeight))
             if index not in listIndex:
                 listIndex.append(index)
-                listWeight[index] = rd.randint(5000, 100000) / 500000
+                weightsRnd.append(rd.randint(5000, 100000) / 100000)
+        sharesRnd = [weightsRnd[i]*self.amount / lastPrices[listIndex[i]] for i in range(0, len(listIndex))]
+        sharesRnd = [round(sharesRnd[i]) if round(sharesRnd[i]) < sharesRnd[i] else round(sharesRnd[i]) - 1 for i in
+                     range(0, len(listIndex))]
+        #weights = [listWeight[i] if i not in listIndex else ]
 
 
 
