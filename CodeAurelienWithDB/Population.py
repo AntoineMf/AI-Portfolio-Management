@@ -29,6 +29,7 @@ class Population:
 
     def createPop(self): 
         lastListPortfolio = self.lastPop.listPortfolio
+        print(f"last pop : {len(lastListPortfolio[0].weights)}")
         for i in range(3):
             self.listPortfolio.append(self.mutation(lastListPortfolio[i])) 
 
@@ -97,6 +98,7 @@ class Population:
     def mutation(self, portfolio):
         nbMut = rd.randint(1, 5)
         listIndex = []
+        weights = [portfolio.weights[i] for i in range(0, len(portfolio.weights))]
         listWeight = portfolio.shares
         weightsRnd = []
         lastPrices = self.listOfAssets.LastPrices()
@@ -110,9 +112,9 @@ class Population:
         sharesRnd = [weightsRnd[i]*self.amount / lastPrices[listIndex[i]] for i in range(0, len(listIndex))]
         sharesRnd = [round(sharesRnd[i]) if round(sharesRnd[i]) < sharesRnd[i] else round(sharesRnd[i]) - 1 for i in
                      range(0, len(listIndex))]
-        #weights = [listWeight[i] if i not in listIndex else ]
-
-
+        for i in range(0, nbMut):
+            weights[listIndex[i]] = sharesRnd[i]
+        return Portfolio(self.listOfAssets, self.amount, weights)
 
 
 

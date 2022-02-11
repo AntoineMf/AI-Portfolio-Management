@@ -18,9 +18,10 @@ class Genetic_Algorithm:
 
         self.listOfPopulation = list()
         self.listOfPopulation.append(Population(listOfAssets,amount,0,100))
-
+        print(f"pop : {self.listOfPopulation[0]}")
 
         for i in range (1,nbOfGeneration):
+            print(f"i : {i}")
             self.listOfPopulation.append(Population(self.listOfAssets,self.amount,i,100,self.listOfPopulation[i-1]))
             print(f"list of pop iteration {i} : {self.listOfPopulation[i]}")
 
