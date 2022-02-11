@@ -29,7 +29,7 @@ class Population:
 
     def createPop(self): 
         lastListPortfolio = self.lastPop.listPortfolio
-        print(f"last pop : {len(lastListPortfolio[0].weights)}")
+        #print(f"last pop : {len(lastListPortfolio[0].weights)}")
         for i in range(3):
             self.listPortfolio.append(self.mutation(lastListPortfolio[i])) 
 
@@ -90,8 +90,8 @@ class Population:
         lastPrices = self.listOfAssets.LastPrices()
         newWeights1 = [newShares1[i] * lastPrices[i]/self.amount for i in range(0, len(newShares1))]
         newWeights2 = [newShares2[i] * lastPrices[i] / self.amount for i in range(0, len(newShares2))]
-        print(f"weight 1 : {newWeights1}")
-        print(f"len : {len(newWeights1)}")
+        #print(f"weight 1 : {newWeights1}")
+        #print(f"len : {len(newWeights1)}")
         #return [newWeights1, newWeights2]
         return Portfolio(self.listOfAssets,self.amount,newWeights1),Portfolio(self.listOfAssets,self.amount,newWeights2)
 
@@ -109,6 +109,9 @@ class Population:
             if index not in listIndex:
                 listIndex.append(index)
                 weightsRnd.append(rd.randint(5000, 100000) / 100000)
+        print(weightsRnd)
+        print(nbMut)
+        print(listIndex)
         sharesRnd = [weightsRnd[i]*self.amount / lastPrices[listIndex[i]] for i in range(0, len(listIndex))]
         sharesRnd = [round(sharesRnd[i]) if round(sharesRnd[i]) < sharesRnd[i] else round(sharesRnd[i]) - 1 for i in
                      range(0, len(listIndex))]

@@ -215,7 +215,7 @@ class Portfolio:
         #print(listOfPrices)
         returns = [sum([(self.shares[i]) * (listOfPrices[n][i]) * (returnsAssets.iloc[n, i]) / self.amount
                        for i in range(0, len(self.listOfAssets.listAssets))]) for n in range(0, noOfDays - 1)]
-        print(returns)
+        #print(returns)
         return returns
 
     def ComputeVol(self):
