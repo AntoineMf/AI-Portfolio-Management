@@ -13,6 +13,7 @@ class Returns:
             max_number = len(values) - rolling_window
         self.matrixReturns = pd.DataFrame(data=None, index=range(0, max_number), columns=range(0, len(values.iloc[0])))
         self.matrixReturns = pd.DataFrame(data=None, index=range(0, max_number), columns=names)
+        print(self.matrixReturns.head())
         for j in range(0, len(values.iloc[0])):
             for i in range(0, max_number):
                 self.matrixReturns.iloc[i,j] = ((values.iloc[i, j] / values.iloc[i + rolling_window, j]) - 1)

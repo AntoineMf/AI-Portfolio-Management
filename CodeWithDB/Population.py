@@ -8,57 +8,66 @@ from Portfolio import Portfolio
 class Population:
     # --- Constructor and Attributes --- #
 
-    def __init__(self, listOfAssets, amount, indexGeneration, numIndividuals, lastPop=0):
+    def __init__(self, listOfAssets, amount, indexGeneration, numIndividuals,returnsClient, volClient, lastPop=0):
 
+        self.returnsClient = returnsClient
+        self.volClient = volClient
         self.indexGeneration = indexGeneration
         self.listPortfolio = []
         self.numIndividuals = numIndividuals
         self.listOfAssets = listOfAssets
         self.amount = amount
         self.lastPop = lastPop
-
+        
+        
         if indexGeneration == 0:
             self.createInitPop()
         # elif(num_generation)
         else:
+            print(f"last pop len :{len(self.lastPop.listPortfolio)}")
             self.createPop()
         self.sortPopulation()
 
     def createInitPop(self):
         for individu in range(self.numIndividuals):
-            self.listPortfolio.append(Portfolio(self.listOfAssets,self.amount))
+            self.listPortfolio.append(Portfolio(self.listOfAssets,self.amount,self.returnsClient,self.volClient))
 
     def createPop(self): 
         lastListPortfolio = self.lastPop.listPortfolio
-        #print(f"last pop : {len(lastListPortfolio[0].weights)}")
-        for i in range(3):
-            self.listPortfolio.append(self.mutation(lastListPortfolio[i])) 
 
-        self.listPortfolio.extend(self.crossover(lastListPortfolio[0], lastListPortfolio[1])) # crois1
-        self.listPortfolio.extend(self.crossover(lastListPortfolio[1], lastListPortfolio[2]))
-        self.listPortfolio.extend(self.crossover(lastListPortfolio[0], lastListPortfolio[2]))
-        self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[0]), self.mutation(lastListPortfolio[1])))
-         # mut + crois 1
-        self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[1]), self.mutation(lastListPortfolio[2])))
-        self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[0]), self.mutation(lastListPortfolio[2])))
-
-        
         for i in range(0, 10):
             self.listPortfolio.append(lastListPortfolio[i])
-        for i in range(0, 7):
-            indexA = rd.randint(0,10)
+        
+        #for i in range(0, 5):
+        #    self.listPortfolio.append(lastListPortfolio[int((len(lastListPortfolio)/2)-i-1)])
+
+        #print(f"last pop : {len(lastListPortfolio[0].weights)}")
+
+        #self.listPortfolio.extend(self.crossover(lastListPortfolio[0], lastListPortfolio[1])) # crois1
+        #self.listPortfolio.extend(self.crossover(lastListPortfolio[1], lastListPortfolio[2]))
+        #self.listPortfolio.extend(self.crossover(lastListPortfolio[0], lastListPortfolio[2]))
+        for i in range(1):
+            self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[0]), self.mutation(lastListPortfolio[1])))
+            # mut + crois 1
+            self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[1]), self.mutation(lastListPortfolio[2])))
+            self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[0]), self.mutation(lastListPortfolio[2])))
+
+        #for i in range(0, 12):
+        #    self.listPortfolio.append(Portfolio(self.listOfAssets, self.amount))
+        
+        for i in range(1):
+            indexA = rd.randint(0,40)
             while True:
                 indexB = rd.randint(0, 10)
                 if indexA != indexB:
                     break
 
-            indexC = rd.randint(0,10)
+            indexC = rd.randint(0,40)
             while True:
                 indexD = rd.randint(0, 10)
                 if indexD != indexC:
                     break
-            
-            #print(self.mutation())
+                       #print(self.mutation())
             self.listPortfolio.append(self.mutation(lastListPortfolio[indexA])) # mut1
             self.listPortfolio.append(self.mutation(lastListPortfolio[indexB])) # mut2
             self.listPortfolio.append(self.mutation(lastListPortfolio[indexC])) # mut3
@@ -70,9 +79,24 @@ class Population:
             
             self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[indexA]),self.mutation(lastListPortfolio[indexB]))) # mut + cross 1
             self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[indexC]),self.mutation(lastListPortfolio[indexD]))) # mut + cross 2
+            '''
+            self.listPortfolio.append(self.mutation(self.listPortfolio[indexA])) # mut1
+            self.listPortfolio.append(self.mutation(self.listPortfolio[indexB])) # mut2
+            self.listPortfolio.append(self.mutation(self.listPortfolio[indexC])) # mut3
+            self.listPortfolio.append(self.mutation(self.listPortfolio[indexD])) # mut4
             
-        for i in range(0, 35):
-            self.listPortfolio.append(Portfolio(self.listOfAssets, self.amount))
+            self.listPortfolio.extend(self.crossover(self.listPortfolio[indexA],self.listPortfolio[indexB])) #crossover 1
+            
+            self.listPortfolio.extend(self.crossover(self.listPortfolio[indexC],self.listPortfolio[indexD])) #crossover 2
+            
+            self.listPortfolio.extend(self.crossover(self.mutation(self.listPortfolio[indexA]),self.mutation(self.listPortfolio[indexB]))) # mut + cross 1
+            self.listPortfolio.extend(self.crossover(self.mutation(self.listPortfolio[indexC]),self.mutation(self.listPortfolio[indexD]))) # mut + cross 2
+            '''
+        for i in range(4):
+            self.listPortfolio.append(self.mutation(lastListPortfolio[i])) 
+        
+        for i in range(0, 43):
+            self.listPortfolio.append(Portfolio(self.listOfAssets, self.amount,self.returnsClient,self.volClient))
     
 
     def crossover(self, portfolioA, portfolioB):
@@ -97,10 +121,10 @@ class Population:
         #print(f"len : {len(newWeights1)}")
         #return [newWeights1, newWeights2]
         #print(sum(newWeights1))
-        return Portfolio(self.listOfAssets,self.amount,newWeights1),Portfolio(self.listOfAssets,self.amount,newWeights2)
+        return Portfolio(self.listOfAssets,self.amount,self.returnsClient,self.volClient,newWeights1),Portfolio(self.listOfAssets,self.amount,self.returnsClient,self.volClient,newWeights2)
 
     def mutation(self, portfolio):
-        nbMut = rd.randint(1, 5)
+        nbMut = rd.randint(1, 4)
         listIndex = []
         weights = [portfolio.weights[i] for i in range(0, len(portfolio.weights))]
         listWeight = portfolio.shares
@@ -124,10 +148,10 @@ class Population:
             #print(weights)
             #print(len(weights))
         weights = [weights[i]/sum(weights) for i in range(0, len(weights))]
-        return Portfolio(self.listOfAssets, self.amount, weights)
+        return Portfolio(self.listOfAssets, self.amount,self.returnsClient,self.volClient, weights)
 
     def createPortfolio(self, weights):
-        return Portfolio(self.listOfAssets, self.amount, weights)
+        return Portfolio(self.listOfAssets, self.amount,self.returnsClient,self.volClient, weights)
 
     def maxScore(self):
         scores = [self.listPortfolio[i].score for i in range(0, len(self.listPortfolio))]

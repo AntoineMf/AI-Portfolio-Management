@@ -21,13 +21,23 @@ def modifyDateFormat(x):
 
 
 if __name__ == '__main__':
+    print("Insert your expected return on investment\n5% : 0.05")
+    yield_value=float(input())
+    print("Insert the portfolio volatility you are expecting\n5% : 0.05")
+    vol_value=float(input())
+
     path = "Data_CAC.csv"
-    df = pd.read_csv(path, delimiter=";")
-    #print(df.head())
+    first_df = pd.read_csv(path, delimiter=";")
+    df=first_df[['Date','DSY FP Equity','CAP FP Equity','ALO FP Equity','VIE FP Equity','STM FP Equity','RMS FP Equity']]
+    
+    #sprint(df.head())
+    
+
     dates = df.pop("Date")
     names = df.columns
     nODays = 1
     nORet = 7
+    len_df=df.shape[1]
     """
     db_connection_str= 'mysql+pymysql://pi2:pi2@192.168.196.59/PI2'
     db_connection = create_engine(db_connection_str)
@@ -49,7 +59,7 @@ if __name__ == '__main__':
     #print(len(assets.listAssets))
     #portfolio = Portfolio(assets, 10000)
 
-    aiTest = Genetic_Algorithm(assets,10000000,100)
+    aiTest = Genetic_Algorithm(assets,100000,1000,yield_value,vol_value)
 
     #Pop0=Pop(assets,10000,0,100)
     #print(len(Pop0.listPortfolio))

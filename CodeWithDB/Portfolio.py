@@ -6,8 +6,12 @@ import numpy as np
 
 class Portfolio:
     # --- Constructor and Attributes --- #
-    def __init__(self, listOfAssets, amount, weights=0, score=0):
+    def __init__(self, listOfAssets, amount, returnsClient, volClient, weights=0, score=0):
+        self.returnsClient = returnsClient
+        self.volClient = volClient
         self.listOfAssets = listOfAssets
+        #print(self.listOfAssets)
+        self.numberOfAssets = 6
         self.score = score
         self.amount = amount
         self.shares = 0
@@ -48,10 +52,10 @@ class Portfolio:
         return choices
     """
 
-    def ChooseAssets(self, numberOfAssets=38):
+    def ChooseAssets(self):
         choices = list()
         index = range(0, len(self.listOfAssets.listAssets))
-        while len(choices) < numberOfAssets:
+        while len(choices) < self.numberOfAssets:
             val = rd.choices(index)[0]
             if val not in choices:
                 choices.append(val)
@@ -180,9 +184,9 @@ class Portfolio:
                 index += 1
     """
 
-    def RandomWeights(self, numberOfAssets=38):
-        choices = self.ChooseAssets(numberOfAssets)
-        rndWeights = [rd.randint(1000, 100000) / 100000 for i in range(0, numberOfAssets)]
+    def RandomWeights(self):
+        choices = self.ChooseAssets()
+        rndWeights = [rd.randint(1000, 100000) / 100000 for i in range(0, self.numberOfAssets)]
         rndWeights = [i / sum(rndWeights) for i in rndWeights]
         weightsTemp = [0 for i in range(0, len(self.listOfAssets.listAssets))]
         index = 0
@@ -236,8 +240,9 @@ class Portfolio:
         return sharpe
         #print(f"sharp : {sharpe}")
 
-    def fitness(self, volClient=0, returnsClient=0.05):
-        score = self.sharpe
+    def fitness(self):
+        #score = self.sharpe
+        score = self.avgReturns
         uninvested = 1 - sum(self.weights)
         if uninvested < 0:
             score -= 10 * abs(uninvested)
@@ -245,14 +250,15 @@ class Portfolio:
             score -= 2 * uninvested
         else:
             score -= 0.5 * uninvested
-        if volClient != 0 and returnsClient != 0:
-            score -= 1.5 * abs(self.vol - volClient)
-            score -= 10000 * abs(self.avgReturns - returnsClient)
-            print("ptn")
-        elif volClient != 0:
-            score -= 1.5 *abs(self.vol - volClient)
-            print("ici")
-        elif returnsClient != 0:
-            #print("la")
-            score -= 1000000000 * abs(self.avgReturns - returnsClient)
+        if self.volClient != 0 and self.returnsClient != 0:
+            score -= 1.5 * abs(self.vol - self.volClient)
+            score -= 10000 * abs(self.avgReturns - self.returnsClient)
+            
+        elif self.volClient != 0:
+            score -= 1.5 *abs(self.vol - self.volClient)
+            
+        elif self.returnsClient != 0:
+            pass
+            #score -= 1000 * abs(self.avgReturns - self.returnsClient)
+            
         self.score = score
