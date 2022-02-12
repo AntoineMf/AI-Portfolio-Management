@@ -33,13 +33,13 @@ class Population:
         for i in range(3):
             self.listPortfolio.append(self.mutation(lastListPortfolio[i])) 
 
-        self.listPortfolio.extend(self.crossover(lastListPortfolio[0],lastListPortfolio[1])) # crois1
-        self.listPortfolio.extend(self.crossover(lastListPortfolio[1],lastListPortfolio[2]))
-        self.listPortfolio.extend(self.crossover(lastListPortfolio[0],lastListPortfolio[2]))
-        self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[0]),self.mutation(lastListPortfolio[1])))
+        self.listPortfolio.extend(self.crossover(lastListPortfolio[0], lastListPortfolio[1])) # crois1
+        self.listPortfolio.extend(self.crossover(lastListPortfolio[1], lastListPortfolio[2]))
+        self.listPortfolio.extend(self.crossover(lastListPortfolio[0], lastListPortfolio[2]))
+        self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[0]), self.mutation(lastListPortfolio[1])))
          # mut + crois 1
-        self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[1]),self.mutation(lastListPortfolio[2])))
-        self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[0]),self.mutation(lastListPortfolio[2])))
+        self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[1]), self.mutation(lastListPortfolio[2])))
+        self.listPortfolio.extend(self.crossover(self.mutation(lastListPortfolio[0]), self.mutation(lastListPortfolio[2])))
 
         
         for i in range(0, 10):
@@ -121,10 +121,19 @@ class Population:
             #print(len(weights))
         return Portfolio(self.listOfAssets, self.amount, weights)
 
-
-
     def createPortfolio(self, weights):
         return Portfolio(self.listOfAssets, self.amount, weights)
 
-    
+    def maxScore(self):
+        scores = [self.listPortfolio[i].score for i in range(0, len(self.listPortfolio))]
+        maxScore = max(scores)
+        return maxScore
 
+    def meanScore(self):
+        scores = [self.listPortfolio[i].score for i in range(0, len(self.listPortfolio))]
+        meanScore = sum(scores)/len(scores)
+        return meanScore
+
+    def sortPopulation(self):
+        #sorted(self.listPortfolio, key=attrgetter('score'), reverse=True)
+        sorted(self.listPortfolio, key=lambda portfolio: portfolio.score)

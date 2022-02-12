@@ -24,7 +24,7 @@ class Genetic_Algorithm:
             print(f"i : {i}")
             self.listOfPopulation.append(Population(self.listOfAssets,self.amount,i,100,self.listOfPopulation[i-1]))
             print(f"list of pop iteration {i} : {self.listOfPopulation[i]}")
-            print(self.listOfPopulation.)
+            print(f"Mean score : {self.listOfPopulation[i].meanScore()}")
 
 
 
