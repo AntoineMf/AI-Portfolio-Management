@@ -24,7 +24,9 @@ class Portfolio:
         self.returns = self.ComputeReturns()
         self.vol = self.ComputeVol()
         self.sharpe = self.ComputeSharpe()
+        self.avgReturns = sum(self.returns)/len(self.returns)
         self.fitness()
+        #print(self.shares)
         #print(self.shares)
         #print(self.weights)
         #print(self.vol)
@@ -197,9 +199,9 @@ class Portfolio:
 
     def computeShares(self):
         lastPrices = self.listOfAssets.LastPrices()
-        shares = [self.weights[i] * self.amount / lastPrices[i] for i in range(0, len(lastPrices))]
-        self.shares = [round(shares[i]) - 1 if round(shares[i]) > shares[i] else round(shares[i]) for i in
-                       range(0, len(shares))]
+        self.shares = [self.weights[i] * self.amount / lastPrices[i] for i in range(0, len(lastPrices))]
+        #self.shares = [round(shares[i]) - 1 if round(shares[i]) > shares[i] else round(shares[i]) for i in
+                       #range(0, len(shares))]
 
     """
     def ComputeNoShares(self):
@@ -234,20 +236,23 @@ class Portfolio:
         return sharpe
         #print(f"sharp : {sharpe}")
 
-    def fitness(self, volClient=0, returnsClient=0):
+    def fitness(self, volClient=0, returnsClient=0.05):
         score = self.sharpe
         uninvested = 1 - sum(self.weights)
         if uninvested < 0:
-            score -= 7.5 * abs(uninvested)
+            score -= 10 * abs(uninvested)
         elif uninvested > 0.15:
-            score -= 4 * uninvested
+            score -= 2 * uninvested
         else:
             score -= 0.5 * uninvested
         if volClient != 0 and returnsClient != 0:
-            score -= abs(self.vol - volClient)
-            score -= abs(self.returns - returnsClient)
+            score -= 1.5 * abs(self.vol - volClient)
+            score -= 10000 * abs(self.avgReturns - returnsClient)
+            print("ptn")
         elif volClient != 0:
-            score -= abs(self.vol - volClient)
+            score -= 1.5 *abs(self.vol - volClient)
+            print("ici")
         elif returnsClient != 0:
-            score -= abs(self.returns - returnsClient)
+            #print("la")
+            score -= 1000000000 * abs(self.avgReturns - returnsClient)
         self.score = score

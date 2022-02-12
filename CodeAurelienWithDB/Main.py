@@ -39,6 +39,7 @@ if __name__ == '__main__':
     #print(len(df))
     #print(len(df.iloc[0]))
     returns = Returns(df, nODays, names, nORet)
+    #print(returns)
 
     cov = VarCov(returns.matrixReturns)
     #print(type(cov.matrix))
@@ -48,7 +49,7 @@ if __name__ == '__main__':
     #print(len(assets.listAssets))
     #portfolio = Portfolio(assets, 10000)
 
-    aiTest = Genetic_Algorithm(assets,10000,100)
+    aiTest = Genetic_Algorithm(assets,10000000,100)
 
     #Pop0=Pop(assets,10000,0,100)
     #print(len(Pop0.listPortfolio))

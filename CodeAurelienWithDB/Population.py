@@ -91,9 +91,12 @@ class Population:
         lastPrices = self.listOfAssets.LastPrices()
         newWeights1 = [newShares1[i] * lastPrices[i]/self.amount for i in range(0, len(newShares1))]
         newWeights2 = [newShares2[i] * lastPrices[i] / self.amount for i in range(0, len(newShares2))]
+        newWeights1 = [newWeights1[i]/sum(newWeights1) for i in range(0, len(newWeights1))]
+        newWeights2 = [newWeights2[i] / sum(newWeights2) for i in range(0, len(newWeights2))]
         #print(f"weight 1 : {newWeights1}")
         #print(f"len : {len(newWeights1)}")
         #return [newWeights1, newWeights2]
+        #print(sum(newWeights1))
         return Portfolio(self.listOfAssets,self.amount,newWeights1),Portfolio(self.listOfAssets,self.amount,newWeights2)
 
     def mutation(self, portfolio):
@@ -120,6 +123,7 @@ class Population:
             weights[listIndex[i]] = sharesRnd[i]*lastPrices[listIndex[i]] / self.amount
             #print(weights)
             #print(len(weights))
+        weights = [weights[i]/sum(weights) for i in range(0, len(weights))]
         return Portfolio(self.listOfAssets, self.amount, weights)
 
     def createPortfolio(self, weights):
