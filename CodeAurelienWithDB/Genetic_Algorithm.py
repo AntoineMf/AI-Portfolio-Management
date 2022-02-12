@@ -30,6 +30,8 @@ class Genetic_Algorithm:
             print(self.listOfPopulation[i].listPortfolio[1].score)
             print(self.listOfPopulation[i].listPortfolio[2].score)
             print(sum(self.listOfPopulation[i].listPortfolio[0].weights))
+            print(sum(self.listOfPopulation[i].listPortfolio[0].returns)/6)
+            print(self.listOfPopulation[i].listPortfolio[0].vol)
 
 
 

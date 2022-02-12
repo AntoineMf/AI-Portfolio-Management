@@ -238,7 +238,7 @@ class Portfolio:
         score = self.sharpe
         uninvested = 1 - sum(self.weights)
         if uninvested < 0:
-            score -= 15 * abs(uninvested)
+            score -= 7.5 * abs(uninvested)
         elif uninvested > 0.15:
             score -= 4 * uninvested
         else:
