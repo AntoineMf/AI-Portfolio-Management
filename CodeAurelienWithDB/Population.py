@@ -105,13 +105,13 @@ class Population:
         while True:
             if len(listIndex) == nbMut:
                 break
-            index = rd.randint(0, len(listWeight))
+            index = rd.randint(0, len(listWeight)-1)
             if index not in listIndex:
                 listIndex.append(index)
                 weightsRnd.append(rd.randint(5000, 100000) / 100000)
-        print(weightsRnd)
-        print(nbMut)
-        print(listIndex)
+        #print(weightsRnd)
+        #print(nbMut)
+        #print(listIndex)
         sharesRnd = [weightsRnd[i]*self.amount / lastPrices[listIndex[i]] for i in range(0, len(listIndex))]
         sharesRnd = [round(sharesRnd[i]) if round(sharesRnd[i]) < sharesRnd[i] else round(sharesRnd[i]) - 1 for i in
                      range(0, len(listIndex))]
