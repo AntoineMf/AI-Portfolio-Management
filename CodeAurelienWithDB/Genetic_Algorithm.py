@@ -25,6 +25,11 @@ class Genetic_Algorithm:
             self.listOfPopulation.append(Population(self.listOfAssets,self.amount,i,100,self.listOfPopulation[i-1]))
             print(f"list of pop iteration {i} : {self.listOfPopulation[i]}")
             print(f"Mean score : {self.listOfPopulation[i].meanScore()}")
+            print(f"Max score : {self.listOfPopulation[i].maxScore()}")
+            print(self.listOfPopulation[i].listPortfolio[0].score)
+            print(self.listOfPopulation[i].listPortfolio[1].score)
+            print(self.listOfPopulation[i].listPortfolio[2].score)
+            print(sum(self.listOfPopulation[i].listPortfolio[0].weights))
 
 
 

@@ -24,6 +24,7 @@ class Portfolio:
         self.returns = self.ComputeReturns()
         self.vol = self.ComputeVol()
         self.sharpe = self.ComputeSharpe()
+        self.fitness()
         #print(self.shares)
         #print(self.weights)
         #print(self.vol)
@@ -232,3 +233,21 @@ class Portfolio:
         sharpe = sum / (len(self.returns) * self.vol)
         return sharpe
         #print(f"sharp : {sharpe}")
+
+    def fitness(self, volClient=0, returnsClient=0):
+        score = self.sharpe
+        uninvested = 1 - sum(self.weights)
+        if uninvested < 0:
+            score -= 15 * abs(uninvested)
+        elif uninvested > 0.15:
+            score -= 4 * uninvested
+        else:
+            score -= 0.5 * uninvested
+        if volClient != 0 and returnsClient != 0:
+            score -= abs(self.vol - volClient)
+            score -= abs(self.returns - returnsClient)
+        elif volClient != 0:
+            score -= abs(self.vol - volClient)
+        elif returnsClient != 0:
+            score -= abs(self.returns - returnsClient)
+        self.score = score

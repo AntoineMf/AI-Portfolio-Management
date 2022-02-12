@@ -22,6 +22,7 @@ class Population:
         # elif(num_generation)
         else:
             self.createPop()
+        self.sortPopulation()
 
     def createInitPop(self):
         for individu in range(self.numIndividuals):
@@ -136,4 +137,4 @@ class Population:
 
     def sortPopulation(self):
         #sorted(self.listPortfolio, key=attrgetter('score'), reverse=True)
-        sorted(self.listPortfolio, key=lambda portfolio: portfolio.score)
+        self.listPortfolio = sorted(self.listPortfolio, key=lambda portfolio: portfolio.score, reverse=True)
