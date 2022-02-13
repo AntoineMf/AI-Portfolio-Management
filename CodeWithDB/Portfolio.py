@@ -251,8 +251,8 @@ class Portfolio:
         else:
             score -= 0.5 * uninvested
         if self.volClient != 0 and self.returnsClient != 0:
-            score -= 1.5 * abs(self.vol - self.volClient)
-            score -= 10000 * abs(self.avgReturns - self.returnsClient)
+            score -= 1000 * abs(self.vol - self.volClient)
+            score -= 1000 * abs(self.avgReturns - self.returnsClient)
             
         elif self.volClient != 0:
             score -= 1.5 *abs(self.vol - self.volClient)

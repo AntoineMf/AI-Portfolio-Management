@@ -24,7 +24,7 @@ class Population:
             self.createInitPop()
         # elif(num_generation)
         else:
-            print(f"last pop len :{len(self.lastPop.listPortfolio)}")
+            #print(f"last pop len :{len(self.lastPop.listPortfolio)}")
             self.createPop()
         self.sortPopulation()
 

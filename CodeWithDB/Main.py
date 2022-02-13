@@ -35,8 +35,8 @@ if __name__ == '__main__':
 
     dates = df.pop("Date")
     names = df.columns
-    nODays = 1
-    nORet = 7
+    nODays = 5
+    nORet = 22
     len_df=df.shape[1]
     """
     db_connection_str= 'mysql+pymysql://pi2:pi2@192.168.196.59/PI2'
@@ -59,7 +59,7 @@ if __name__ == '__main__':
     #print(len(assets.listAssets))
     #portfolio = Portfolio(assets, 10000)
 
-    aiTest = Genetic_Algorithm(assets,100000,1000,yield_value,vol_value)
+    aiTest = Genetic_Algorithm(assets,100000,100,yield_value,vol_value)
 
     #Pop0=Pop(assets,10000,0,100)
     #print(len(Pop0.listPortfolio))
