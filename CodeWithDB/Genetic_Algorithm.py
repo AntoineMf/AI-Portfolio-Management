@@ -20,11 +20,13 @@ class Genetic_Algorithm:
         self.nbOfGeneration = nbOfGeneration
 
         self.listOfPopulation = list()
-        self.listOfPopulation.append(Population(listOfAssets,amount,0,75,self.returnsClient,self.volClient))
+        self.listOfPopulation.append(Population(listOfAssets,amount,0,75,self.returnsClient,self.volClient)) # création Pop_0
         #print(f"pop : {self.listOfPopulation[0]}")
 
         for i in range (1,nbOfGeneration):
             print(f"\nGeneration : {i}\n")
+            
+            '''C'est dans cette ligne que les croisement mutation et fitness intervienne en tache de fond ( via Population puis Via Portfolio )'''
             self.listOfPopulation.append(Population(self.listOfAssets,self.amount,i,75,self.returnsClient,self.volClient,self.listOfPopulation[i-1]))
             """print(f"list of pop iteration {i} : {self.listOfPopulation[i]}")"""
             
@@ -39,7 +41,7 @@ class Genetic_Algorithm:
         print(f"\nReturns :{sum(self.listOfPopulation[nbOfGeneration-1].listPortfolio[0].returns)/6}")
         print(f"Volatility : {self.listOfPopulation[nbOfGeneration-1].listPortfolio[0].vol}\n")
 
-        assetsSeparated=re.findall("[a-zA-Z]+\s[a-zA-Z]+\s[a-zA-Z]+",str(self.listOfPopulation[0].listPortfolio[0].listOfAssets))
+        assetsSeparated=re.findall("[a-zA-Z]+\s[a-zA-Z]+\s[a-zA-Z]+",str(self.listOfPopulation[0].listPortfolio[0].listOfAssets)) # ???
         #print(assetsSeparated)
         
 

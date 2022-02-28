@@ -5,6 +5,7 @@ import numpy as np
 
 
 class Portfolio:
+    ''' Creation d'un portefeuille avec tout les parametre clients,car dans cette classe on implémente aussi la fitness'''
     # --- Constructor and Attributes --- #
     def __init__(self, listOfAssets, amount, returnsClient, volClient, weights=0, score=0):
         self.returnsClient = returnsClient
@@ -16,7 +17,7 @@ class Portfolio:
         self.amount = amount
         self.shares = 0
         self.weights = weights if weights != 0 else self.RandomWeights()
-        self.computeShares()
+        self.computeShares() #  ??? j'ai l'impression que computeShare est deja fait dans RandomWeights
         #print(self.weights)
         """
         if weights != 0:
@@ -52,6 +53,7 @@ class Portfolio:
         return choices
     """
 
+    '''??? Choisis des assets de manière aléatoire'''
     def ChooseAssets(self):
         choices = list()
         index = range(0, len(self.listOfAssets.listAssets))
@@ -186,21 +188,24 @@ class Portfolio:
 
     def RandomWeights(self):
         choices = self.ChooseAssets()
-        rndWeights = [rd.randint(1000, 100000) / 100000 for i in range(0, self.numberOfAssets)]
-        rndWeights = [i / sum(rndWeights) for i in rndWeights]
+        rndWeights = [rd.randint(1000, 100000) / 100000 for i in range(0, self.numberOfAssets)] #poids alea entre 0 et 1 à 0.001 près
+        rndWeights = [i / sum(rndWeights) for i in rndWeights] # Normalisation pour les sommer à = 1
         weightsTemp = [0 for i in range(0, len(self.listOfAssets.listAssets))]
         index = 0
         for i in range(0, len(weightsTemp)):
             if i in choices:
-                weightsTemp[i] = rndWeights[index]
+                weightsTemp[i] = rndWeights[index] # Attribution de poids aléatoire à certain assets.
                 index += 1
         lastPrices = self.listOfAssets.LastPrices()
-        shares = [weightsTemp[i]*self.amount/lastPrices[i] for i in range(0, len(lastPrices))]
-        self.shares = [round(shares[i]) - 1 if round(shares[i]) > shares[i] else round(shares[i]) for i in range(0, len(shares))]
+
+        '''liste du nb de share à acheter selon le montant du portefeuille, le poids attribué, et la valeur d'une actions'''
+        shares = [weightsTemp[i]*self.amount/lastPrices[i] for i in range(0, len(lastPrices))] 
+        self.shares = [round(shares[i]) - 1 if round(shares[i]) > shares[i] else round(shares[i]) for i in range(0, len(shares))] # arrondi à un nb entier
         #self.shares = [round(shares[i]) for i in range(0, len(shares))]
         return [self.shares[i]*lastPrices[i]/self.amount for i in range(0, len(self.shares))]
         #print(f"weight sum {str(sum(self.weights))}")
 
+    '''liste du nb de share à acheter selon le montant du portefeuille, le poids attribué, et la valeur d'une actions'''
     def computeShares(self):
         lastPrices = self.listOfAssets.LastPrices()
         self.shares = [self.weights[i] * self.amount / lastPrices[i] for i in range(0, len(lastPrices))]
@@ -215,6 +220,7 @@ class Portfolio:
         print(str(sum(test)/self.amount))
     """
 
+    ''' Renvoie une liste de returns du portefeuille par jours, sachant que chaque jours le rendement est la somme des rendements de chaque assets pondérer par l'investissement propre à chaque assets'''
     def ComputeReturns(self):
         noOfDays = self.listOfAssets.returns.matrixReturns.shape[0]
         returnsAssets = self.listOfAssets.returns.matrixReturns
@@ -225,6 +231,7 @@ class Portfolio:
         #print(returns)
         return returns
 
+    ''' Retourne la variane du portefeuille'''
     def ComputeVol(self):
         variance = 0
         for i in range(0, len(self.listOfAssets.listAssets)):
@@ -232,6 +239,7 @@ class Portfolio:
                 variance += self.weights[i]*self.weights[j]*self.listOfAssets.covMat.matrix.iloc[i, j]
         return variance**0.5
 
+    ''' Retourne le ration de sharpe du portefeuille'''
     def ComputeSharpe(self):
         sum = 0
         for i in range(0, len(self.returns)):
@@ -240,17 +248,18 @@ class Portfolio:
         return sharpe
         #print(f"sharp : {sharpe}")
 
+    '''Fitness selon 3 parametre d'appreciation d'un portefeuille'''
     def fitness(self):
         #score = self.sharpe
         score = self.avgReturns
         uninvested = 1 - sum(self.weights)
-        if uninvested < 0:
+        if uninvested < 0: # parametre de positionnement : est ce que la part de cash est importante : OUI : dépréciation du score 
             score -= 10 * abs(uninvested)
         elif uninvested > 0.15:
             score -= 2 * uninvested
         else:
             score -= 0.5 * uninvested
-        if self.volClient != 0 and self.returnsClient != 0:
+        if self.volClient != 0 and self.returnsClient != 0: # parametre d'écartement à la volet return client : dépreciation en fonction de la distance par rapport a la valeur souhaitée
             score -= 1000 * abs(self.vol - self.volClient)
             score -= 1000 * abs(self.avgReturns - self.returnsClient)
             

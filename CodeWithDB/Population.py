@@ -7,7 +7,11 @@ from Portfolio import Portfolio
 
 class Population:
     # --- Constructor and Attributes --- #
-
+    '''
+    Constructeur d'une population. Selon l'indexGénération (0 = pop_0 initiale) on construit soit une pop de numIndividuals induvidus,
+    soit des population issues des croisement et mutation de la LastPop existante.
+    La population est immédiatement triée dès sa crétion.
+    '''
     def __init__(self, listOfAssets, amount, indexGeneration, numIndividuals,returnsClient, volClient, lastPop=0):
 
         self.returnsClient = returnsClient
@@ -55,9 +59,10 @@ class Population:
         #for i in range(0, 12):
         #    self.listPortfolio.append(Portfolio(self.listOfAssets, self.amount))
         
-        for i in range(1):
+        ''' Creation d'index aléatoire pour les mutation à venir'''
+        for i in range(1):# ???
             indexA = rd.randint(0,40)
-            while True:
+            while True: #???
                 indexB = rd.randint(0, 10)
                 if indexA != indexB:
                     break
