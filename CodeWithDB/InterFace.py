@@ -1,5 +1,6 @@
-# ------------- Main to test the different classes ------------- #
 
+from tkinter import *
+import Main
 # Packages
 import pandas as pd
 import numpy as np
@@ -15,13 +16,7 @@ from Genetic_Algorithm import Genetic_Algorithm
 from sqlalchemy import create_engine
 from datetime import datetime
 
-'''Permet de restructurer les dates qu'on traite en DD/MM/AAAA'''
-def modifyDateFormat(x): 
-    dateObject = datetime.strptime(str(x),'%Y-%m-%d')
-    return dateObject.strftime('%d/%m/%y')
-
-
-if __name__ == '__main__':
+def run_algo():
     '''Input utilisateur, c'est ça qu'on doit remettre en Affichage User'''
     print("Insert your expected return on investment\n5% : 0.05")
     yield_value=float(input())
@@ -105,4 +100,32 @@ if __name__ == '__main__':
     print('vol : {} '.format(pop_final._list_porfolio[0]._volatility))
     """
 
+# créer premiere fenêtre 
+Menu_princ = Tk()
 
+#personnaliser fenetre 
+Menu_princ.title("Menu") # Titre fenetre
+Menu_princ.geometry("1080x720") # Taille à l'ouverture
+Menu_princ.minsize(480,360) # Taille minimal
+Menu_princ.iconbitmap("Logo_esilv_png_blanc.ico") # logo
+Menu_princ.config(background="#5D5B5B") # couleur fond
+
+#creer la frame : 
+frame = Frame(Menu_princ,bg = "#5D5B5B",bd = 1,relief = SUNKEN) # Frame et config
+
+# ajouter texte :
+label_title = Label(frame,text = "Algo Genetique Markowitz",font =("Arial",40),bg = "#5D5B5B",fg ="white" )
+label_title.pack()
+
+#ajouter second texte
+label_sub_title = Label(frame,text = "Merci de parametrer l'algorithme",font =("Arial",25),bg = "#5D5B5B",fg ="white" )
+label_sub_title.pack()
+
+# Ajouter un bouton
+Run_code = Button(frame, text = "Run code",font =("Arial",25),bg = "white",fg ="#5D5B5B",command=run_algo) # lance le code lorsque on appui sur le bouton
+Run_code.pack(pady=25,fill=X) #affichage et design
+#ajouter frame
+frame.pack(expand = YES)
+
+# afficher fenetre 
+Menu_princ.mainloop()
