@@ -16,12 +16,20 @@ from Genetic_Algorithm import Genetic_Algorithm
 from sqlalchemy import create_engine
 from datetime import datetime
 
+
+
 def run_algo():
-    '''Input utilisateur, c'est ça qu'on doit remettre en Affichage User'''
-    print("Insert your expected return on investment\n5% : 0.05")
-    yield_value=float(input())
-    print("Insert the portfolio volatility you are expecting\n5% : 0.05")
-    vol_value=float(input())
+    # input box
+    vol_value = float(vola.get())
+    yield_value = float(ret.get())
+    #'''Input utilisateur, c'est ça qu'on doit remettre en Affichage User'''
+    #print("Insert your expected return on investment\n5% : 0.05")
+    #yield_value=float(input())
+    #print("Insert the portfolio volatility you are expecting\n5% : 0.05")
+    #vol_value=float(input())
+
+    
+
     '''Recupération de certaines datas du CSV, temporaire : normalement on va travailler sur la BD'''
     path = "Data_CAC.csv"
     first_df = pd.read_csv(path, delimiter=";")
@@ -66,6 +74,36 @@ def run_algo():
 
     '''lancement de la boucle géntique, avec la liste d'assets construite, des paramètre d'itération, et des objectif clients. '''
     aiTest = Genetic_Algorithm(assets,100000,100,yield_value,vol_value)
+    
+    ''' Cette partie de l'affichage ne fonctionne pas, elle est à revoir, mais l'affichage final fonctionne'''
+    for item in aiTest.Historique_gen:
+        
+        for c in Menu_princ.winfo_children(): # clean console
+            c.destroy()
+
+        # AFFICHAGE DE CHAQUE GEN
+        frame_gen = Frame(Menu_princ,bg = "#5D5B5B",bd = 1,relief = SUNKEN) # Frame et config
+        numero_gen = Label(frame_gen,text = item[0])
+        numero_gen.pack()
+        first = Label(frame_gen,text = item[1])
+        sec = Label(frame_gen,text = item[2])
+        thrd = Label(frame_gen,text = item[3])
+        first.pack()
+        sec.pack()
+        thrd.pack()
+        frame_gen.pack()
+
+    for c in Menu_princ.winfo_children(): # clean console
+        c.destroy()
+    
+    #AFFICHAGE FINAL
+    frame_final = Frame(Menu_princ,bg = "#5D5B5B",bd = 1,relief = SUNKEN)
+    retour_f = Label(frame_final,text = aiTest.Result[0],font =("Arial",40),bg = "#5D5B5B",fg ="white" )
+    retour_f.pack()
+    vol_f = Label(frame_final,text = aiTest.Result[1],font =("Arial",40),bg = "#5D5B5B",fg ="white" )
+    vol_f.pack()
+    frame_final.pack(expand = YES)
+
 
     #Pop0=Pop(assets,10000,0,100)
     #print(len(Pop0.listPortfolio))
@@ -121,11 +159,52 @@ label_title.pack()
 label_sub_title = Label(frame,text = "Merci de parametrer l'algorithme",font =("Arial",25),bg = "#5D5B5B",fg ="white" )
 label_sub_title.pack()
 
+# ajouter champs de saisie : 
+vol_label = Label (frame,text = "Entrez volatilité requise",bg = "#5D5B5B",fg ="white")
+ret_label = Label (frame,text = "Entrez returns requis",bg = "#5D5B5B",fg ="white")
+vola = Entry(frame)
+ret = Entry(frame)
+vol_label.pack()
+vola.pack()
+ret_label.pack()
+ret.pack()
+
+
+
 # Ajouter un bouton
 Run_code = Button(frame, text = "Run code",font =("Arial",25),bg = "white",fg ="#5D5B5B",command=run_algo) # lance le code lorsque on appui sur le bouton
 Run_code.pack(pady=25,fill=X) #affichage et design
+
+
+
 #ajouter frame
 frame.pack(expand = YES)
 
 # afficher fenetre 
 Menu_princ.mainloop()
+
+
+def cleaning(): # permet à chaque génération d'éffacer la precédente
+            for c in Menu_princ.winfo_children():
+                c.destroy()
+
+
+def Print_Info_Gen(texte,texte_first,texte_sec,texte_thrd):
+    frame_gen = Frame(Menu_princ,bg = "#5D5B5B",bd = 1,relief = SUNKEN) # Frame et config
+    numero_gen = Label(frame_gen,text = texte)
+    numero_gen.pack()
+    first = Label(frame_gen,text = texte_first)
+    sec = Label(frame_gen,text = texte_sec)
+    thrd = Label(frame_gen,text = texte_thrd)
+    first.pack()
+    sec.pack()
+    thrd.pack()
+    frame_gen.pack()
+
+def Print_Final_Result(print_ret,print_vol):
+    frame_final = Frame(Menu_princ,bg = "#5D5B5B",bd = 1,relief = SUNKEN)
+    retour_f = Label(frame_final,text = print_ret)
+    retour_f.pack()
+    vol_f = Label(frame_final,text = print_vol)
+    vol_f.pack()
+    frame_final.pack()
