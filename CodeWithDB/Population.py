@@ -8,8 +8,7 @@ from Portfolio import Portfolio
 class Population:
     # --- Constructor and Attributes --- #
 
-    def __init__(self, listOfAssets, amount, indexGeneration, numIndividuals,returnsClient, volClient, lastPop=0):
-
+    def __init__(self, listOfAssets, amount, indexGeneration, numIndividuals, maxGeneration, returnsClient, volClient, lastPop=0):
         self.returnsClient = returnsClient
         self.volClient = volClient
         self.indexGeneration = indexGeneration
@@ -18,8 +17,8 @@ class Population:
         self.listOfAssets = listOfAssets
         self.amount = amount
         self.lastPop = lastPop
-        
-        
+        self.maxGeneration = maxGeneration
+
         if indexGeneration == 0:
             self.createInitPop()
         # elif(num_generation)
@@ -30,7 +29,7 @@ class Population:
 
     def createInitPop(self):
         for individu in range(self.numIndividuals):
-            self.listPortfolio.append(Portfolio(self.listOfAssets,self.amount,self.returnsClient,self.volClient))
+            self.listPortfolio.append(Portfolio(self.listOfAssets, self.amount, self.returnsClient, self.volClient))
 
     def createPop(self): 
         lastListPortfolio = self.lastPop.listPortfolio
@@ -56,13 +55,13 @@ class Population:
         #    self.listPortfolio.append(Portfolio(self.listOfAssets, self.amount))
         
         for i in range(1):
-            indexA = rd.randint(0,40)
+            indexA = rd.randint(0, 40)
             while True:
                 indexB = rd.randint(0, 10)
                 if indexA != indexB:
                     break
 
-            indexC = rd.randint(0,40)
+            indexC = rd.randint(0, 40)
             while True:
                 indexD = rd.randint(0, 10)
                 if indexD != indexC:

@@ -1,20 +1,22 @@
+
 # ------------- Portfolio Class ------------- #
 # Libraries
 import random as rd
 import numpy as np
-
+from Functions import Functions as fct
 
 class Portfolio:
     # --- Constructor and Attributes --- #
     def __init__(self, listOfAssets, amount, returnsClient, volClient, weights=0, score=0):
         self.returnsClient = returnsClient
         self.volClient = volClient
+        if self.volClient != 0 and self.returnsClient != 0: self.sharpeClient = returnsClient/volClient
         self.listOfAssets = listOfAssets
         #print(self.listOfAssets)
         self.numberOfAssets = 6
         self.score = score
         self.amount = amount
-        self.shares = 0
+        self.shares = []
         self.weights = weights if weights != 0 else self.RandomWeights()
         self.computeShares()
         #print(self.weights)
@@ -29,6 +31,7 @@ class Portfolio:
         self.vol = self.ComputeVol()
         self.sharpe = self.ComputeSharpe()
         self.avgReturns = sum(self.returns)/len(self.returns)
+
         self.fitness()
         #print(self.shares)
         #print(self.shares)
@@ -222,6 +225,14 @@ class Portfolio:
         #print(listOfPrices)
         returns = [sum([(self.shares[i]) * (listOfPrices[n][i]) * (returnsAssets.iloc[n, i]) / self.amount
                        for i in range(0, len(self.listOfAssets.listAssets))]) for n in range(0, noOfDays - 1)]
+        
+        # test
+        
+        #nav = [sum([(self.shares[i]) * (listOfPrices[n][i]) for i in range(0, len(self.listOfAssets.listAssets))])
+               #for n in range(0, noOfDays)]
+        #returns = [(nav[i] / nav[i + 1]) - 1 for i in range(0, noOfDays - 1)]
+        #returns = [sum([(self.shares[i]) * (listOfPrices[n][i]) * (returnsAssets.iloc[n, i]) / self.amount
+                        #for i in range(0, len(self.listOfAssets.listAssets))]) for n in range(0, noOfDays - 1)]
         #print(returns)
         return returns
 
@@ -239,10 +250,11 @@ class Portfolio:
         sharpe = sum / (len(self.returns) * self.vol)
         return sharpe
         #print(f"sharp : {sharpe}")
-
+    """
     def fitness(self):
         #score = self.sharpe
         score = self.avgReturns
+        print(score)
         uninvested = 1 - sum(self.weights)
         if uninvested < 0:
             score -= 10 * abs(uninvested)
@@ -262,3 +274,39 @@ class Portfolio:
             #score -= 1000 * abs(self.avgReturns - self.returnsClient)
             
         self.score = score
+    """
+    def fitness(self):
+        # score = self.sharpe
+        self.score = 0
+        sumWeights = sum(self.weights)
+        #score = self.avgReturns
+        #print(score)
+        uninvested = 1 - sumWeights
+        if sumWeights < 1:
+            self.score -= 0.9 * fct.eucldideanDist(1, sumWeights)
+        elif sumWeights < 1.05:
+            self.score -= 20 * fct.eucldideanDist(1, sumWeights)
+        else:
+            self.score -= 1000 * fct.eucldideanDist(1, sumWeights)
+
+        if self.volClient != 0 and self.returnsClient != 0:
+            self.score -= fct.eucldideanDist(self.vol, self.volClient) / self.volClient
+            self.score -= fct.eucldideanDist(self.avgReturns, self.returnsClient) / self.returnsClient
+            self.score -= fct.eucldideanDist(self.sharpe, self.sharpeClient) / self.sharpeClient
+            #self.score -= 0.8 * np.linalg.norm(self.vol - self.volClient) / self.volClient
+            #print(f"Pénalité vol {np.linalg.norm(self.vol - self.volClient) / self.volClient})")
+            #self.score -= 1.2 * np.linalg.norm(self.avgReturns - self.returnsClient) / self.returnsClient
+            #print(f"Pénalité returns {np.linalg.norm(self.avgReturns - self.returnsClient) / self.returnsClient})")
+            #self.score -= np.linalg.norm(self.sharpe - (self.returnsClient / self.volClient)) / (self.returnsClient/ self.volClient)
+
+        elif self.volClient != 0:
+            self.score -= 100 * fct.eucldideanDist(self.vol, self.volClient) / self.volClient
+            self.score += self.sharpe
+
+        elif self.returnsClient != 0:
+            self.score -= 5 * fct.eucldideanDist(self.avgReturns, self.returnsClient) / self.returnsClient
+            #self.score += self.sharpe
+            self.score -= 10000 * fct.eucldideanDist(self.avgReturns, self.returnsClient) / self.returnsClient
+            # score -= 1000 * abs(self.avgReturns - self.returnsClient)
+        #print(f"score: {self.score}")
+        #self.score = score

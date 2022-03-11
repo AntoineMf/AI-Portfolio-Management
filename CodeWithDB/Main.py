@@ -27,8 +27,11 @@ if __name__ == '__main__':
     vol_value=float(input())
 
     path = "Data_CAC.csv"
-    first_df = pd.read_csv(path, delimiter=";")
-    df=first_df[['Date','DSY FP Equity','CAP FP Equity','ALO FP Equity','VIE FP Equity','STM FP Equity','RMS FP Equity']]
+
+    df = pd.read_csv(path, delimiter=";")
+
+    #first_df = pd.read_csv(path, delimiter=";")
+    #df=first_df[['Date','DSY FP Equity','CAP FP Equity','ALO FP Equity','VIE FP Equity','STM FP Equity','RMS FP Equity']]
     
     #sprint(df.head())
     
@@ -55,6 +58,7 @@ if __name__ == '__main__':
     #print(type(cov.matrix))
 
     assets = ListOfAsset(names, df, dates, returns, cov)
+
     #print(assets.listAssets[0].values.loc[0])
     #print(len(assets.listAssets))
     #portfolio = Portfolio(assets, 10000)
