@@ -14,6 +14,7 @@ from Population import Population as Pop
 from Genetic_Algorithm import Genetic_Algorithm
 from sqlalchemy import create_engine
 from datetime import datetime
+from Sql_connection import Sql_connection
 
 def modifyDateFormat(x):
     dateObject = datetime.strptime(str(x),'%Y-%m-%d')
@@ -21,13 +22,37 @@ def modifyDateFormat(x):
 
 
 if __name__ == '__main__':
-    path = "Data_CAC.csv"
+    path = r"C:\Users\alan7\Documents\A4\pi2\final\AI-Portfolio-Management\Code Aurelien\Data_CAC.csv"
     df = pd.read_csv(path, delimiter=";")
-    #print(df.head())
+    
     dates = df.pop("Date")
+    print("CSV Dataframe")
+    print(df.head())
     names = df.columns
     nODays = 1
     nORet = 7
+
+    date1='2014/03/01'
+    date2='2014/03/27'
+
+    mycursor=Sql_connection()
+    rawtitre=mycursor.execute("SELECT * FROM Equity;")
+    mycursor.close_connection()
+
+    names=[]
+    for i in rawtitre:
+        names.append(i[0])
+
+    price=[]
+    for i in names:
+        resultat=Sql_connection.requete(date1,date2,i)
+        price.append(resultat[1])
+        dates=resultat[0]
+
+    df = pd.DataFrame(price, index = names).T
+    print("DataBase DataFrame")
+    print(df.head())
+
     """
     db_connection_str= 'mysql+pymysql://pi2:pi2@192.168.196.59/PI2'
     db_connection = create_engine(db_connection_str)
