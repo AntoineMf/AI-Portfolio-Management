@@ -29,11 +29,12 @@ if __name__ == '__main__':
     print("CSV Dataframe")
     print(df.head())
     names = df.columns
+    print(names)
     nODays = 1
     nORet = 7
 
-    date1='2014/03/01'
-    date2='2014/03/27'
+    date1='2018/03/01'
+    date2='2018/03/27'
 
     mycursor=Sql_connection()
     rawtitre=mycursor.execute("SELECT * FROM Equity;")
@@ -42,6 +43,7 @@ if __name__ == '__main__':
     names=[]
     for i in rawtitre:
         names.append(i[0])
+
 
     price=[]
     for i in names:
