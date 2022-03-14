@@ -221,13 +221,27 @@ class Portfolio:
     def ComputeReturns(self):
         noOfDays = self.listOfAssets.returns.matrixReturns.shape[0]
         returnsAssets = self.listOfAssets.returns.matrixReturns
-        listOfPrices = self.listOfAssets.ListOfPrices(noOfDays)
+        #listOfPrices = self.listOfAssets.ListOfPrices(noOfDays)
+        numberOfAssets = len(self.listOfAssets.listAssets)
         #print(listOfPrices)
-        returns = [sum([(self.shares[i]) * (listOfPrices[n][i]) * (returnsAssets.iloc[n, i]) / self.amount
-                       for i in range(0, len(self.listOfAssets.listAssets))]) for n in range(0, noOfDays - 1)]
+        #returns = [sum([(self.shares[i]) * (listOfPrices[n][i]) * (returnsAssets.iloc[n, i]) / self.amount
+        #               for i in range(0, len(self.listOfAssets.listAssets))]) for n in range(0, noOfDays - 1)]
         
         # test
+        rollingWindow = self.listOfAssets.returns.rolling_window
+        maxNumber = self.listOfAssets.returns.max_number
 
+        listOfPrices = self.listOfAssets.ListOfPrices(rollingWindow + maxNumber)
+        returns = [(sum([self.shares[i]*listOfPrices[n][i] for i in range(0,numberOfAssets)]) /
+                   sum([self.shares[i]*listOfPrices[n + rollingWindow][i] for i in range(0, numberOfAssets)])) - 1
+                   for n in range(0, maxNumber)]
+        #print(len(returns))
+        #print(returns)
+        """
+        returns = [sum([(self.shares[i]) * (listOfPrices[n][i]) * (returnsAssets.iloc[n, i]) / 
+                        sum([self.shares[i]*listOfPrices[n - ]])
+                        self.amount
+                        for i in range(0, len(self.listOfAssets.listAssets))]) for n in range(0, noOfDays - 1)]
         #nav = [sum([(self.shares[i]) * (listOfPrices[n][i]) for i in range(0, len(self.listOfAssets.listAssets))])
         #       for n in range(0, noOfDays)]
         #returns = [(nav[i] / nav[i+1]) - 1 for i in range(0, noOfDays - 1)]
@@ -238,7 +252,9 @@ class Portfolio:
         #returns = [sum([(self.shares[i]) * (listOfPrices[n][i]) * (returnsAssets.iloc[n, i]) / self.amount
                         #for i in range(0, len(self.listOfAssets.listAssets))]) for n in range(0, noOfDays - 1)]
         #print(returns)
+        """
         return returns
+
 
     def ComputeVol(self):
         variance = 0
@@ -285,18 +301,18 @@ class Portfolio:
         sumWeights = sum(self.weights)
         #score = self.avgReturns
         #print(score)
-        uninvested = 1 - sumWeights
+        #uninvested = 1 - sumWeights
         if sumWeights < 1:
-            self.score -= 0.9 * fct.eucldideanDist(1, sumWeights)
+            self.score -= 0.9 * abs(1 - sumWeights)
         elif sumWeights < 1.05:
-            self.score -= 20 * fct.eucldideanDist(1, sumWeights)
+            self.score -= 20 * abs(1 - sumWeights)
         else:
-            self.score -= 1000 * fct.eucldideanDist(1, sumWeights)
+            self.score -= 1000 * abs(1 - sumWeights)
 
         if self.volClient != 0 and self.returnsClient != 0:
-            self.score -= fct.eucldideanDist(self.vol, self.volClient) / self.volClient
-            self.score -= fct.eucldideanDist(self.avgReturns, self.returnsClient) / self.returnsClient
-            self.score -= 0.8 * fct.eucldideanDist(self.sharpe, self.sharpeClient) / self.sharpeClient
+            self.score -= abs(self.vol - self.volClient) / self.volClient
+            self.score -= abs(self.avgReturns - self.returnsClient) / self.returnsClient
+            self.score -= 0.8 * abs(self.sharpe - self.sharpeClient) / self.sharpeClient
             #self.score -= 0.8 * np.linalg.norm(self.vol - self.volClient) / self.volClient
             #print(f"Pénalité vol {np.linalg.norm(self.vol - self.volClient) / self.volClient})")
             #self.score -= 1.2 * np.linalg.norm(self.avgReturns - self.returnsClient) / self.returnsClient
@@ -304,11 +320,11 @@ class Portfolio:
             #self.score -= np.linalg.norm(self.sharpe - (self.returnsClient / self.volClient)) / (self.returnsClient/ self.volClient)
 
         elif self.volClient != 0:
-            self.score -= 100 * fct.eucldideanDist(self.vol, self.volClient) / self.volClient
-            #self.score += self.sharpe
+            self.score -= 5 * abs(self.vol - self.volClient) / self.volClient
+            self.score += self.sharpe
 
         elif self.returnsClient != 0:
-            self.score -= 5 * fct.eucldideanDist(self.avgReturns, self.returnsClient) / self.returnsClient
+            self.score -= 5 * abs(self.avgReturns - self.returnsClient) / self.returnsClient
             self.score += self.sharpe
             #self.score -= 10000 * fct.eucldideanDist(self.avgReturns, self.returnsClient) / self.returnsClient
             # score -= 1000 * abs(self.avgReturns - self.returnsClient)

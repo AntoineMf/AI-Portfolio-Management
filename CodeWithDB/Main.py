@@ -38,8 +38,8 @@ if __name__ == '__main__':
 
     dates = df.pop("Date")
     names = df.columns
-    nODays = 1
-    nORet = 2
+    nODays = 3
+    nORet = 5
     len_df = df.shape[1]
     """
     db_connection_str= 'mysql+pymysql://pi2:pi2@192.168.196.59/PI2'

@@ -9,6 +9,8 @@ import pandas as pd
 class Returns:
 
     def __init__(self, values, rolling_window, names, max_number=0):
+        self.rolling_window = rolling_window
+        self.max_number = max_number
         if max_number == 0:
             max_number = len(values) - rolling_window
         self.matrixReturns = pd.DataFrame(data=None, index=range(0, max_number), columns=range(0, len(values.iloc[0])))
