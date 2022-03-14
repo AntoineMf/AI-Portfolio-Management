@@ -227,7 +227,11 @@ class Portfolio:
                        for i in range(0, len(self.listOfAssets.listAssets))]) for n in range(0, noOfDays - 1)]
         
         # test
-        
+
+        #nav = [sum([(self.shares[i]) * (listOfPrices[n][i]) for i in range(0, len(self.listOfAssets.listAssets))])
+        #       for n in range(0, noOfDays)]
+        #returns = [(nav[i] / nav[i+1]) - 1 for i in range(0, noOfDays - 1)]
+        #print(sum(returns)/len(returns))
         #nav = [sum([(self.shares[i]) * (listOfPrices[n][i]) for i in range(0, len(self.listOfAssets.listAssets))])
                #for n in range(0, noOfDays)]
         #returns = [(nav[i] / nav[i + 1]) - 1 for i in range(0, noOfDays - 1)]
@@ -292,7 +296,7 @@ class Portfolio:
         if self.volClient != 0 and self.returnsClient != 0:
             self.score -= fct.eucldideanDist(self.vol, self.volClient) / self.volClient
             self.score -= fct.eucldideanDist(self.avgReturns, self.returnsClient) / self.returnsClient
-            self.score -= fct.eucldideanDist(self.sharpe, self.sharpeClient) / self.sharpeClient
+            self.score -= 0.8 * fct.eucldideanDist(self.sharpe, self.sharpeClient) / self.sharpeClient
             #self.score -= 0.8 * np.linalg.norm(self.vol - self.volClient) / self.volClient
             #print(f"Pénalité vol {np.linalg.norm(self.vol - self.volClient) / self.volClient})")
             #self.score -= 1.2 * np.linalg.norm(self.avgReturns - self.returnsClient) / self.returnsClient
@@ -301,12 +305,12 @@ class Portfolio:
 
         elif self.volClient != 0:
             self.score -= 100 * fct.eucldideanDist(self.vol, self.volClient) / self.volClient
-            self.score += self.sharpe
+            #self.score += self.sharpe
 
         elif self.returnsClient != 0:
             self.score -= 5 * fct.eucldideanDist(self.avgReturns, self.returnsClient) / self.returnsClient
-            #self.score += self.sharpe
-            self.score -= 10000 * fct.eucldideanDist(self.avgReturns, self.returnsClient) / self.returnsClient
+            self.score += self.sharpe
+            #self.score -= 10000 * fct.eucldideanDist(self.avgReturns, self.returnsClient) / self.returnsClient
             # score -= 1000 * abs(self.avgReturns - self.returnsClient)
         #print(f"score: {self.score}")
         #self.score = score

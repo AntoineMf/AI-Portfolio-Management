@@ -32,6 +32,7 @@ class Genetic_Algorithm:
             #print(f"Max score : {self.listOfPopulation[i].maxScore()}")
             #print(f" self.listOfPopulation[i].listPortfolio[0].score)
             print(f"1st : {self.listOfPopulation[i].listPortfolio[0].avgReturns}")
+            print(f"1st : {self.listOfPopulation[i].listPortfolio[0].vol}")
             print(f"2nd : {self.listOfPopulation[i].listPortfolio[1].avgReturns}")
             print(f"3rd : {self.listOfPopulation[i].listPortfolio[2].avgReturns}")
             print(f"Mean Score: {meanScore}")

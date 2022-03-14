@@ -5,14 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e774c6a-5ea9-4763-9998-9146e201d85c" name="Changes" comment="fitness et autres">
-      <change afterPath="$PROJECT_DIR$/CodeWithDB/Sql_connection.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CodeWithDB/ClientDemands.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeWithDB/Genetic_Algorithm.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Genetic_Algorithm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodeWithDB/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeWithDB/Portfolio.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Portfolio.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -116,7 +125,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/master" />
+                        <option value="main" />
                       </list>
                     </value>
                   </entry>
