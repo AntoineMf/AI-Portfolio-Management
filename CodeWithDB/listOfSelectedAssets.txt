@@ -1,0 +1,6 @@
+DSY FP Equity
+CAP FP Equity
+ALO FP Equity
+VIE FP Equity
+STM FP Equity
+RMS FP Equity
