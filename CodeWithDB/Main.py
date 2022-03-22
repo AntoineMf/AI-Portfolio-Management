@@ -22,12 +22,12 @@ def modifyDateFormat(x):
     return dateObject.strftime('%d/%m/%y')
 
 
-if __name__ == '__main__':
-    '''Input utilisateur, c'est ça qu'on doit remettre en Affichage User'''
-    print("Insert your expected return on investment\n5% : 0.05")
-    yield_value = float(input())
-    print("Insert the portfolio volatility you are expecting\n5% : 0.05")
-    vol_value = float(input())
+def Main_Principal(yield_value,vol_value):
+    #'''Input utilisateur, c'est ça qu'on doit remettre en Affichage User'''
+    #print("Insert your expected return on investment\n5% : 0.05")
+    #yield_value = float(input())
+    #print("Insert the portfolio volatility you are expecting\n5% : 0.05")
+    #vol_value = float(input())
 
     #path = "Data_CAC.csv"
 
@@ -111,7 +111,7 @@ if __name__ == '__main__':
     aiTest = Genetic_Algorithm(assets, 100000, 100, yield_value, vol_value)
     #print("DataBase DataFrame")
     #print(df.head())
-    
+    return aiTest
     """
     db_connection_str= 'mysql+pymysql://pi2:pi2@192.168.196.59/PI2'
     db_connection = create_engine(db_connection_str)
