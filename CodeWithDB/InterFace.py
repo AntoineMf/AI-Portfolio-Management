@@ -1,6 +1,6 @@
 
 from tkinter import *
-import Main
+import Main 
 # Packages
 import pandas as pd
 import numpy as np
@@ -17,8 +17,12 @@ from sqlalchemy import create_engine
 from datetime import datetime
 
 
-
 def run_algo():
+    vol_value = float(vola.get())
+    yield_value = float(ret.get())
+    Main.Main_Principal(yield_value,vol_value)
+def run_algo2():
+     
     # input box
     vol_value = float(vola.get())
     yield_value = float(ret.get())
