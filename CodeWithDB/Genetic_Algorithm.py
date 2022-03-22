@@ -50,9 +50,11 @@ class Genetic_Algorithm:
         assetsSeparated=re.findall("[a-zA-Z]+\s[a-zA-Z]+\s[a-zA-Z]+",str(self.listOfPopulation[0].listPortfolio[0].listOfAssets)) # ???
         #print(assetsSeparated)
         
-
+        
         for j in range(len(assetsSeparated)):
             print(f"{assetsSeparated[j]} : {self.listOfPopulation[0].listPortfolio[0].weights[j]}")
+        
+        self.Result = [f"\nReturns :{sum(self.listOfPopulation[nbOfGeneration-1].listPortfolio[0].returns)/6}",f"Volatility : {self.listOfPopulation[nbOfGeneration-1].listPortfolio[0].vol}\n"]
 
 ''' self.listOfPopulation.append(Population(listOfAssets,amount,0,75,self.returnsClient,self.volClient)) # création Pop_0
         #print(f"pop : {self.listOfPopulation[0]}")
