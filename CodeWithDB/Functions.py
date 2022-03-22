@@ -2,6 +2,7 @@ import numpy as np
 
 
 class Functions:
+    ''' Boite à outils pour les calculs récurents de l'algorithme'''
 
     @staticmethod
     def Compute_mean(list):

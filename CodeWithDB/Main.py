@@ -16,12 +16,14 @@ from sqlalchemy import create_engine
 from datetime import datetime
 from Sql_connection import Sql_connection
 
-def modifyDateFormat(x):
+'''Permet de restructurer les dates qu'on traite en DD/MM/AAAA'''
+def modifyDateFormat(x): 
     dateObject = datetime.strptime(str(x),'%Y-%m-%d')
     return dateObject.strftime('%d/%m/%y')
 
 
 if __name__ == '__main__':
+    '''Input utilisateur, c'est ça qu'on doit remettre en Affichage User'''
     print("Insert your expected return on investment\n5% : 0.05")
     yield_value = float(input())
     print("Insert the portfolio volatility you are expecting\n5% : 0.05")
@@ -108,12 +110,20 @@ if __name__ == '__main__':
     #print(dfDB)
     #print(len(df))
     #print(len(df.iloc[0]))
+    '''Set up des returns a partir de différents paramètre ( à input via JSON normalement ) à partir des données prices ( df = données Bloomberg )'''
     returns = Returns(df, nODays, names, nORet)
     #print(returns)
-
+    
+    ''' 
+    Set up de la matrice de Variance Covariance pour les données bloomberg
+    l'objet cov.matrix retourne la mat VARCOV et cov.getvol() permet d'avoir la liste des vol de chaque assets. problème : pas d'indexation claire pr le moment '''
     cov = VarCov(returns.matrixReturns)
     #print(type(cov.matrix))
 
+    '''
+    Ici, 2 choses sont faites. Deja création de toute les instance de la classe ASSETS ( se fait dans la classe ListOfAssets au niveaux 
+    du constructeur). ET, création d'une liste de tout les assets comportant leurs prices associé aux dates, les returns etc... Tout le necessaire aux calculs.
+    '''
     assets = ListOfAsset(names, df, dates, returns, cov)
     #print(assets.listAssets[0].values.loc[0])
     #print(len(assets.listAssets))
