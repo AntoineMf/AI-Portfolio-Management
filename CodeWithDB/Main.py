@@ -75,8 +75,8 @@ def Main_Principal(yield_value,vol_value):
     #print("CSV Dataframe")
     #print(df.head())
     #names = df.columns
-    nODays = 1
-    nORet = 7
+    #nODays = 1
+    #nORet = 7
 
     date1='2018/03/01'
     date2='2018/03/27'
