@@ -49,7 +49,15 @@ class Genetic_Algorithm:
 
         assetsSeparated=re.findall("[a-zA-Z]+\s[a-zA-Z]+\s[a-zA-Z]+",str(self.listOfPopulation[0].listPortfolio[0].listOfAssets)) # ???
         #print(assetsSeparated)
-        
+
+
+        returnsList = [[self.listOfPopulation[i].listPortfolio[j].avgReturns for j in
+                        range(0,len(self.listOfPopulation[i].listPortfolio))] for i in
+                       range(0, len(self.listOfPopulation))]
+        volsList = [[self.listOfPopulation[i].listPortfolio[j].vol for j in
+                        range(0, len(self.listOfPopulation[i].listPortfolio))] for i in
+                       range(0, len(self.listOfPopulation))]
+
 
         for j in range(len(assetsSeparated)):
             print(f"{assetsSeparated[j]} : {self.listOfPopulation[0].listPortfolio[0].weights[j]}")

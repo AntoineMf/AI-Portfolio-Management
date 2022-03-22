@@ -319,9 +319,14 @@ class Portfolio:
             self.score -= 1000 * abs(1 - sumWeights)
 
         if self.volClient != 0 and self.returnsClient != 0:
-            self.score -= abs(self.vol - self.volClient) / self.volClient
-            self.score -= abs(self.avgReturns - self.returnsClient) / self.returnsClient
-            self.score -= 0.8 * abs(self.sharpe - self.sharpeClient) / self.sharpeClient
+            ind = np.array((self.avgReturns, self.vol, self.sharpe))
+            client = np.array((self.returnsClient, self.volClient, self.sharpeClient))
+            self.score -= np.linalg.norm(ind-client)
+            #self.score -= abs(self.vol - self.volClient) / self.volClient
+            #self.score -= abs(self.avgReturns - self.returnsClient) / self.returnsClient
+            #self.score -= 0.8 * abs(self.sharpe - self.sharpeClient) / self.sharpeClient
+
+
             #self.score -= 0.8 * np.linalg.norm(self.vol - self.volClient) / self.volClient
             #print(f"Pénalité vol {np.linalg.norm(self.vol - self.volClient) / self.volClient})")
             #self.score -= 1.2 * np.linalg.norm(self.avgReturns - self.returnsClient) / self.returnsClient
