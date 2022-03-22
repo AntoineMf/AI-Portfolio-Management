@@ -15,6 +15,7 @@ from Genetic_Algorithm import Genetic_Algorithm
 from sqlalchemy import create_engine
 from datetime import datetime
 from Sql_connection import Sql_connection
+import matplotlib.pyplot as plt
 
 '''Permet de restructurer les dates qu'on traite en DD/MM/AAAA'''
 def modifyDateFormat(x): 
@@ -111,6 +112,8 @@ def Main_Principal(yield_value,vol_value):
     aiTest = Genetic_Algorithm(assets, 100000, 100, yield_value, vol_value)
     #print("DataBase DataFrame")
     #print(df.head())
+    plt.plot(aiTest.x, aiTest.y,'ro')
+    plt.show()
     return aiTest
     """
     db_connection_str= 'mysql+pymysql://pi2:pi2@192.168.196.59/PI2'

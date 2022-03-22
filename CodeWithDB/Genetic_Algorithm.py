@@ -25,6 +25,9 @@ class Genetic_Algorithm:
         self.listOfPopulation = list()
         self.listOfPopulation.append(Population(listOfAssets,amount,0,75,nbOfGeneration,self.returnsClient,self.volClient))
         #print(f"pop : {self.listOfPopulation[0]}")
+        
+        self.x=[]
+        self.y=[]
 
         for i in range (1,nbOfGeneration):
             print(f"\nGeneration : {i}\n")
@@ -34,6 +37,11 @@ class Genetic_Algorithm:
             meanScore = sum(meanScore) / len(meanScore)
             #print(f"Max score : {self.listOfPopulation[i].maxScore()}")
             #print(f" self.listOfPopulation[i].listPortfolio[0].score)
+
+            for j in self.listOfPopulation[i].listPortfolio:
+                self.x.append(j.vol)
+                self.y.append(j.avgReturns)
+
             print(f"1st returns : {self.listOfPopulation[i].listPortfolio[0].avgReturns}")
             print(f"1st vol : {self.listOfPopulation[i].listPortfolio[0].vol}")
             print(f"2nd returns : {self.listOfPopulation[i].listPortfolio[1].avgReturns}")
