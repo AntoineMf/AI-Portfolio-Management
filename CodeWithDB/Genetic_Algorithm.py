@@ -59,6 +59,7 @@ class Genetic_Algorithm:
                        range(0, len(self.listOfPopulation))]
 
 
+
         for j in range(len(assetsSeparated)):
             print(f"{assetsSeparated[j]} : {self.listOfPopulation[0].listPortfolio[0].weights[j]}")
 
