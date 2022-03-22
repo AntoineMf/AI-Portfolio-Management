@@ -16,13 +16,59 @@ from sqlalchemy import create_engine
 from datetime import datetime
 from Sql_connection import Sql_connection
 
-def modifyDateFormat(x):
+'''Permet de restructurer les dates qu'on traite en DD/MM/AAAA'''
+def modifyDateFormat(x): 
     dateObject = datetime.strptime(str(x),'%Y-%m-%d')
     return dateObject.strftime('%d/%m/%y')
 
 
 if __name__ == '__main__':
-    path = r"C:\Users\alan7\Documents\A4\pi2\final\AI-Portfolio-Management\Code Aurelien\Data_CAC.csv"
+    '''Input utilisateur, c'est ça qu'on doit remettre en Affichage User'''
+    print("Insert your expected return on investment\n5% : 0.05")
+    yield_value = float(input())
+    print("Insert the portfolio volatility you are expecting\n5% : 0.05")
+    vol_value = float(input())
+
+    path = "Data_CAC.csv"
+
+    df = pd.read_csv(path, delimiter=";")
+
+    # first_df = pd.read_csv(path, delimiter=";")
+    # df=first_df[['Date','DSY FP Equity','CAP FP Equity','ALO FP Equity','VIE FP Equity','STM FP Equity','RMS FP Equity']]
+
+    # sprint(df.head())
+
+    dates = df.pop("Date")
+    names = df.columns
+    nODays = 3
+    nORet = 5
+    len_df = df.shape[1]
+    """
+    db_connection_str= 'mysql+pymysql://pi2:pi2@192.168.196.59/PI2'
+    db_connection = create_engine(db_connection_str)
+
+    dfDB = pd.read_sql('select * from Stock',con=db_connection)
+
+    dfDB['Stock_Date']= dfDB['Stock_Date'].apply(modifyDateFormat)"""
+    # print(dfDB)
+    # print(len(df))
+    # print(len(df.iloc[0]))
+    returns = Returns(df, nODays, names, nORet)
+    # print(returns)
+
+    cov = VarCov(returns.matrixReturns)
+    # print(type(cov.matrix))
+
+    assets = ListOfAsset(names, df, dates, returns, cov)
+
+    # print(assets.listAssets[0].values.loc[0])
+    # print(len(assets.listAssets))
+    # portfolio = Portfolio(assets, 10000)
+
+    aiTest = Genetic_Algorithm(assets, 100000, 100, yield_value, vol_value)
+
+    """
+    path = r"/Users/aurelien/Desktop/ESILV_Main/ESILV/A4/PI2/AI-Portfolio-Management/CodeWithDB/Data_CAC.csv"
     df = pd.read_csv(path, delimiter=";")
     
     dates = df.pop("Date")
@@ -71,12 +117,20 @@ if __name__ == '__main__':
     #print(dfDB)
     #print(len(df))
     #print(len(df.iloc[0]))
+    '''Set up des returns a partir de différents paramètre ( à input via JSON normalement ) à partir des données prices ( df = données Bloomberg )'''
     returns = Returns(df, nODays, names, nORet)
     #print(returns)
-
+    
+    ''' 
+    Set up de la matrice de Variance Covariance pour les données bloomberg
+    l'objet cov.matrix retourne la mat VARCOV et cov.getvol() permet d'avoir la liste des vol de chaque assets. problème : pas d'indexation claire pr le moment '''
     cov = VarCov(returns.matrixReturns)
     #print(type(cov.matrix))
 
+    '''
+    Ici, 2 choses sont faites. Deja création de toute les instance de la classe ASSETS ( se fait dans la classe ListOfAssets au niveaux 
+    du constructeur). ET, création d'une liste de tout les assets comportant leurs prices associé aux dates, les returns etc... Tout le necessaire aux calculs.
+    '''
     assets = ListOfAsset(names, df, dates, returns, cov)
     #print(assets.listAssets[0].values.loc[0])
     #print(len(assets.listAssets))
