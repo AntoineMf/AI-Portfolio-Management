@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e774c6a-5ea9-4763-9998-9146e201d85c" name="Changes" comment="fitness et autres">
+    <list default="true" id="3e774c6a-5ea9-4763-9998-9146e201d85c" name="Changes" comment="noIdea">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeWithDB/Genetic_Algorithm.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Genetic_Algorithm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeWithDB/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodeWithDB/Portfolio.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Portfolio.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -96,6 +94,35 @@
       <option name="presentableId" value="Default" />
       <updated>1644620464342</updated>
     </task>
+    <task id="LOCAL-00001" summary="list returns et vol et changement fitness">
+      <created>1647947485661</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1647947485661</updated>
+    </task>
+    <task id="LOCAL-00002" summary="list returns et vol et changement fitness">
+      <created>1647947620535</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1647947620535</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Main">
+      <created>1647947762819</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1647947762819</updated>
+    </task>
+    <task id="LOCAL-00004" summary="noIdea">
+      <created>1647947778593</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1647947778593</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -109,5 +136,12 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="list returns et vol et changement fitness" />
+    <MESSAGE value="Main" />
+    <MESSAGE value="noIdea" />
+    <option name="LAST_COMMIT_MESSAGE" value="noIdea" />
+    <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
 </project>
