@@ -29,20 +29,20 @@ if __name__ == '__main__':
     print("Insert the portfolio volatility you are expecting\n5% : 0.05")
     vol_value = float(input())
 
-    path = "Data_CAC.csv"
+    #path = "Data_CAC.csv"
 
-    df = pd.read_csv(path, delimiter=";")
+    #df = pd.read_csv(path, delimiter=";")
 
     # first_df = pd.read_csv(path, delimiter=";")
     # df=first_df[['Date','DSY FP Equity','CAP FP Equity','ALO FP Equity','VIE FP Equity','STM FP Equity','RMS FP Equity']]
 
     # sprint(df.head())
 
-    dates = df.pop("Date")
-    names = df.columns
+    #dates = df.pop("Date")
+    #names = df.columns
     nODays = 3
     nORet = 5
-    len_df = df.shape[1]
+    #len_df = df.shape[1]
     """
     db_connection_str= 'mysql+pymysql://pi2:pi2@192.168.196.59/PI2'
     db_connection = create_engine(db_connection_str)
@@ -53,33 +53,33 @@ if __name__ == '__main__':
     # print(dfDB)
     # print(len(df))
     # print(len(df.iloc[0]))
-    returns = Returns(df, nODays, names, nORet)
+    
     # print(returns)
 
-    cov = VarCov(returns.matrixReturns)
+    
     # print(type(cov.matrix))
 
-    assets = ListOfAsset(names, df, dates, returns, cov)
+    
 
     # print(assets.listAssets[0].values.loc[0])
     # print(len(assets.listAssets))
     # portfolio = Portfolio(assets, 10000)
 
-    aiTest = Genetic_Algorithm(assets, 100000, 100, yield_value, vol_value)
-
-    """
-    path = r"/Users/aurelien/Desktop/ESILV_Main/ESILV/A4/PI2/AI-Portfolio-Management/CodeWithDB/Data_CAC.csv"
-    df = pd.read_csv(path, delimiter=";")
     
-    dates = df.pop("Date")
-    print("CSV Dataframe")
-    print(df.head())
-    names = df.columns
+
+    
+    #path = r"/Users/aurelien/Desktop/ESILV_Main/ESILV/A4/PI2/AI-Portfolio-Management/CodeWithDB/Data_CAC.csv"
+    #df = pd.read_csv(path, delimiter=";")
+    
+    #dates = df.pop("Date")
+    #print("CSV Dataframe")
+    #print(df.head())
+    #names = df.columns
     nODays = 1
     nORet = 7
 
-    date1='2014/03/01'
-    date2='2014/03/27'
+    date1='2018/03/01'
+    date2='2018/03/27'
 
     mycursor=Sql_connection()
     rawtitre=mycursor.execute("SELECT * FROM Equity;")
@@ -96,16 +96,22 @@ if __name__ == '__main__':
         price.append(resultat[1])
         dates=resultat[0]
 
+    
     #price=[]
     #for i in names:
     #    resultat=Sql_connection.requete(date1,date2,i)
     #    price.append(resultat[1])
     #    dates=resultat[0]
 
-    #df = pd.DataFrame(price, index = names).T
+    df = pd.DataFrame(price, index = names).T
+
+    returns = Returns(df, nODays, names, nORet)
+    cov = VarCov(returns.matrixReturns)
+    assets = ListOfAsset(names, df, dates, returns, cov)
+    aiTest = Genetic_Algorithm(assets, 100000, 100, yield_value, vol_value)
     #print("DataBase DataFrame")
     #print(df.head())
-    """
+    
     """
     db_connection_str= 'mysql+pymysql://pi2:pi2@192.168.196.59/PI2'
     db_connection = create_engine(db_connection_str)
