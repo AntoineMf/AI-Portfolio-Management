@@ -75,10 +75,10 @@ def run_algo():
     '''lancement de la boucle géntique, avec la liste d'assets construite, des paramètre d'itération, et des objectif clients. '''
     aiTest = Genetic_Algorithm(assets,100000,100,yield_value,vol_value)
     
-    ''' Cette partie de l'affichage ne fonctionne pas, elle est à revoir, mais l'affichage final fonctionne'''
+    ''' Cette partie de l'affichage ne fonctionne pas, elle est à revoir, mais l'affichage final fonctionne
     for item in aiTest.Historique_gen:
         
-        for c in Menu_princ.winfo_children(): # clean console
+        for c in Menu_princ.winfo_children(): # clean window
             c.destroy()
 
         # AFFICHAGE DE CHAQUE GEN
@@ -92,9 +92,11 @@ def run_algo():
         sec.pack()
         thrd.pack()
         frame_gen.pack()
+        
 
     for c in Menu_princ.winfo_children(): # clean console
         c.destroy()
+    '''
     
     #AFFICHAGE FINAL
     frame_final = Frame(Menu_princ,bg = "#5D5B5B",bd = 1,relief = SUNKEN)
@@ -103,6 +105,7 @@ def run_algo():
     vol_f = Label(frame_final,text = aiTest.Result[1],font =("Arial",40),bg = "#5D5B5B",fg ="white" )
     vol_f.pack()
     frame_final.pack(expand = YES)
+    
 
 
     #Pop0=Pop(assets,10000,0,100)
@@ -138,50 +141,6 @@ def run_algo():
     print('vol : {} '.format(pop_final._list_porfolio[0]._volatility))
     """
 
-# créer premiere fenêtre 
-Menu_princ = Tk()
-
-#personnaliser fenetre 
-Menu_princ.title("Menu") # Titre fenetre
-Menu_princ.geometry("1080x720") # Taille à l'ouverture
-Menu_princ.minsize(480,360) # Taille minimal
-Menu_princ.iconbitmap("Logo_esilv_png_blanc.ico") # logo
-Menu_princ.config(background="#5D5B5B") # couleur fond
-
-#creer la frame : 
-frame = Frame(Menu_princ,bg = "#5D5B5B",bd = 1,relief = SUNKEN) # Frame et config
-
-# ajouter texte :
-label_title = Label(frame,text = "Algo Genetique Markowitz",font =("Arial",40),bg = "#5D5B5B",fg ="white" )
-label_title.pack()
-
-#ajouter second texte
-label_sub_title = Label(frame,text = "Merci de parametrer l'algorithme",font =("Arial",25),bg = "#5D5B5B",fg ="white" )
-label_sub_title.pack()
-
-# ajouter champs de saisie : 
-vol_label = Label (frame,text = "Entrez volatilité requise",bg = "#5D5B5B",fg ="white")
-ret_label = Label (frame,text = "Entrez returns requis",bg = "#5D5B5B",fg ="white")
-vola = Entry(frame)
-ret = Entry(frame)
-vol_label.pack()
-vola.pack()
-ret_label.pack()
-ret.pack()
-
-
-
-# Ajouter un bouton
-Run_code = Button(frame, text = "Run code",font =("Arial",25),bg = "white",fg ="#5D5B5B",command=run_algo) # lance le code lorsque on appui sur le bouton
-Run_code.pack(pady=25,fill=X) #affichage et design
-
-
-
-#ajouter frame
-frame.pack(expand = YES)
-
-# afficher fenetre 
-Menu_princ.mainloop()
 
 
 def cleaning(): # permet à chaque génération d'éffacer la precédente
@@ -208,3 +167,51 @@ def Print_Final_Result(print_ret,print_vol):
     vol_f = Label(frame_final,text = print_vol)
     vol_f.pack()
     frame_final.pack()
+
+
+
+if __name__ == '__main__':
+    # créer premiere fenêtre 
+    Menu_princ = Tk()
+
+    #personnaliser fenetre 
+    Menu_princ.title("Menu") # Titre fenetre
+    Menu_princ.geometry("1080x720") # Taille à l'ouverture
+    Menu_princ.minsize(480,360) # Taille minimal
+    Menu_princ.iconbitmap("Logo_esilv_png_blanc.ico") # logo
+    Menu_princ.config(background="#5D5B5B") # couleur fond
+
+    #creer la frame : 
+    frame = Frame(Menu_princ,bg = "#5D5B5B",bd = 1,relief = SUNKEN) # Frame et config
+
+    # ajouter texte :
+    label_title = Label(frame,text = "Algo Genetique Markowitz",font =("Arial",40),bg = "#5D5B5B",fg ="white" )
+    label_title.pack()
+
+    #ajouter second texte
+    label_sub_title = Label(frame,text = "Merci de parametrer l'algorithme",font =("Arial",25),bg = "#5D5B5B",fg ="white" )
+    label_sub_title.pack()
+
+    # ajouter champs de saisie : 
+    vol_label = Label (frame,text = "Entrez volatilité requise",bg = "#5D5B5B",fg ="white")
+    ret_label = Label (frame,text = "Entrez returns requis",bg = "#5D5B5B",fg ="white")
+    vola = Entry(frame)
+    ret = Entry(frame)
+    vol_label.pack()
+    vola.pack()
+    ret_label.pack()
+    ret.pack()
+
+
+
+    # Ajouter un bouton
+    Run_code = Button(frame, text = "Run code",font =("Arial",25),bg = "white",fg ="#5D5B5B",command=run_algo) # lance le code lorsque on appui sur le bouton
+    Run_code.pack(pady=25,fill=X) #affichage et design
+
+
+
+    #ajouter frame
+    frame.pack(expand = YES)
+
+    # afficher fenetre 
+    Menu_princ.mainloop()
