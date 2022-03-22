@@ -20,7 +20,15 @@ from datetime import datetime
 def run_algo():
     vol_value = float(vola.get())
     yield_value = float(ret.get())
-    Main.Main_Principal(yield_value,vol_value)
+    aiTest = Main.Main_Principal(yield_value,vol_value)
+
+     #AFFICHAGE FINAL
+    frame_final = Frame(Menu_princ,bg = "#5D5B5B",bd = 1,relief = SUNKEN)
+    retour_f = Label(frame_final,text = aiTest.Result[0],font =("Arial",40),bg = "#5D5B5B",fg ="white" )
+    retour_f.pack()
+    vol_f = Label(frame_final,text = aiTest.Result[1],font =("Arial",40),bg = "#5D5B5B",fg ="white" )
+    vol_f.pack()
+    frame_final.pack(expand = YES)
 def run_algo2():
      
     # input box

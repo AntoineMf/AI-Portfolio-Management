@@ -111,7 +111,7 @@ def Main_Principal(yield_value,vol_value):
     aiTest = Genetic_Algorithm(assets, 100000, 100, yield_value, vol_value)
     #print("DataBase DataFrame")
     #print(df.head())
-    
+    return aiTest
     """
     db_connection_str= 'mysql+pymysql://pi2:pi2@192.168.196.59/PI2'
     db_connection = create_engine(db_connection_str)
