@@ -2,8 +2,6 @@
 # ------------- Portfolio Class ------------- #
 # Libraries
 import random as rd
-import numpy as np
-from Functions import Functions as fct
 
 
 class Portfolio:

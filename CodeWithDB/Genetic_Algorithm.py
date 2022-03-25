@@ -1,9 +1,7 @@
 # ------------- Genetic Algorithm Class ------------- #
 # Libraries
-import Asset
-import Portfolio
+
 from Population import Population
-from Asset import Asset
 import re
 
 
