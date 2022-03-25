@@ -11,7 +11,8 @@ class VarCov:
     def __init__(self, returns):
         self.matrix = returns.astype(float).cov()
     
-    '''Recuperation de la Variance de chaque assets à partir de la Mat de VARCOV ( donc recupération de la diagonal en faite ) sous forme de tableau'''
+    '''Recuperation de la Variance de chaque assets à partir de la Mat de VARCOV
+     (donc recupération de la diagonal en faite) sous forme de tableau'''
     def getVol(self):
         """
         Returns the volatility of each asset
@@ -31,8 +32,3 @@ class VarCov:
     '''Surcharge du Print()'''
     def __str__(self):
         return str(self.matrixVarCov)
-
-if __name__ == "__main__":
-    vc = VarCov([[1, 2, 3], [2, 3, 4], [4, 5, 6]])
-    print(vc)
-    print(vc.getVol())
