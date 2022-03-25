@@ -3,17 +3,17 @@ from tkinter import *
 import Main 
 # Packages
 import pandas as pd
-import numpy as np
-import math
-from Asset import Asset
+#import numpy as np
+#import math
+#from Asset import Asset
 from Returns import Returns
 from VarCov import VarCov
 from ListOfAsset import ListOfAsset
-from Portfolio import Portfolio
+#from Portfolio import Portfolio
 # from Genetic_Algorithm import Genetic_Algorithm as Ga
-from Population import Population as Pop
+#from Population import Population as Pop
 from Genetic_Algorithm import Genetic_Algorithm
-from sqlalchemy import create_engine
+#from sqlalchemy import create_engine
 from datetime import datetime
 
 
