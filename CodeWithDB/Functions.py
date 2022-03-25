@@ -28,7 +28,6 @@ class Functions:
         return squaredSum**0.5
 
 
-
 if __name__ == "__main__":
     list = [1, 2, 3, 4]
     print(Functions.Compute_mean(list))

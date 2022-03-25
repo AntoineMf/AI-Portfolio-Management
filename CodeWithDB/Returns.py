@@ -16,11 +16,12 @@ class Returns:
         self.max_number = max_number
         if max_number == 0:
             max_number = len(values) - rolling_window
-        self.matrixReturns = pd.DataFrame(data=None, index=range(0, max_number), columns=range(0, len(values.iloc[0]))) # ???
-        self.matrixReturns = pd.DataFrame(data=None, index=range(0, max_number), columns=names) # ??? Ca fait pas 2 fois la mm chose ???
+        self.matrixReturns = pd.DataFrame(data=None, index=range(0, max_number), columns=range(0, len(values.iloc[0])))
+        self.matrixReturns = pd.DataFrame(data=None, index=range(0, max_number), columns=names)
         for j in range(0, len(values.iloc[0])):
             for i in range(0, max_number):
-                self.matrixReturns.iloc[i,j] = ((values.iloc[i, j] / values.iloc[i + rolling_window, j]) - 1) # Formules des returns
+                # Formules des returns
+                self.matrixReturns.iloc[i, j] = ((values.iloc[i, j] / values.iloc[i + rolling_window, j]) - 1)
 
     '''Permet de retourner la liste des returns d'un seul assets de la matrice des returns de tout les assets'''
     def getReturnsAsset(self, asset):
@@ -33,8 +34,3 @@ class Returns:
     '''Surcharge du print() pour afficher la matrice de returns'''
     def __str__(self):
         return str(self.matrixReturns)
-
-if __name__ == "__main__":
-    data = [1, 1.1, 1.1, 1.2, 0.9, 2]
-    ret = Returns(data, 1, 2)
-    pass
