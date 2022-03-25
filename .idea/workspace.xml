@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e774c6a-5ea9-4763-9998-9146e201d85c" name="Changes" comment="Fix  Pep8 #2">
-      <change beforePath="$PROJECT_DIR$/CodeWithDB/InterFace.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/InterFace.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeWithDB/VarCov.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/VarCov.py" afterDir="false" />
+    <list default="true" id="3e774c6a-5ea9-4763-9998-9146e201d85c" name="Changes" comment="Fix  Pep8 #3">
+      <change beforePath="$PROJECT_DIR$/CodeWithDB/Asset.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Asset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeWithDB/ComputeIndicators.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeWithDB/ListOfAsset.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/ListOfAsset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeWithDB/Sql_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Sql_connection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeWithDB/tempCodeRunnerFile.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,7 +161,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648249162791</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Fix  Pep8 #3">
+      <created>1648250434241</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1648250434241</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -179,7 +189,8 @@
     <MESSAGE value="noIdea" />
     <MESSAGE value="Fix  Pep8 #1" />
     <MESSAGE value="Fix  Pep8 #2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix  Pep8 #2" />
+    <MESSAGE value="Fix  Pep8 #3" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix  Pep8 #3" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
 </project>

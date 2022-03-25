@@ -5,8 +5,9 @@ from Asset import Asset
 class ListOfAsset:
 
     '''
-    Cration d'une liste comprenant tout les assets, chaque assets possède indépendamment son nom, ses values (prices) à chaque date.
-    Les returns et la VARCOV matrix, eux sont communs à tout les assets. Donc necessitée de les passer en attributs ??
+    Cration d'une liste comprenant tout les assets, chaque assets possède indépendamment son nom, ses values (prices) à
+    chaque date. Les returns et la VARCOV matrix, eux sont communs à tout les assets. Donc necessitée de les passer en
+    attributs ??
     MeanAssetsPrice est un faux attribu car il n'est jamais valorisé
      '''
     def __init__(self, names, values, dates, returns, covMat):
