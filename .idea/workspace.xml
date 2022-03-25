@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e774c6a-5ea9-4763-9998-9146e201d85c" name="Changes" comment="noIdea">
+    <list default="true" id="3e774c6a-5ea9-4763-9998-9146e201d85c" name="Changes" comment="Fix  Pep8 #1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeWithDB/Functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeWithDB/Genetic_Algorithm.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Genetic_Algorithm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeWithDB/Population.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Population.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeWithDB/Returns.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Returns.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeWithDB/Portfolio.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Portfolio.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +144,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647947778593</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Fix  Pep8 #1">
+      <created>1648246119151</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1648246119151</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -166,7 +170,8 @@
     <MESSAGE value="list returns et vol et changement fitness" />
     <MESSAGE value="Main" />
     <MESSAGE value="noIdea" />
-    <option name="LAST_COMMIT_MESSAGE" value="noIdea" />
+    <MESSAGE value="Fix  Pep8 #1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix  Pep8 #1" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
 </project>
