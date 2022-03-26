@@ -28,13 +28,13 @@ class Portfolio:
         self.shares = []
         # Si aucun poids n'est fourni a l'initialisation on en genere aleatoirement sinon on affecte les poids donnes
         # en parametre
-        self.weights = weights if weights != 0 else self.RandomWeights()
+        self.weights = weights if weights != 0 else self.randomWeights()
 
         # Ces fonctions vont calculer les informations dont a besoin pour le scoring du portfeuille
         self.computeShares()
-        self.returns = self.ComputeReturns()
-        self.vol = self.ComputeVol()
-        self.sharpe = self.ComputeSharpe()
+        self.returns = self.computeReturns()
+        self.vol = self.computeVol()
+        self.sharpe = self.computeSharpe()
         self.avgReturns = sum(self.returns)/len(self.returns)
 
         # Scoring du portefeuille
@@ -42,7 +42,7 @@ class Portfolio:
     # --- Methods --- #
     # Sort a population based on..
 
-    def ChooseAssets(self):
+    def chooseAssets(self):
         """
         Selection d'actifs aleatoirement (a integrer dans le portefeuille)
         """
@@ -56,12 +56,12 @@ class Portfolio:
                 choices.append(val)
         return choices
 
-    def RandomWeights(self):
+    def randomWeights(self):
         """
         Permet de generer aleatoirement les poids des actifs de notre portefeuille (dans le cas ou il n'y avait pas de
         liste de poids au moment de la creation de l'objet
         """
-        choices = self.ChooseAssets()
+        choices = self.chooseAssets()
         # poids alea entre 0 et 1 à 0.001 près
         rndWeights = [rd.randint(1000, 100000) / 100000 for i in range(0, self.numberOfAssets)]
         # Normalisation des poids pour que la somme soit egale a 1
@@ -75,7 +75,7 @@ class Portfolio:
                 weightsTemp[i] = rndWeights[index]
                 index += 1
         # Recuperation des closing price des actifs pour calculer le nombre de share de chacun des actifs
-        lastPrices = self.listOfAssets.LastPrices()
+        lastPrices = self.listOfAssets.lastPrices()
 
         # Calcul du nombre de shares pour chaque actif
         shares = [weightsTemp[i]*self.amount/lastPrices[i] for i in range(0, len(lastPrices))]
@@ -88,7 +88,7 @@ class Portfolio:
     '''liste du nb de share à acheter selon le montant du portefeuille, le poids attribué, et la valeur d'une actions'''
     def computeShares(self):
         # Recuperation des closing price des actifs pour calculer le nombre de share de chacun des actifs
-        lastPrices = self.listOfAssets.LastPrices()
+        lastPrices = self.listOfAssets.lastPrices()
         # Calcul du nombre de shares pour chaque actif
         shares = [self.weights[i] * self.amount / lastPrices[i] for i in range(0, len(lastPrices))]
         # On arrondi le nombre de shares pour avoir quelque chose de realiste
@@ -97,9 +97,7 @@ class Portfolio:
         # On calcule les nouveaux poids (calcules a partir du nombre de shares arrondi
         self.weights = [self.shares[i]*lastPrices[i]/self.amount for i in range(0, len(self.shares))]
 
-    ''' Renvoie une liste de returns du portefeuille par jours, sachant que chaque jours le rendement est la somme 
-    des rendements de chaque assets pondérer par l'investissement propre à chaque assets'''
-    def ComputeReturns(self):
+    def computeReturns(self):
         """
         Renvoie une liste de returns du portefeuille sur une periode donnee
         """
@@ -112,7 +110,7 @@ class Portfolio:
 
         # Liste des closing prices de chacun des actifs sur toutes les dates a partir de la plus recente et de la
         # plus ancienne qui nous permette de calculer le nombre de returns souhaites sur la plage de temps de donnee
-        listOfPrices = self.listOfAssets.ListOfPrices(rollingWindow + maxNumber)
+        listOfPrices = self.listOfAssets.listOfPrices(rollingWindow + maxNumber)
         # Le calcul est le suivant on considere la nav (net asset value) du portefeuille a la date i et a la date
         # i moins le nombre de jours sur lequel se base le calcule des returns, on en fait le ratio et on retire 1
         # La nav est calculee en sommant le produit du nombre de shares de chaque actif et la valeur d'une share pour
@@ -122,7 +120,7 @@ class Portfolio:
                    for n in range(0, maxNumber)]
         return returns
 
-    def ComputeVol(self):
+    def computeVol(self):
         """
         Calcule et retourne la volatilite du portefeuille
         """
@@ -135,7 +133,7 @@ class Portfolio:
         # La volatilite est la racine carree de la variance
         return variance**0.5
 
-    def ComputeSharpe(self):
+    def computeSharpe(self):
         """
         Calcule et retourne le ratio de sharpe du portefeuille
         """

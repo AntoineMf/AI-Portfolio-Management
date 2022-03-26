@@ -11,10 +11,10 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 
 
-def run_algo():
+def runAlgo():
     vol_value = float(vola.get())
     yield_value = float(ret.get())
-    aiTest = Main.Main_Principal(yield_value, vol_value)
+    aiTest = Main.mainPrincipal(yield_value, vol_value)
 
     # Creation du plot à intégrer
     fig = Figure(figsize=(5, 5), dpi=100)
@@ -39,7 +39,7 @@ def run_algo():
     frame_final.pack(expand=YES)
 
 
-def run_algo2():
+def runAlgo2():
      
     # input box
     vol_value = float(vola.get())
@@ -80,7 +80,6 @@ def run_algo2():
     des paramètre d'itération, et des objectif clients. '''
     aiTest = GeneticAlgorithm(assets, 100000, 100, yield_value, vol_value)
 
-    
     # AFFICHAGE FINAL
     frame_final = Frame(Menu_princ, bg="#5D5B5B", bd=1, relief=SUNKEN)
     retour_f = Label(frame_final, text=aiTest.Result[0], font=("Arial", 40), bg="#5D5B5B", fg="white")
@@ -90,13 +89,12 @@ def run_algo2():
     frame_final.pack(expand=YES)
 
 
-
 def cleaning():  # permet à chaque génération d'éffacer la precédente
     for c in Menu_princ.winfo_children():
         c.destroy()
 
 
-def Print_Info_Gen(texte, texte_first, texte_sec, texte_thrd):
+def printInfoGen(texte, texte_first, texte_sec, texte_thrd):
     frame_gen = Frame(Menu_princ, bg="#5D5B5B", bd=1, relief=SUNKEN)  # Frame et config
     numero_gen = Label(frame_gen, text=texte)
     numero_gen.pack()
@@ -109,7 +107,7 @@ def Print_Info_Gen(texte, texte_first, texte_sec, texte_thrd):
     frame_gen.pack()
 
 
-def Print_Final_Result(print_ret, print_vol):
+def printFinalResult(print_ret, print_vol):
     frame_final = Frame(Menu_princ, bg="#5D5B5B", bd=1, relief=SUNKEN)
     retour_f = Label(frame_final, text=print_ret)
     retour_f.pack()
@@ -153,7 +151,7 @@ if __name__ == '__main__':
 
     # Ajouter un bouton
     Run_code = Button(frame, text="Run code", font=("Arial", 25),
-                      bg="white", fg="#5D5B5B", command=run_algo)  # lance le code lorsque on appui sur le bouton
+                      bg="white", fg="#5D5B5B", command=runAlgo)  # lance le code lorsque on appui sur le bouton
     Run_code.pack(pady=25, fill=X)  # affichage et design
 
     # ajouter frame

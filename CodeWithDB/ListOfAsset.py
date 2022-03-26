@@ -20,14 +20,14 @@ class ListOfAsset:
         # Matrice de covariance
         self.covMat = covMat
 
-    def LastPrices(self):
+    def lastPrices(self):
         """
         Retourne la liste des derniers closing price de chacun des actifs
         """
         lastPrices = [self.listAssets[i].values.loc[0] for i in range(0, len(self.listAssets))]
         return lastPrices
 
-    def ListOfPrices(self, numberOfDays):
+    def listOfPrices(self, numberOfDays):
         """
         Retourne la liste des closing price de chacun des actifs entre la derniere date et une date soubaitee
         """

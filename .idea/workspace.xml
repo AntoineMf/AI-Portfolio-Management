@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e774c6a-5ea9-4763-9998-9146e201d85c" name="Changes" comment="staticmethod">
+    <list default="true" id="3e774c6a-5ea9-4763-9998-9146e201d85c" name="Changes" comment="Commentaire; -code mort">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Code/Code Amine/Test 2/Portfolio.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code/Code Amine/Test 2/Portfolio.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Code/Code Aurelien/Portfolio.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code/Code Aurelien/Portfolio.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodeWithDB/InterFace.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/InterFace.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeWithDB/ListOfAsset.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/ListOfAsset.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodeWithDB/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodeWithDB/Population.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Population.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeWithDB/Portfolio.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Portfolio.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -293,7 +297,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648304003741</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Commentaire; -code mort">
+      <created>1648321588584</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1648321588584</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -343,7 +354,8 @@
     <MESSAGE value="Comm" />
     <MESSAGE value="Fix" />
     <MESSAGE value="staticmethod" />
-    <option name="LAST_COMMIT_MESSAGE" value="staticmethod" />
+    <MESSAGE value="Commentaire; -code mort" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commentaire; -code mort" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
 </project>

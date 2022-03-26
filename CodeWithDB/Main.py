@@ -16,7 +16,7 @@ def modifyDateFormat(x):
     return dateObject.strftime('%d/%m/%y')
 
 
-def Main_Principal(yield_value, vol_value):
+def mainPrincipal(yield_value, vol_value):
 
     # Remplacer la partie base de donnee par ce qui est en commentaire (pour pouvoir executer le code)
     """
@@ -45,6 +45,7 @@ def Main_Principal(yield_value, vol_value):
         names.append(i[0])
 
     price = []
+    dates = 0
     for i in names:
         resultat = SqlConnection.requete(date1, date2, i)
         price.append(resultat[1])
