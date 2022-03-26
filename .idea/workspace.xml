@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e774c6a-5ea9-4763-9998-9146e201d85c" name="Changes" comment="Commentaires algo + condition d'arret">
+    <list default="true" id="3e774c6a-5ea9-4763-9998-9146e201d85c" name="Changes" comment="Commentaires ListOfAsset.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeWithDB/ListOfAsset.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/ListOfAsset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeWithDB/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeWithDB/Sql_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Sql_connection.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -235,7 +236,21 @@
       <option name="project" value="LOCAL" />
       <updated>1648300265123</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Commentaires ListOfAsset.py">
+      <created>1648300697398</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1648300697398</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Commentaires ListOfAsset.py">
+      <created>1648300730867</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1648300730867</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -266,7 +281,8 @@
     <MESSAGE value="suite commentaire portefeuille" />
     <MESSAGE value="Fin commentaire portfolio" />
     <MESSAGE value="Commentaires algo + condition d'arret" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commentaires algo + condition d'arret" />
+    <MESSAGE value="Commentaires ListOfAsset.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commentaires ListOfAsset.py" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
 </project>
