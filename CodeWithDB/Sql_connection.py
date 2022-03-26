@@ -23,6 +23,7 @@ class SqlConnection:
     def commit(self):
         self.mydb.commit()
 
+    @staticmethod
     def requete(date1, date2, titre):
         mycursor = SqlConnection()
         x = mycursor.execute("SELECT Stock_Date,Stock_Value FROM PI2.Stock WHERE Equity_Name='"
