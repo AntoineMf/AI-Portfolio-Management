@@ -1,16 +1,18 @@
-import pandas as pd
 from Asset import Asset
 
 
 class ListOfAsset:
-
-    '''
+    """
     Création d'un objet contenant toutes les donnees concernant les actifs : -liste des actifs avec leurs noms,
     prix et a des dates donnes
     -La matrice de returns des actifs
     -La matrice de covariance des actifs
-    '''
+    """
+
     def __init__(self, names, values, dates, returns, covMat):
+        """
+        Initialisation de l'objet
+        """
         # Creation de la liste contenant tous les actifs avec leurs prix à des dates donnees et leurs noms
         self.listAssets = [Asset(names[i], values[names[i]], dates) for i in range(0, len(names))]
         # Matrice de returns

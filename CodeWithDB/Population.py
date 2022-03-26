@@ -7,14 +7,14 @@ from Portfolio import Portfolio
 
 class Population:
     # --- Constructor and Attributes --- #
-    '''
-    Constructeur d'une population. Selon l'indexGénération (0 = pop_0 initiale) on construit soit une pop de
-    numIndividuals induvidus, soit des population issues des croisement et mutation de la LastPop existante.
-    La population est immédiatement triée dès sa crétion.
-    '''
+
     def __init__(self, listOfAssets, amount, indexGeneration, numIndividuals, maxGeneration, returnsClient,
                  volClient, lastPop=0):
-
+        """
+            Constructeur d'une population. Selon l'indexGénération (0 = pop_0 initiale) on construit soit une pop de
+            numIndividuals induvidus, soit des population issues des croisement et mutation de la LastPop existante.
+            La population est immédiatement triée dès sa crétion.
+            """
         self.returnsClient = returnsClient
         self.volClient = volClient
         self.indexGeneration = indexGeneration

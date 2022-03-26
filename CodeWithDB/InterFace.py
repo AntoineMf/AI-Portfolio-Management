@@ -3,21 +3,12 @@ from tkinter import *
 import Main 
 # Packages
 import pandas as pd
-#import numpy as np
-#import math
-#from Asset import Asset
 from Returns import Returns
 from VarCov import VarCov
 from ListOfAsset import ListOfAsset
-#from Portfolio import Portfolio
-# from Genetic_Algorithm import Genetic_Algorithm as Ga
-#from Population import Population as Pop
 from Genetic_Algorithm import Genetic_Algorithm
-#from sqlalchemy import create_engine
-from datetime import datetime
 from matplotlib.figure import Figure 
-from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,  
-NavigationToolbar2Tk) 
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 
 
 def run_algo():
@@ -26,12 +17,11 @@ def run_algo():
     aiTest = Main.Main_Principal(yield_value, vol_value)
 
     # Creation du plot à intégrer
-    fig = Figure(figsize = (5, 5), dpi = 100) 
+    fig = Figure(figsize=(5, 5), dpi=100)
     plot1 = fig.add_subplot(111) 
     plot1.scatter(aiTest.x, aiTest.y, c='blue')
-    plot1.scatter(vol_value, yield_value, c='red',marker='x',s=100)
+    plot1.scatter(vol_value, yield_value, c='red', marker='x', s=100)
     plot1.scatter(float(aiTest.ResultFloat[1]), float(aiTest.ResultFloat[0]), c='green')
-      
 
     # AFFICHAGE FINAL
     frame_final = Frame(Menu_princ, bg="#5D5B5B", bd=1, relief=SUNKEN)
@@ -39,7 +29,7 @@ def run_algo():
     retour_f.pack()
     vol_f = Label(frame_final, text=aiTest.Result[1], font=("Arial", 40), bg="#5D5B5B", fg="white")
     vol_f.pack()
-    canvas = FigureCanvasTkAgg(fig,master = Menu_princ)   
+    canvas = FigureCanvasTkAgg(fig, master=Menu_princ)
     canvas.draw()  
     canvas.get_tk_widget().pack()
     toolbar = NavigationToolbar2Tk(canvas, Menu_princ) 
@@ -47,8 +37,6 @@ def run_algo():
     canvas.get_tk_widget().pack() 
     
     frame_final.pack(expand=YES)
-
-
 
 
 def run_algo2():
@@ -75,7 +63,6 @@ def run_algo2():
     names = df.columns
     nODays = 5
     nORet = 22
-    len_df = df.shape[1]
     """
     db_connection_str= 'mysql+pymysql://pi2:pi2@192.168.196.59/PI2'
     db_connection = create_engine(db_connection_str)

@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e774c6a-5ea9-4763-9998-9146e201d85c" name="Changes" comment="Commentaires ListOfAsset.py">
+    <list default="true" id="3e774c6a-5ea9-4763-9998-9146e201d85c" name="Changes" comment="Fix pep encore et encore">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeWithDB/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeWithDB/Sql_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Sql_connection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeWithDB/Genetic_Algorithm.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Genetic_Algorithm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeWithDB/InterFace.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/InterFace.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeWithDB/ListOfAsset.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/ListOfAsset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeWithDB/Population.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Population.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeWithDB/Returns.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/Returns.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,7 +253,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648300730867</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Fix pep encore et encore">
+      <created>1648302264418</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1648302264418</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -282,7 +292,8 @@
     <MESSAGE value="Fin commentaire portfolio" />
     <MESSAGE value="Commentaires algo + condition d'arret" />
     <MESSAGE value="Commentaires ListOfAsset.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commentaires ListOfAsset.py" />
+    <MESSAGE value="Fix pep encore et encore" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix pep encore et encore" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
 </project>

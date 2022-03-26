@@ -63,5 +63,5 @@ class Genetic_Algorithm:
         self.Result = [f"\nReturns :{self.listOfPopulation[indexOfGeneration].listPortfolio[0].avgReturns}",
                        f"Volatility : {self.listOfPopulation[indexOfGeneration].listPortfolio[0].vol}\n"]
 
-        self.ResultFloat=[self.listOfPopulation[indexOfGeneration].listPortfolio[0].avgReturns,
-                          self.listOfPopulation[indexOfGeneration].listPortfolio[0].vol]
+        self.ResultFloat = [self.listOfPopulation[indexOfGeneration].listPortfolio[0].avgReturns,
+                            self.listOfPopulation[indexOfGeneration].listPortfolio[0].vol]
