@@ -60,8 +60,10 @@ class Genetic_Algorithm:
             print(f"{assetsSeparated[j]} : {self.listOfPopulation[0].listPortfolio[0].weights[j]}")
 
         # Création d'une variable contenant la volatilité et le rendement du meilleur portefeuille de la génération
+        # sous format string
         self.Result = [f"\nReturns :{self.listOfPopulation[indexOfGeneration].listPortfolio[0].avgReturns}",
                        f"Volatility : {self.listOfPopulation[indexOfGeneration].listPortfolio[0].vol}\n"]
-
+        # Création d'une variable contenant la volatilité et le rendement du meilleur portefeuille de la génération
+        # pour rajouter le point du meilleur portefeuille en evidence sur le graphique
         self.ResultFloat = [self.listOfPopulation[indexOfGeneration].listPortfolio[0].avgReturns,
                             self.listOfPopulation[indexOfGeneration].listPortfolio[0].vol]
