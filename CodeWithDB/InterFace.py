@@ -44,11 +44,6 @@ def run_algo2():
     # input box
     vol_value = float(vola.get())
     yield_value = float(ret.get())
-    # '''Input utilisateur, c'est ça qu'on doit remettre en Affichage User'''
-    # print("Insert your expected return on investment\n5% : 0.05")
-    # yield_value=float(input())
-    # print("Insert the portfolio volatility you are expecting\n5% : 0.05")
-    # vol_value=float(input())
 
     '''Recupération de certaines datas du CSV, temporaire : normalement on va travailler sur la BD'''
     path = "Data_CAC.csv"
@@ -63,27 +58,16 @@ def run_algo2():
     names = df.columns
     nODays = 5
     nORet = 22
-    """
-    db_connection_str= 'mysql+pymysql://pi2:pi2@192.168.196.59/PI2'
-    db_connection = create_engine(db_connection_str)
-    
-    dfDB = pd.read_sql('select * from Stock',con=db_connection)
-    
-    dfDB['Stock_Date']= dfDB['Stock_Date'].apply(modifyDateFormat)"""
-    # print(dfDB)
-    # print(len(df))
-    # print(len(df.iloc[0]))
+
     '''Set up des returns a partir de différents paramètre (à input via JSON normalement)
      à partir des données prices (df = données Bloomberg)'''
     returns = Returns(df, nODays, names, nORet)
-    # print(returns)
     
     ''' 
     Set up de la matrice de Variance Covariance pour les données bloomberg
     l'objet cov.matrix retourne la mat VARCOV et cov.getvol() permet d'avoir la liste des vol de chaque assets.
     Problème : pas d'indexation claire pr le moment '''
     cov = VarCov(returns.matrixReturns)
-    # print(type(cov.matrix))
 
     '''
     Ici, 2 choses sont faites. Deja création de toute les instance de la classe ASSETS (se fait dans la classe 
@@ -91,36 +75,11 @@ def run_algo2():
     associé aux dates, les returns etc... Tout le necessaire aux calculs.
     '''
     assets = ListOfAsset(names, df, dates, returns, cov)
-    # print(assets.listAssets[0].values.loc[0])
-    # print(len(assets.listAssets))
-    # portfolio = Portfolio(assets, 10000)
 
     '''lancement de la boucle géntique, avec la liste d'assets construite, 
     des paramètre d'itération, et des objectif clients. '''
     aiTest = GeneticAlgorithm(assets, 100000, 100, yield_value, vol_value)
-    
-    ''' Cette partie de l'affichage ne fonctionne pas, elle est à revoir, mais l'affichage final fonctionne
-    for item in aiTest.Historique_gen:
-        
-        for c in Menu_princ.winfo_children(): # clean window
-            c.destroy()
 
-        # AFFICHAGE DE CHAQUE GEN
-        frame_gen = Frame(Menu_princ,bg = "#5D5B5B",bd = 1,relief = SUNKEN) # Frame et config
-        numero_gen = Label(frame_gen,text = item[0])
-        numero_gen.pack()
-        first = Label(frame_gen,text = item[1])
-        sec = Label(frame_gen,text = item[2])
-        thrd = Label(frame_gen,text = item[3])
-        first.pack()
-        sec.pack()
-        thrd.pack()
-        frame_gen.pack()
-        
-
-    for c in Menu_princ.winfo_children(): # clean console
-        c.destroy()
-    '''
     
     # AFFICHAGE FINAL
     frame_final = Frame(Menu_princ, bg="#5D5B5B", bd=1, relief=SUNKEN)
@@ -130,39 +89,6 @@ def run_algo2():
     vol_f.pack()
     frame_final.pack(expand=YES)
 
-    # Pop0=Pop(assets,10000,0,100)
-    # print(len(Pop0.listPortfolio))
-    # print(portfolio.weights)
-    # portfolio.ComputeReturns()
-    # print(portfolio.returns)
-    # print(assets)
-    # print(assets.LastPrices())
-    # print(assets.ListOfPrices(5))
-    # print(len(assets.ListOfPrices(5)))
-
-    # list_assets = Ga.creation_dassets(df, 255)
-    # pop_0 = Ga.Population_initiale(100, list_assets)
-    """
-    #    print(len(pop_0._list_porfolio[1]._list_assets[1]._values))
-    #    pop_0_mutée_test = fonction_de_mutation(pop_0,20)
-    #    pop_enfant_test = fonction_de_croisement(pop_0) # Je comrpends pas pourquoi parfois 
-        len(pop_enfant)<len(pop_parent)
-    #    #normalement c'est impossible
-    #    pop_fitée = fitness(pop_enfant_test)
-    #    #print(max(pop_fitée.keys()))
-    #    pop_triée = tri_selon_score(pop_fitée)
-    #    gene_2 = selection(pop_triée)
-    """
-    """
-    pop_final = Ga.boucle_génétique(pop_0, 0)
-    total = 0
-    for assets in pop_final._list_porfolio[0]._list_assets:  # [0] donne le meilleur de la derniere gen
-        print('Stock : {} poids {} %'.format(assets._name, assets._weigth * 100))
-
-    print('Sharpe : {} '.format(pop_final._list_porfolio[0]._score))
-    print('rendement : {}  %'.format(Ga.rendement_moyen(pop_final._list_porfolio[0])))
-    print('vol : {} '.format(pop_final._list_porfolio[0]._volatility))
-    """
 
 
 def cleaning():  # permet à chaque génération d'éffacer la precédente

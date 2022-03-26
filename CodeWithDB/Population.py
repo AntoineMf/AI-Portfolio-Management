@@ -11,54 +11,71 @@ class Population:
     def __init__(self, listOfAssets, amount, indexGeneration, numIndividuals, maxGeneration, returnsClient,
                  volClient, lastPop=0):
         """
-            Constructeur d'une population. Selon l'indexGénération (0 = pop_0 initiale) on construit soit une pop de
-            numIndividuals induvidus, soit des population issues des croisement et mutation de la LastPop existante.
-            La population est immédiatement triée dès sa crétion.
-            """
+        Constructeur d'une population. Selon l'indexGénération (0 = pop_0 initiale) on construit soit une pop de
+        numIndividuals induvidus, soit des population issues des croisement et mutation de la LastPop existante.
+        La population est immédiatement triée dès sa crétion.
+        """
+        # Returns souhaites par le client
         self.returnsClient = returnsClient
+        # Volatilite souhaite par le client
         self.volClient = volClient
+        # Index de la generation
         self.indexGeneration = indexGeneration
+        # Liste de portefeuilles
         self.listPortfolio = []
+        # Nombre d'individus
         self.numIndividuals = numIndividuals
+        # Objet listOfAssets
         self.listOfAssets = listOfAssets
+        # Montant a investir
         self.amount = amount
+        # Population precedente
         self.lastPop = lastPop
+        # Nombre max de generation
         self.maxGeneration = maxGeneration
-
+        # S'il s'agit de la premiere generation on l'initiliase avec n nouveaux portefeuilles aleatoires
         if indexGeneration == 0:
             self.createInitPop()
+        # Sinon on se base sur la precedente et on la modifie
         else:
             self.createPop()
+        # On trie les portefeuilles selon leur score
         self.sortPopulation()
 
     def createInitPop(self):
+        """
+        Initialise la premiere population
+        """
         for individu in range(self.numIndividuals):
+            # Creation de portefeuilles aleatoires
             self.listPortfolio.append(Portfolio(self.listOfAssets, self.amount, self.returnsClient, self.volClient))
 
-    def createPop(self): 
+    def createPop(self):
+        """
+        Creation d'une population a partir de la population precedente en fonction de la generation a laquelle on se
+        trouve
+        """
+        # Precedente liste de portefeuille
         lastListPortfolio = self.lastPop.listPortfolio
+        # Si on se trouve a moins de 50 pourcents du nombre de generations total
         if self.indexGeneration / self.maxGeneration < 0.5:
+            # On conserve les 10 meilleurs portefeuilles de la generation precedente
             for i in range(0, 10):
                 self.listPortfolio.append(lastListPortfolio[i])
-
-            # for i in range(0, 5):
-            #    self.listPortfolio.append(lastListPortfolio[int((len(lastListPortfolio)/2)-i-1)])
-
-            # print(f"last pop : {len(lastListPortfolio[0].weights)}")
-
-            # self.listPortfolio.extend(self.crossover(lastListPortfolio[0], lastListPortfolio[1])) # crois1
-            # self.listPortfolio.extend(self.crossover(lastListPortfolio[1], lastListPortfolio[2]))
-            # self.listPortfolio.extend(self.crossover(lastListPortfolio[0], lastListPortfolio[2]))
+            # Croisement des meilleurs portefeuilles mutes
             for i in range(1):
+                # Croisement meilleur portefeuille mutee avec le deuxieme meilleur portefeuille mute
                 self.listPortfolio.extend(
                     self.crossover(self.mutation(lastListPortfolio[0]), self.mutation(lastListPortfolio[1])))
                 # mut + crois 1
+                # Portefeuille 2 et 3
                 self.listPortfolio.extend(
                     self.crossover(self.mutation(lastListPortfolio[1]), self.mutation(lastListPortfolio[2])))
+                # Portefeuille 1 et 3
                 self.listPortfolio.extend(
                     self.crossover(self.mutation(lastListPortfolio[0]), self.mutation(lastListPortfolio[2])))
 
-            ''' Creation d'index aléatoire pour les mutation à venir'''
+            # Creation d'index aléatoire pour les mutation à venir
             for i in range(1):
                 indexA = rd.randint(0, 40)
                 while True:
@@ -72,6 +89,7 @@ class Population:
                     if indexD != indexC:
                         break
                         # print(self.mutation())
+
                 self.listPortfolio.append(self.mutation(lastListPortfolio[indexA]))  # mut1
                 self.listPortfolio.append(self.mutation(lastListPortfolio[indexB]))  # mut2
                 self.listPortfolio.append(self.mutation(lastListPortfolio[indexC]))  # mut3
