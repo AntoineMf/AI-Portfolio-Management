@@ -15,6 +15,9 @@ from ListOfAsset import ListOfAsset
 from Genetic_Algorithm import Genetic_Algorithm
 #from sqlalchemy import create_engine
 from datetime import datetime
+from matplotlib.figure import Figure 
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,  
+NavigationToolbar2Tk) 
 
 
 def run_algo():
@@ -22,13 +25,28 @@ def run_algo():
     yield_value = float(ret.get())
     aiTest = Main.Main_Principal(yield_value, vol_value)
 
+    # Creation du plot à intégrer
+    fig = Figure(figsize = (5, 5), dpi = 100) 
+    plot1 = fig.add_subplot(111) 
+    plot1.plot(aiTest.x, aiTest.y, 'ro')  
+      
+
     # AFFICHAGE FINAL
     frame_final = Frame(Menu_princ, bg="#5D5B5B", bd=1, relief=SUNKEN)
     retour_f = Label(frame_final, text=aiTest.Result[0], font=("Arial", 40), bg="#5D5B5B", fg="white")
     retour_f.pack()
     vol_f = Label(frame_final, text=aiTest.Result[1], font=("Arial", 40), bg="#5D5B5B", fg="white")
     vol_f.pack()
+    canvas = FigureCanvasTkAgg(fig,master = Menu_princ)   
+    canvas.draw()  
+    canvas.get_tk_widget().pack()
+    toolbar = NavigationToolbar2Tk(canvas, Menu_princ) 
+    toolbar.update() 
+    canvas.get_tk_widget().pack() 
+    
     frame_final.pack(expand=YES)
+
+
 
 
 def run_algo2():
