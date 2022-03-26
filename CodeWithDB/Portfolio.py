@@ -14,10 +14,12 @@ class Portfolio:
         """
         self.returnsClient = returnsClient
         self.volClient = volClient
+        # Si les demandes du client comprennent une volatilité et le rendement on calcule le sharpe objectif
         if self.volClient != 0 and self.returnsClient != 0:
             self.sharpeClient = returnsClient/volClient
         self.listOfAssets = listOfAssets
-        self.numberOfAssets = 15
+        # Nombre d'actifs selectionnes parmi la liste
+        self.numberOfAssets = 25
         self.score = 0
         self.amount = amount
         self.shares = []
@@ -45,31 +47,40 @@ class Portfolio:
         return choices
 
     def RandomWeights(self):
+        """
+        Permet de generer aleatoirement les poids des actifs de notre portefeuille (dans le cas ou il n'y avait pas de
+        liste de poids au moment de la creation de l'objet
+        """
         choices = self.ChooseAssets()
         # poids alea entre 0 et 1 à 0.001 près
         rndWeights = [rd.randint(1000, 100000) / 100000 for i in range(0, self.numberOfAssets)]
-        # Normalisation pour les sommer à = 1
+        # Normalisation des poids pour que la somme soit egale a 1
         rndWeights = [i / sum(rndWeights) for i in rndWeights]
+        # Creation d'une liste temporaire de poids (vide)
         weightsTemp = [0 for i in range(0, len(self.listOfAssets.listAssets))]
         index = 0
         for i in range(0, len(weightsTemp)):
             if i in choices:
-                # Attribution de poids aléatoire à certain assets.
+                # Attribution de poids aléatoire aux actifs selectionnes
                 weightsTemp[i] = rndWeights[index]
                 index += 1
+        # Recuperation des closing price des actifs pour calculer le nombre de share de chacun des actifs
         lastPrices = self.listOfAssets.LastPrices()
 
-        '''liste du nb de share à acheter selon le montant du portefeuille,
-        le poids attribué, et la valeur d'une actions'''
-        shares = [weightsTemp[i]*self.amount/lastPrices[i] for i in range(0, len(lastPrices))] 
+        # Calcul du nombre de shares pour chaque actif
+        shares = [weightsTemp[i]*self.amount/lastPrices[i] for i in range(0, len(lastPrices))]
+        # On arrondi le nombre de shares pour avoir quelque chose de realiste
         self.shares = [round(shares[i]) - 1 if round(shares[i]) > shares[i] else round(shares[i])
-                       for i in range(0, len(shares))]  # arrondi à un nb entier
+                       for i in range(0, len(shares))]
+        # On retourne les nouveaux poids (calcules a partir du nombre de shares arrondi
         return [self.shares[i]*lastPrices[i]/self.amount for i in range(0, len(self.shares))]
 
     '''liste du nb de share à acheter selon le montant du portefeuille, le poids attribué, et la valeur d'une actions'''
     def computeShares(self):
         lastPrices = self.listOfAssets.LastPrices()
-        self.shares = [self.weights[i] * self.amount / lastPrices[i] for i in range(0, len(lastPrices))]
+        shares = [self.weights[i] * self.amount / lastPrices[i] for i in range(0, len(lastPrices))]
+        self.shares = [round(shares[i]) - 1 if round(shares[i]) > shares[i] else round(shares[i])
+                       for i in range(0, len(shares))]
 
     ''' Renvoie une liste de returns du portefeuille par jours, sachant que chaque jours le rendement est la somme 
     des rendements de chaque assets pondérer par l'investissement propre à chaque assets'''
