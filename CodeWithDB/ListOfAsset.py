@@ -24,10 +24,7 @@ class ListOfAsset:
         """
         lastPrices = [self.listAssets[i].values.loc[0] for i in range(0, len(self.listAssets))]
         return lastPrices
-    
-    ''' ???
-    Retourne le prix de tout les assetds dans l'intervalle de temps donnée NbOfDays
-    '''
+
     def ListOfPrices(self, numberOfDays):
         """
         Retourne la liste des closing price de chacun des actifs entre la derniere date et une date soubaitee
