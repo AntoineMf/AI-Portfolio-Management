@@ -18,17 +18,20 @@ class Genetic_Algorithm:
         self.nbOfGeneration = nbOfGeneration
         self.Historique_gen = list()
 
+        # Crée une liste des différentes populations générées en fonction des générations.
         self.listOfPopulation = list()
+
         self.listOfPopulation.append(Population(listOfAssets, amount, 0, 75, nbOfGeneration,
                                                 self.returnsClient, self.volClient))
         self.x = []
         self.y = []
-
+        indexOfGeneration = 0
         for i in range(1, nbOfGeneration):
+            indexOfGeneration = i
             print(f"\nGeneration : {i}\n")
             self.listOfPopulation.append(Population(self.listOfAssets, self.amount, i, 75, nbOfGeneration,
                                                     self.returnsClient, self.volClient, self.listOfPopulation[i-1]))
-            """print(f"list of pop iteration {i} : {self.listOfPopulation[i]}")"""
+            # Calcul le score moyen du portefeuille
             meanScore = [self.listOfPopulation[i].listPortfolio[j].score
                          for j in range(0, len(self.listOfPopulation[i].listPortfolio))]
             meanScore = sum(meanScore) / len(meanScore)
@@ -43,20 +46,19 @@ class Genetic_Algorithm:
             print(f"3rd returns : {self.listOfPopulation[i].listPortfolio[2].avgReturns}")
             print(f"Mean Score: {meanScore}")
 
-        print(f"\nReturns :{self.listOfPopulation[nbOfGeneration-1].listPortfolio[0].avgReturns}")
-        print(f"Volatility : {self.listOfPopulation[nbOfGeneration-1].listPortfolio[0].vol}\n")
+            if self.listOfPopulation[i].listPortfolio[0].score >= -0.02:
+                break
+
+        print(f"\nReturns :{self.listOfPopulation[indexOfGeneration].listPortfolio[0].avgReturns}")
+        print(f"Volatility : {self.listOfPopulation[indexOfGeneration].listPortfolio[0].vol}\n")
+        # Crée une liste qui contient les noms des différents assets utilisés
         assetsSeparated = re.findall("[a-zA-Z]+\s[a-zA-Z]+\s[a-zA-Z]+",
                                      str(self.listOfPopulation[0].listPortfolio[0].listOfAssets))
 
-        returnsList = [[self.listOfPopulation[i].listPortfolio[j].avgReturns for j in
-                        range(0, len(self.listOfPopulation[i].listPortfolio))] for i in
-                       range(0, len(self.listOfPopulation))]
-        volsList = [[self.listOfPopulation[i].listPortfolio[j].vol for j in
-                    range(0, len(self.listOfPopulation[i].listPortfolio))] for i in
-                    range(0, len(self.listOfPopulation))]
-
+        # Affiche le poids attribué (pour chaque asset) pour le meilleur portefeuille de la génération
         for j in range(len(assetsSeparated)):
             print(f"{assetsSeparated[j]} : {self.listOfPopulation[0].listPortfolio[0].weights[j]}")
 
-        self.Result = [f"\nReturns :{self.listOfPopulation[nbOfGeneration-1].listPortfolio[0].avgReturns}",
-                       f"Volatility : {self.listOfPopulation[nbOfGeneration-1].listPortfolio[0].vol}\n"]
+        # Création d'une variable contenant la volatilité et le rendement du meilleur portefeuille de la génération
+        self.Result = [f"\nReturns :{self.listOfPopulation[indexOfGeneration].listPortfolio[0].avgReturns}",
+                       f"Volatility : {self.listOfPopulation[indexOfGeneration].listPortfolio[0].vol}\n"]
