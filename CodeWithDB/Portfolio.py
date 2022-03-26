@@ -17,7 +17,7 @@ class Portfolio:
         if self.volClient != 0 and self.returnsClient != 0:
             self.sharpeClient = returnsClient/volClient
         self.listOfAssets = listOfAssets
-        self.numberOfAssets = 6
+        self.numberOfAssets = 15
         self.score = 0
         self.amount = amount
         self.shares = []
