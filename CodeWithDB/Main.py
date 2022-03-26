@@ -97,6 +97,7 @@ def Main_Principal(yield_value, vol_value):
     # print(df.head())
     plt.scatter(aiTest.x, aiTest.y, c='blue')
     plt.scatter(vol_value, yield_value, c='red',marker='x')
+    plt.scatter(float(aiTest.ResultFloat[1]), float(aiTest.ResultFloat[0]), c='green')
 
     plt.show()
     return aiTest
