@@ -28,7 +28,8 @@ def run_algo():
     # Creation du plot à intégrer
     fig = Figure(figsize = (5, 5), dpi = 100) 
     plot1 = fig.add_subplot(111) 
-    plot1.plot(aiTest.x, aiTest.y, 'ro')  
+    plot1.scatter(aiTest.x, aiTest.y, c='blue')
+    plot1.scatter(vol_value, yield_value, c='red',marker='x')
       
 
     # AFFICHAGE FINAL
@@ -211,7 +212,7 @@ if __name__ == '__main__':
     Menu_princ.title("Menu")  # Titre fenetre
     Menu_princ.geometry("1080x720")  # Taille à l'ouverture
     Menu_princ.minsize(480, 360)  # Taille minimal
-    Menu_princ.iconbitmap("Logo_esilv_png_blanc.ico")  # logo
+    #Menu_princ.iconbitmap("Logo_esilv_png_blanc.ico")  # logo
     Menu_princ.config(background="#5D5B5B")  # couleur fond
 
     # creer la frame :

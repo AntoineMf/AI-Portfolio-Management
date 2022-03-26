@@ -95,7 +95,9 @@ def Main_Principal(yield_value, vol_value):
     aiTest = Genetic_Algorithm(assets, 100000, 100, yield_value, vol_value)
     # print("DataBase DataFrame")
     # print(df.head())
-    plt.plot(aiTest.x, aiTest.y, 'ro')
+    plt.scatter(aiTest.x, aiTest.y, c='blue')
+    plt.scatter(vol_value, yield_value, c='red',marker='x')
+
     plt.show()
     return aiTest
     """
