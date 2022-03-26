@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e774c6a-5ea9-4763-9998-9146e201d85c" name="Changes" comment="Fix pep encore et encore" />
+    <list default="true" id="3e774c6a-5ea9-4763-9998-9146e201d85c" name="Changes" comment="Fix" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -260,7 +260,21 @@
       <option name="project" value="LOCAL" />
       <updated>1648303183161</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Comm">
+      <created>1648303488354</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1648303488354</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Fix">
+      <created>1648303722201</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1648303722201</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -299,7 +313,6 @@
     <MESSAGE value="Fix  Pep8 #3" />
     <MESSAGE value="Fix  Pep8 #4" />
     <MESSAGE value="Fix  Pep8 #5" />
-    <MESSAGE value="Fix" />
     <MESSAGE value="debut commentaires" />
     <MESSAGE value="???" />
     <MESSAGE value="suite commentaire" />
@@ -308,7 +321,9 @@
     <MESSAGE value="Commentaires algo + condition d'arret" />
     <MESSAGE value="Commentaires ListOfAsset.py" />
     <MESSAGE value="Fix pep encore et encore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix pep encore et encore" />
+    <MESSAGE value="Comm" />
+    <MESSAGE value="Fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
 </project>
