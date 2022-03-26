@@ -12,6 +12,7 @@ class Portfolio:
         """
         Constructeur du portefeuille, si les poids sont nuls de nouveaux sont generes
         """
+        # Demandes du client
         self.returnsClient = returnsClient
         self.volClient = volClient
         # Si les demandes du client comprennent une volatilité et le rendement on calcule le sharpe objectif
@@ -19,9 +20,10 @@ class Portfolio:
             self.sharpeClient = returnsClient/volClient
         self.listOfAssets = listOfAssets
         # On selectionne aleatoirement le nombre d'actifs auxquels on va mettre un poids
-        self.numberOfAssets = rd.randint(2,len(self.listOfAssets.listAssets))
+        self.numberOfAssets = rd.randint(2, len(self.listOfAssets.listAssets))
         # Score a la crati
         self.score = 0
+        # Montant a investir
         self.amount = amount
         self.shares = []
         # Si aucun poids n'est fourni a l'initialisation on en genere aleatoirement sinon on affecte les poids donnes
@@ -146,24 +148,45 @@ class Portfolio:
         return sharpe
 
     def fitness(self):
+        """
+        Methode qui effectue le scoring en fonction des demandes du client
+        """
         self.score = 0
+        # Somme des poids
         sumWeights = sum(self.weights)
+        # Penalite si le portefeuille est sous-investi
         if sumWeights < 1:
             self.score -= 0.9 * abs(1 - sumWeights)
+        # Penalite si le portefeuille est surinvesti a hauteur de 5 pourcents
         elif sumWeights < 1.05:
             self.score -= 20 * abs(1 - sumWeights)
+        # Grosse penalite si le portefeuille est surinvesti a hauteur de plus de 5 pourcents
         else:
             self.score -= 1000 * abs(1 - sumWeights)
 
+        # Si les demandes du client du comprennent une volatilite et un rendement on procede de la maniere suivante
         if self.volClient != 0 and self.returnsClient != 0:
+            # Penalite par rapport a la difference en valeur absolue entre la vol du portefeuille et celle du client
+            # renormalisee pour ne pas surpondere en cas d'ordre grandeur different entre la volatilite et les returns
             self.score -= abs(self.vol - self.volClient) / self.volClient
+            # Penalite par rapport a la difference en valeur absolue entre le return moyen du portefeuille et celle
+            # du client renormalisee
             self.score -= abs(self.avgReturns - self.returnsClient) / self.returnsClient
+            # Penalite a hauteur de 80 pourcents de l'ecart en valeur absolue renormalisee entre le sharpe souhaite et
+            # celui du portefeuille
             self.score -= 0.8 * abs(self.sharpe - self.sharpeClient) / self.sharpeClient
 
+        # Cas ou le client a uniquement cible une volatilite particuliere
         elif self.volClient != 0:
+            # Penalite par rapport a la difference en valeur absolue entre la vol du portefeuille et celle du client
+            # renormalisee, ponderee a 500 pourcents
             self.score -= 5 * abs(self.vol - self.volClient) / self.volClient
+            # On avantage les portefeuilles ayant un bon sharpe
             self.score += self.sharpe
 
         elif self.returnsClient != 0:
+            # Penalite par rapport a la difference en valeur absolue entre le return moyen du portefeuille et celle
+            # du client renormalise ponderee a 500 pourcents
             self.score -= 5 * abs(self.avgReturns - self.returnsClient) / self.returnsClient
+            # On avantage les portefeuilles ayant un bon sharpe
             self.score += self.sharpe
