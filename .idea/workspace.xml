@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e774c6a-5ea9-4763-9998-9146e201d85c" name="Changes" comment="Fix">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeWithDB/VarCov.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWithDB/VarCov.py" afterDir="false" />
-    </list>
+    <list default="true" id="3e774c6a-5ea9-4763-9998-9146e201d85c" name="Changes" comment="debut commentaires" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -186,7 +183,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648252280276</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="debut commentaires">
+      <created>1648254067313</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1648254067313</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -211,7 +215,8 @@
     <MESSAGE value="Fix  Pep8 #4" />
     <MESSAGE value="Fix  Pep8 #5" />
     <MESSAGE value="Fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix" />
+    <MESSAGE value="debut commentaires" />
+    <option name="LAST_COMMIT_MESSAGE" value="debut commentaires" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
 </project>
