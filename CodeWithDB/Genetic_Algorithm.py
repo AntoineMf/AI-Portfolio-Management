@@ -5,7 +5,7 @@ from Population import Population
 import re
 
 
-class Genetic_Algorithm:
+class GeneticAlgorithm:
 
     # _________________________________initialisation__________________________
 
@@ -52,7 +52,7 @@ class Genetic_Algorithm:
         print(f"\nReturns :{self.listOfPopulation[indexOfGeneration].listPortfolio[0].avgReturns}")
         print(f"Volatility : {self.listOfPopulation[indexOfGeneration].listPortfolio[0].vol}\n")
         # Crée une liste qui contient les noms des différents assets utilisés
-        assetsSeparated = re.findall("[a-zA-Z]+\s[a-zA-Z]+\s[a-zA-Z]+",
+        assetsSeparated = re.findall(r"[a-zA-Z]+\s[a-zA-Z]+\s[a-zA-Z]+",
                                      str(self.listOfPopulation[0].listPortfolio[0].listOfAssets))
 
         # Affiche le poids attribué (pour chaque asset) pour le meilleur portefeuille de la génération

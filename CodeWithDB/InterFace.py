@@ -6,7 +6,7 @@ import pandas as pd
 from Returns import Returns
 from VarCov import VarCov
 from ListOfAsset import ListOfAsset
-from Genetic_Algorithm import Genetic_Algorithm
+from Genetic_Algorithm import GeneticAlgorithm
 from matplotlib.figure import Figure 
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 
@@ -97,7 +97,7 @@ def run_algo2():
 
     '''lancement de la boucle géntique, avec la liste d'assets construite, 
     des paramètre d'itération, et des objectif clients. '''
-    aiTest = Genetic_Algorithm(assets, 100000, 100, yield_value, vol_value)
+    aiTest = GeneticAlgorithm(assets, 100000, 100, yield_value, vol_value)
     
     ''' Cette partie de l'affichage ne fonctionne pas, elle est à revoir, mais l'affichage final fonctionne
     for item in aiTest.Historique_gen:

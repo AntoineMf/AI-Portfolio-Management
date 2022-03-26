@@ -139,12 +139,12 @@ class Portfolio:
         """
         Calcule et retourne le ratio de sharpe du portefeuille
         """
-        sum = 0
+        sumRet = 0
         # Somme des rendements
         for i in range(0, len(self.returns)):
-            sum += self.returns[i]
+            sumRet += self.returns[i]
         # Le ratio de sharpe est calcule en faisant la moyenne des rendements divise par la volatilite du portefeuille
-        sharpe = sum / (len(self.returns) * self.vol)
+        sharpe = sumRet / (len(self.returns) * self.vol)
         return sharpe
 
     def fitness(self):

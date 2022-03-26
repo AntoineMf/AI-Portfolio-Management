@@ -5,9 +5,9 @@ import pandas as pd
 from Returns import Returns
 from VarCov import VarCov
 from ListOfAsset import ListOfAsset
-from Genetic_Algorithm import Genetic_Algorithm
+from Genetic_Algorithm import GeneticAlgorithm
 from datetime import datetime
-from Sql_connection import Sql_connection
+from Sql_connection import SqlConnection
 import matplotlib.pyplot as plt
 
 '''Permet de restructurer les dates qu'on traite en DD/MM/AAAA'''
@@ -67,7 +67,7 @@ def Main_Principal(yield_value, vol_value):
     date1 = '2018/03/01'
     date2 = '2018/03/27'
 
-    mycursor = Sql_connection()
+    mycursor = SqlConnection()
     rawtitre = mycursor.execute("SELECT * FROM Equity;")
     mycursor.close_connection()
 
@@ -77,7 +77,7 @@ def Main_Principal(yield_value, vol_value):
 
     price = []
     for i in names:
-        resultat = Sql_connection.requete(date1, date2, i)
+        resultat = SqlConnection.requete(date1, date2, i)
         price.append(resultat[1])
         dates = resultat[0]
 
@@ -92,7 +92,7 @@ def Main_Principal(yield_value, vol_value):
     returns = Returns(df, nODays, names, nORet)
     cov = VarCov(returns.matrixReturns)
     assets = ListOfAsset(names, df, dates, returns, cov)
-    aiTest = Genetic_Algorithm(assets, 100000, 100, yield_value, vol_value)
+    aiTest = GeneticAlgorithm(assets, 100000, 100, yield_value, vol_value)
     # print("DataBase DataFrame")
     # print(df.head())
     plt.scatter(aiTest.x, aiTest.y, c='blue')

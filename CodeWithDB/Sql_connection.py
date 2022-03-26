@@ -1,7 +1,7 @@
 import mysql.connector
 
 
-class Sql_connection:
+class SqlConnection:
 
     def __init__(self):
         self.mydb = mysql.connector.connect(
@@ -24,7 +24,7 @@ class Sql_connection:
         self.mydb.commit()
 
     def requete(date1, date2, titre):
-        mycursor = Sql_connection()
+        mycursor = SqlConnection()
         x = mycursor.execute("SELECT Stock_Date,Stock_Value FROM PI2.Stock WHERE Equity_Name='"
                              + str(titre)+"' AND  Stock_Date>='" + str(date1)+"' AND Stock_Date<='"
                              + str(date2)+"' ORDER BY Stock_Date ASC;")
