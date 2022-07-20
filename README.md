@@ -5,7 +5,7 @@ The program will allow the user to control how much risk he wants to take and mo
 
 ## Output
 
-![Output with MPO graph](https://github.com/AntoineMf/AI-Portfolio-Management/tree/main/Data/output.PNG)
+![Output with MPO graph](https://github.com/AntoineMf/AI-Portfolio-Management/tree/main/Data/output.png)
 
 ## Requirements
 * Python 3.8
