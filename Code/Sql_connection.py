@@ -5,10 +5,10 @@ class SqlConnection:
 
     def __init__(self):
         self.mydb = mysql.connector.connect(
-                    host='192.168.196.59',
-                    user='pi2',
-                    password='pi2',
-                    database='PI2'
+                    host='',
+                    user='',
+                    password='',
+                    database=''
                     )
         self.mycursor = self.mydb.cursor()
     
